@@ -14,6 +14,9 @@
 !/api/*/
 !/api/**/README.md
 
+# Local deploy config — contains the Droplet origin IP; not for the repo.
+/scripts/deploy.env
+
 # Misc
 .DS_Store
 .env.local
