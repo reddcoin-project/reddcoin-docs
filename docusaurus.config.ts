@@ -75,6 +75,16 @@ const config: Config = {
     [
       '@docusaurus/plugin-content-docs',
       {
+        id: 'contribute',
+        path: 'docs/contribute',
+        routeBasePath: 'contribute',
+        sidebarPath: './sidebars/contribute.ts',
+        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/main/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
         id: 'glossary',
         path: 'docs/glossary',
         routeBasePath: 'glossary',
@@ -113,6 +123,13 @@ const config: Config = {
           label: 'Guides',
         },
         {
+          type: 'docSidebar',
+          docsPluginId: 'contribute',
+          sidebarId: 'contribute',
+          position: 'left',
+          label: 'Contribute',
+        },
+        {
           type: 'dropdown',
           label: 'API Reference',
           position: 'left',
@@ -143,6 +160,7 @@ const config: Config = {
           items: [
             {label: 'Protocol', to: '/protocol'},
             {label: 'Guides', to: '/guides'},
+            {label: 'Contribute', to: '/contribute'},
             {label: 'API Reference', to: '/api'},
             {label: 'Glossary', to: '/glossary'},
           ],
