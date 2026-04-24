@@ -1,33 +1,357 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default.
+ * Theme tokens mirrored from the ReddCoin brand guide at
+ * brand.reddcoin.com (source: ~/Projects/Branding/index.html). See the
+ * "Branding" section of CLAUDE.md for the rules that govern this file.
  *
- * Brand primary is ReddCoin Red (#E30613). The dark/darker/darkest and
- * light/lighter/lightest ramps use the brand guide's Red Dark (#B80510),
- * Red Deeper (#8C040C), Red Light (#F9596A), and Red Pale (#FDEAEA) where
- * they fit, and interpolate for the in-between stops. Source of truth:
- * ~/Projects/Branding/ (see CLAUDE.md "Branding" section).
+ * Goldplay is the brand display family. The woff2 files are copied from
+ * the branding repo into static/fonts/ — see static/fonts/README.md
+ * for provenance and licensing.
  */
 
+/* -------- Goldplay (licensed; copied from ~/Projects/Branding) -------- */
+
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-RegularIt.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-MediumIt.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-SemiBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Goldplay';
+  src: url('../fonts/Goldplay-SemiBoldIt.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* -------- Brand tokens (mirrored 1:1 with the brand guide) -------- */
+
 :root {
-  --ifm-color-primary: #e30613;
-  --ifm-color-primary-dark: #cc0511;
-  --ifm-color-primary-darker: #b80510;
-  --ifm-color-primary-darkest: #8c040c;
-  --ifm-color-primary-light: #ec333e;
-  --ifm-color-primary-lighter: #f9596a;
+  /* Primary red ramp */
+  --rdd-red:        #e30613;
+  --rdd-red-dark:   #b80510;
+  --rdd-red-deeper: #8c040c;
+  --rdd-red-light:  #f9596a;
+  --rdd-red-pale:   #fdeaea;
+
+  /* Accent / logo palette */
+  --rdd-sky:   #00aeef;
+  --rdd-ocean: #008fc5;
+  --rdd-green: #54b948;
+  --rdd-lime:  #8dc63f;
+  --rdd-gold:  #fdd200;
+  --rdd-amber: #fdbb30;
+  --rdd-coral: #f04d3c;
+
+  /* Neutrals */
+  --neutral-050: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e8e8e8;
+  --neutral-300: #cbcbcb;
+  --neutral-400: #9e9e9e;
+  --neutral-500: #717171;
+  --neutral-600: #4a4a4a;
+  --neutral-700: #2c2c2c;
+  --neutral-800: #1a1a1a;
+  --neutral-900: #0d0d0d;
+
+  /* Semantic tokens — light */
+  --bg-page:        #ffffff;
+  --bg-surface:     var(--neutral-050);
+  --bg-raised:      #ffffff;
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-muted:     var(--neutral-400);
+  --text-invert:    #ffffff;
+  --border-soft:    var(--neutral-200);
+  --border-strong:  var(--neutral-300);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  --nav-bg: rgba(255, 255, 255, 0.85);
+
+  /* Ambient-background cues — grid + red glow. Same values as the
+     brand guide's hero-bg, just scaled across the whole page. */
+  --grid-line: rgba(0, 0, 0, 0.035);
+  --glow-red-strong: rgba(227, 6, 19, 0.1);
+  --glow-red-mid:    rgba(227, 6, 19, 0.04);
+
+  /* Fonts */
+  --font-logo: 'Goldplay', system-ui, sans-serif;
+  --font-body: 'Roboto', system-ui, sans-serif;
+  --font-ui:   'Rubik', system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-theme='dark'] {
+  --bg-page:        var(--neutral-900);
+  --bg-surface:     var(--neutral-800);
+  --bg-raised:      var(--neutral-700);
+  --text-primary:   #f0f0f0;
+  --text-secondary: var(--neutral-300);
+  --text-muted:     var(--neutral-500);
+  --border-soft:    var(--neutral-700);
+  --border-strong:  var(--neutral-600);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  --nav-bg: rgba(13, 13, 13, 0.88);
+  --rdd-red-pale: rgba(227, 6, 19, 0.15);
+
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --glow-red-strong: rgba(227, 6, 19, 0.12);
+  --glow-red-mid:    rgba(227, 6, 19, 0.05);
+}
+
+/* -------- Infima overrides (Docusaurus) -------- */
+
+:root {
+  --ifm-color-primary:          var(--rdd-red);
+  --ifm-color-primary-dark:     #cc0511;
+  --ifm-color-primary-darker:   var(--rdd-red-dark);
+  --ifm-color-primary-darkest:  var(--rdd-red-deeper);
+  --ifm-color-primary-light:    #ec333e;
+  --ifm-color-primary-lighter:  var(--rdd-red-light);
   --ifm-color-primary-lightest: #fc8b97;
-  --ifm-code-font-size: 95%;
+
+  --ifm-color-content:           var(--text-primary);
+  --ifm-color-content-secondary: var(--text-secondary);
+  --ifm-background-color:         var(--bg-page);
+  --ifm-background-surface-color: var(--bg-surface);
+
+  --ifm-font-family-base:      var(--font-body);
+  --ifm-font-family-monospace: var(--font-mono);
+  --ifm-heading-font-family:   var(--font-logo);
+  --ifm-heading-font-weight:   700;
+
+  --ifm-font-size-base:      16px;
+  --ifm-line-height-base:    1.65;
+  --ifm-heading-line-height: 1.2;
+  --ifm-h1-font-size:        2.5rem;
+
+  --ifm-global-radius:        var(--radius-md);
+  --ifm-code-border-radius:   var(--radius-sm);
+  --ifm-button-border-radius: var(--radius-full);
+  --ifm-alert-border-radius:  var(--radius-md);
+
+  --ifm-global-shadow-lw: var(--shadow-sm);
+  --ifm-global-shadow-md: var(--shadow-md);
+  --ifm-global-shadow-tl: var(--shadow-lg);
+
+  --ifm-navbar-background-color: var(--nav-bg);
+  --ifm-navbar-shadow:           var(--shadow-sm);
+  --ifm-toc-border-color:        var(--border-soft);
+  --ifm-hr-background-color:     var(--border-soft);
+
+  --ifm-code-font-size: 90%;
+
   --docusaurus-highlighted-code-line-bg: rgba(227, 6, 19, 0.08);
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #f9596a;
-  --ifm-color-primary-dark: #f73e52;
-  --ifm-color-primary-darker: #f22a38;
-  --ifm-color-primary-darkest: #e30613;
-  --ifm-color-primary-light: #fa7e8a;
-  --ifm-color-primary-lighter: #fda8b0;
+  --ifm-color-primary:          var(--rdd-red-light);
+  --ifm-color-primary-dark:     #f73e52;
+  --ifm-color-primary-darker:   #f22a38;
+  --ifm-color-primary-darkest:  var(--rdd-red);
+  --ifm-color-primary-light:    #fa7e8a;
+  --ifm-color-primary-lighter:  #fda8b0;
   --ifm-color-primary-lightest: #fdeaea;
+
   --docusaurus-highlighted-code-line-bg: rgba(249, 89, 106, 0.15);
+}
+
+/* -------- Site-wide ambient background -------- */
+
+/* Grid + top red glow layered as backgrounds on <html>. Body is made
+   transparent so the html background shows through, and every other
+   component sits above it. */
+html {
+  background-color: var(--bg-page);
+  background-image:
+    /* Subtle red glow fading out by ~600px below the top. */
+    radial-gradient(
+      ellipse 1100px 600px at 50% -180px,
+      var(--glow-red-strong) 0%,
+      var(--glow-red-mid) 40%,
+      transparent 70%
+    ),
+    /* 60px grid — horizontal + vertical 1px lines. */
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 100% 800px, 60px 60px, 60px 60px;
+  background-position: top center, 0 0, 0 0;
+  background-repeat: no-repeat, repeat, repeat;
+}
+
+body {
+  background: transparent;
+}
+
+/* The navbar already sets its own (semi-transparent) background, so it
+   reads the glow/grid through it as an ambient tint. The footer and
+   code blocks need opaque backgrounds so content stays crisp over the
+   grid — they already have them. */
+
+/* -------- Typography polish -------- */
+
+h1, h2, h3, h4, h5, h6,
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  font-family: var(--font-logo);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h3, h4, h5, h6,
+.markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  letter-spacing: -0.01em;
+}
+
+/* -------- Navbar: frosted, sticky, brand-guide style -------- */
+
+.navbar {
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--border-soft);
+  box-shadow: none;
+}
+
+.navbar__title,
+.navbar__brand {
+  font-family: var(--font-logo);
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-family: var(--font-ui);
+  font-weight: 500;
+}
+
+/* -------- Hero: transparent so the site-wide glow shows through -------- */
+
+.hero--primary {
+  background: transparent;
+  color: var(--text-primary);
+  padding: 6rem 0 5rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.hero__title {
+  font-family: var(--font-logo);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.05;
+}
+
+.hero__subtitle {
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  max-width: 640px;
+  margin: 1.25rem auto 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+/* -------- Buttons: pill shape, lift on hover -------- */
+
+.button {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out),
+    background-color 0.15s var(--ease-out);
+}
+
+.button--primary {
+  background: var(--rdd-red);
+  border-color: var(--rdd-red);
+  color: #fff;
+}
+
+.button--primary:hover,
+.button--primary:focus {
+  background: var(--rdd-red-dark);
+  border-color: var(--rdd-red-dark);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.button--secondary {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* -------- Inline code + code blocks -------- */
+
+:not(pre) > code {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.4em;
+}
+
+/* -------- Footer: always dark, brand-page treatment -------- */
+
+.footer--dark {
+  background: var(--neutral-900);
+  border-top: 1px solid transparent;
+}
+
+.footer__title {
+  font-family: var(--font-ui);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--neutral-300);
 }

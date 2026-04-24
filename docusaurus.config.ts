@@ -36,6 +36,18 @@ const config: Config = {
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/apple-touch-icon.png'}},
     {tagName: 'link', attributes: {rel: 'manifest', href: '/site.webmanifest'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#E30613'}},
+    // Google Fonts — Roboto (body), Rubik (UI labels), Roboto Mono
+    // (code). Goldplay (display) is self-hosted from /fonts/ via
+    // @font-face in custom.css.
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'}},
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Rubik:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap',
+      },
+    },
   ],
 
   presets: [
