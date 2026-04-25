@@ -107,6 +107,8 @@ Send 0.1 RDD:
 reddcoin-cli sendtoaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 0.1
 Send 0.1 RDD with a confirmation target of 6 blocks in economical fee estimate mode using positional arguments:
 ```
+
+```
 reddcoin-cli sendtoaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 0.1 "donation" "sean's outpost" false true 6 economical
 ```
 
@@ -126,6 +128,8 @@ Send 0.5 RDD with a fee rate of 25 reddoshi/vB using named arguments:
 
 ```
 reddcoin-cli -named sendtoaddress address="bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" amount=0.5 fee_rate=25
+```
+
 ```
 reddcoin-cli -named sendtoaddress address="bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" amount=0.5 fee_rate=25 subtractfeefromamount=false replaceable=true avoid_reuse=true comment="2 pizzas" comment_to="jeremy" verbose=true
 ```

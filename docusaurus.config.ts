@@ -26,6 +26,11 @@ const config: Config = {
   onBrokenAnchors: 'warn',
 
   markdown: {
+    // .md files parse as plain CommonMark (Docusaurus's heading-ID
+    // syntax `## Heading {#id}` works), .mdx files parse as MDX. The
+    // protocol docs are all .md and don't use JSX; src/pages/api.mdx
+    // is the only file that needs MDX semantics.
+    format: 'detect',
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },

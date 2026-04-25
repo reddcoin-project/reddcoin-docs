@@ -9,7 +9,7 @@ substitutions:
 
 ## Payment Protocol
 
-To request payment using the payment protocol, you use an extended (but backwards-compatible) “reddcoin:” URI. For example:
+To request payment using the payment protocol, you use an extended (but backwards-compatible) [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri). For example:
 
 **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Reddcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Reddcoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
 
@@ -21,20 +21,20 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 &r=https://example.com/pay.php/invoice%3Dda39a3ee
 ```
 
-The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the “r” parameter, which should provide it with a serialized PaymentRequest served with the [MIME](https://en.wikipedia.org/wiki/Internet_media_type) type `application/reddcoin-paymentrequest`.
+The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the [“r”](/glossary/terms#term-r-parameter) parameter, which should provide it with a serialized [PaymentRequest](/glossary/terms#term-paymentrequest) served with the [MIME](https://en.wikipedia.org/wiki/Internet_media_type) type `application/reddcoin-paymentrequest`.
 
 **Resource:** Gavin Andresen’s [Payment Request Generator](https://github.com/gavinandresen/paymentrequest/blob/master/php/demo_website/createpaymentrequest.php) generates custom example URIs and payment requests for use with testnet.
 
 ### PaymentRequest & PaymentDetails
 
-The PaymentRequest is created with data structures built using Google’s [Protocol Buffers](https://developers.google.com/protocol-buffers/). [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) describes these data structures in the non-sequential way they’re defined in the payment request [protocol buffer](https://developers.google.com/protocol-buffers/) code, but the text below will describe them in a more linear order using a simple (but functional) Python CGI program. (For brevity and clarity, many normal CGI best practices are not used in this program.)
+The [PaymentRequest](/glossary/terms#term-paymentrequest) is created with data structures built using Google’s [Protocol Buffers](https://developers.google.com/protocol-buffers/). [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) describes these data structures in the non-sequential way they’re defined in the payment request [protocol buffer](https://developers.google.com/protocol-buffers/) code, but the text below will describe them in a more linear order using a simple (but functional) Python CGI program. (For brevity and clarity, many normal CGI best practices are not used in this program.)
 
-The full sequence of events is illustrated below, starting with the spender clicking a “reddcoin:” URI or scanning a `reddcoin:` QR code.
+The full sequence of events is illustrated below, starting with the spender clicking a [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) or scanning a `reddcoin:` QR code.
 
 ![BIP70 Payment Protocol](/img/dev/en-payment-protocol.svg)
 
 BIP70 Payment Protocol
-For the script to use the [protocol buffer](https://developers.google.com/protocol-buffers/), you will need a copy of Google’s [Protocol Buffer](https://developers.google.com/protocol-buffers/) compiler (`protoc`), which is available in most modern Linux package managers and [directly from Google.](https://developers.google.com/protocol-buffers/) Non-Google [protocol buffer](https://developers.google.com/protocol-buffers/) compilers are available for a variety of programming languages. You will also need a copy of the PaymentRequest [Protocol Buffer description](https://github.com/reddcoin-project/reddcoin/blob/0.19/src/qt/paymentrequest.proto) from the Reddcoin Core source code.
+For the script to use the [protocol buffer](https://developers.google.com/protocol-buffers/), you will need a copy of Google’s [Protocol Buffer](https://developers.google.com/protocol-buffers/) compiler (`protoc`), which is available in most modern Linux package managers and [directly from Google.](https://developers.google.com/protocol-buffers/) Non-Google [protocol buffer](https://developers.google.com/protocol-buffers/) compilers are available for a variety of programming languages. You will also need a copy of the [PaymentRequest](/glossary/terms#term-paymentrequest) [Protocol Buffer description](https://github.com/reddcoin-project/reddcoin/blob/0.19/src/qt/paymentrequest.proto) from the Reddcoin Core source code.
 
 #### Initialization Code
 
@@ -60,7 +60,7 @@ The startup code above is quite simple, requiring nothing but the epoch (Unix da
 
 #### Configuration Code
 
-Next, we’ll set configuration settings which will typically only change when the receiver wants to do something differently. The code pushes a few settings into the `request` (PaymentRequest) and `details` (PaymentDetails) objects. When we serialize them, PaymentDetails will be contained within the PaymentRequest.
+Next, we’ll set configuration settings which will typically only change when the receiver wants to do something differently. The code pushes a few settings into the `request` ([PaymentRequest](/glossary/terms#term-paymentrequest)) and `details` ([PaymentDetails](/glossary/terms#term-paymentdetails)) objects. When we serialize them, [PaymentDetails](/glossary/terms#term-paymentdetails) will be contained within the [PaymentRequest](/glossary/terms#term-paymentrequest).
 
 ```python
 ## SSL Signature method
@@ -88,18 +88,18 @@ Each line is described below.
 
 ```python
 request.pki_type = "x509+sha256"  ## Default: none
-“pki_type”: (optional) tell the receiving wallet program what Public-Key Infrastructure (PKI) type you’re using to cryptographically sign your PaymentRequest so that it can’t be modified by a [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack.
+[“pki_type”](/glossary/terms#term-pp-pki-type): (optional) tell the receiving wallet program what [Public-Key Infrastructure](/glossary/terms#term-pki) ([PKI](/glossary/terms#term-pki)) type you’re using to cryptographically sign your [PaymentRequest](/glossary/terms#term-paymentrequest) so that it can’t be modified by a [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack.
 ```
 
-If you don’t want to sign the PaymentRequest, you can choose a “pki_type” of `none` (the default).
+If you don’t want to sign the [PaymentRequest](/glossary/terms#term-paymentrequest), you can choose a [“pki_type”](/glossary/terms#term-pp-pki-type) of `none` (the default).
 
-If you do choose the sign the PaymentRequest, you currently have two options defined by [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki): `x509+sha1` and `x509+sha256`. Both options use the [X.509](https://en.wikipedia.org/wiki/X.509) certificate system, the same system used for HTTP Secure (HTTPS). To use either option, you will need a certificate signed by a certificate authority or one of their intermediaries. (A self-signed certificate will not work.)
+If you do choose the sign the [PaymentRequest](/glossary/terms#term-paymentrequest), you currently have two options defined by [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki): `x509+sha1` and `x509+sha256`. Both options use the [X.509](https://en.wikipedia.org/wiki/X.509) certificate system, the same system used for HTTP Secure (HTTPS). To use either option, you will need a certificate signed by a certificate authority or one of their intermediaries. (A self-signed certificate will not work.)
 
-Each wallet program may choose which certificate authorities to trust, but it’s likely that they’ll trust whatever certificate authorities their operating system trusts. If the wallet program doesn’t have a full operating system, as might be the case for small hardware wallets, [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) suggests they use the [Mozilla Root Certificate Store](https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/). In general, if a certificate works in your web browser when you connect to your webserver, it will work for your PaymentRequests.
+Each wallet program may choose which certificate authorities to trust, but it’s likely that they’ll trust whatever certificate authorities their operating system trusts. If the wallet program doesn’t have a full operating system, as might be the case for small hardware wallets, [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) suggests they use the [Mozilla Root Certificate Store](https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/). In general, if a certificate works in your web browser when you connect to your webserver, it will work for your [PaymentRequests](/glossary/terms#term-paymentrequest).
 
 ```python
 details.[network][network] = "test"  ## Default: main
-`network`: (optional) tell the spender’s wallet program what Bitcoin [network](../devguide/p2p_network) you’re using; [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake reddoshis are used). If the wallet program doesn’t run on the [network](../devguide/p2p_network) you indicate, it will reject the PaymentRequest.
+`network`: (optional) tell the spender’s wallet program what Bitcoin [network](../devguide/p2p_network) you’re using; [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake reddoshis are used). If the wallet program doesn’t run on the [network](../devguide/p2p_network) you indicate, it will reject the [PaymentRequest](/glossary/terms#term-paymentrequest).
 ```
 
 ```python
@@ -109,7 +109,7 @@ details.payment_url = "https://example.com/pay.py"
 
 ```python
 request.payment_details_version = 1  ## Default: 1
-`payment_details_version`: (optional) tell the spender’s wallet program what version of the PaymentDetails you’re using. As of this writing, the only version is version 1.
+`payment_details_version`: (optional) tell the spender’s wallet program what version of the [PaymentDetails](/glossary/terms#term-paymentdetails) you’re using. As of this writing, the only version is version 1.
 ```
 
 ```python
@@ -117,7 +117,7 @@ request.payment_details_version = 1  ## Default: 1
 ## that we'll use to sign:
 x509.certificate.append(file("/etc/apache2/example.com-cert.[der][der]", "r").read())
 ```
-`x509certificates`: (required for signed PaymentRequests) you must provide the public SSL key/certificate corresponding to the private SSL key you’ll use to sign the PaymentRequest. The certificate must be in ASN.1/[DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding).
+`x509certificates`: (required for signed [PaymentRequests](/glossary/terms#term-paymentrequest)) you must provide the public SSL key/certificate corresponding to the private SSL key you’ll use to sign the [PaymentRequest](/glossary/terms#term-paymentrequest). The certificate must be in ASN.1/[DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding).
 
 ```python
 ## If the pubkey/cert above didn't have the signature of a root
@@ -125,21 +125,21 @@ x509.certificate.append(file("/etc/apache2/example.com-cert.[der][der]", "r").re
 ## which signed it:
 #x509.certificate.append(file("/some/intermediate/cert.[der][der]", "r").read())
 ```
-You must also provide any intermediate certificates necessary to link your certificate to the root certificate of a certificate authority trusted by the spender’s software, such as a certificate from the Mozilla root store.
+You must also provide any [intermediate certificates](/glossary/terms#term-intermediate-certificate) necessary to link your certificate to the [root certificate](/glossary/terms#term-root-certificate) of a certificate authority trusted by the spender’s software, such as a certificate from the Mozilla root store.
 
-The certificates must be provided in a specific order—the same order used by Apache’s `SSLCertificateFile` directive and other server software. The figure below shows the certificate chain of the www.reddcoin.com [X.509](https://en.wikipedia.org/wiki/X.509) certificate and how each certificate (except the root certificate) would be loaded into the X509Certificates [protocol buffer](https://developers.google.com/protocol-buffers/) message.
+The certificates must be provided in a specific order—the same order used by Apache’s `SSLCertificateFile` directive and other server software. The figure below shows the [certificate chain](/glossary/terms#term-certificate-chain) of the www.reddcoin.com [X.509](https://en.wikipedia.org/wiki/X.509) certificate and how each certificate (except the [root certificate](/glossary/terms#term-root-certificate)) would be loaded into the [X509Certificates](/glossary/terms#term-x509certificates) [protocol buffer](https://developers.google.com/protocol-buffers/) message.
 
 ![X509Certificates Loading Order](/img/dev/en-cert-order.svg)
 
 X509Certificates Loading Order
-To be specific, the first certificate provided must be the [X.509](https://en.wikipedia.org/wiki/X.509) certificate corresponding to the private SSL key which will make the signature, called the leaf certificate. Any intermediate certificates necessary to link that signed public SSL key to the root certificate (the certificate authority) are attached separately, with each certificate in [DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding) bearing the signature of the certificate that follows it all the way to (but not including) the root certificate.
+To be specific, the first certificate provided must be the [X.509](https://en.wikipedia.org/wiki/X.509) certificate corresponding to the private SSL key which will make the signature, called the [leaf certificate](/glossary/terms#term-leaf-certificate). Any [intermediate certificates](/glossary/terms#term-intermediate-certificate) necessary to link that signed public SSL key to the [root certificate](/glossary/terms#term-root-certificate) (the certificate authority) are attached separately, with each certificate in [DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding) bearing the signature of the certificate that follows it all the way to (but not including) the [root certificate](/glossary/terms#term-root-certificate).
 
 ```python
 priv_key = "/etc/apache2/example.com-key.pem"
 pw = "test"  ## Key password
 private_key = load_privatekey(FILETYPE_PEM, file(priv_key, "r").read(), pw)
 ```
-(Required for signed PaymentRequests) you will need a private SSL key in a format your SSL library supports ([DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding) is not required). In this program, we’ll load it from a PEM file. (Embedding your passphrase in your CGI code, as done here, is obviously a bad idea in real life.)
+(Required for signed [PaymentRequests](/glossary/terms#term-paymentrequest)) you will need a private SSL key in a format your SSL library supports ([DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding) is not required). In this program, we’ll load it from a PEM file. (Embedding your passphrase in your CGI code, as done here, is obviously a bad idea in real life.)
 
 The private SSL key will not be transmitted with your request. We’re only loading it into memory here so we can use it to sign the request later.
 
@@ -172,7 +172,7 @@ Each line is described below.
 
 ```python
 amount = 10000000  ## In reddoshis (=100 mBTC)
-“amount”: (optional) the amount you want the spender to pay. You’ll probably get this value from your shopping cart application or :ref:fiat-to-RDD exchange rate conversion tool. If you leave the amount blank, the wallet program will prompt the spender how much to pay (which can be useful for donations).
+[“amount”](/glossary/terms#term-pp-amount): (optional) the [amount](/glossary/terms#term-pp-amount) you want the spender to pay. You’ll probably get this value from your shopping cart application or :ref:fiat-to-RDD exchange rate conversion tool. If you leave the amount blank, the wallet program will prompt the spender how much to pay (which can be useful for donations).
 ```
 
 ```python
@@ -182,7 +182,7 @@ pubkey_hash = "2b14950b8d31620c6cc923c5408a701b1ec0a020"
 hex_script = "76" + "a9" + "14" + pubkey_hash + "88" + "ac"
 serialized_script = hex_script.decode("hex")
 ```
-“script”: (required) You must specify the pubkey script you want the spender to pay—any valid pubkey script is acceptable. In this example, we’ll request payment to a P2PKH pubkey script.
+[“script”](/glossary/terms#term-pp-script): (required) You must specify the pubkey script you want the spender to pay—any valid pubkey script is acceptable. In this example, we’ll request payment to a P2PKH pubkey script.
 
 First we get a pubkey hash. The hash above is the hash form of the address used in the URI examples throughout this section, mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 
@@ -192,22 +192,22 @@ Finally, we convert the pubkey script from hex into its serialized form.
 
 ```python
 details.outputs.add(amount = amount, script = serialized_script)
-`outputs`: (required) add the pubkey script and (optional) amount to the PaymentDetails outputs array.
+`outputs`: (required) add the pubkey script and (optional) amount to the [PaymentDetails](/glossary/terms#term-paymentdetails) outputs array.
 ```
 
-It’s possible to specify multiple “scripts” and `amounts` as part of a merge avoidance strategy, described later in the [Merge Avoidance subsection](../devguide/payment_processing#merge-avoidance). However, effective merge avoidance is not possible under the base [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) rules in which the spender pays each “script” the exact amount specified by its paired “amount”. If the amounts are omitted from all “amount”/“script” pairs, the spender will be prompted to choose an amount to pay.
+It’s possible to specify multiple [“scripts”](/glossary/terms#term-pp-script) and `amounts` as part of a [merge avoidance](/glossary/terms#term-merge-avoidance) strategy, described later in the [Merge Avoidance subsection](../devguide/payment_processing#merge-avoidance). However, effective [merge avoidance](/glossary/terms#term-merge-avoidance) is not possible under the base [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) rules in which the spender pays each [“script”](/glossary/terms#term-pp-script) the exact amount specified by its paired [“amount”](/glossary/terms#term-pp-amount). If the amounts are omitted from all [“amount”](/glossary/terms#term-pp-amount)/[“script”](/glossary/terms#term-pp-script) pairs, the spender will be prompted to choose an amount to pay.
 
 ```python
 details.memo = "Flowers & chocolates"
-“memo”: (optional) add a memo which will be displayed to the spender as plain UTF-8 text. Embedded HTML or other markup will not be processed.
+[“memo”](/glossary/terms#term-pp-memo): (optional) add a memo which will be displayed to the spender as plain UTF-8 text. Embedded HTML or other markup will not be processed.
 ```
 
 ```python
 details.merchant_data = "Invoice #123"
-“merchant_data”: (optional) add arbitrary data which should be sent back to the receiver when the invoice is paid. You can use this to track your invoices, although you can more reliably track payments by generating a unique address for each payment and then tracking when it gets paid.
+[“merchant_data”](/glossary/terms#term-pp-merchant-data): (optional) add arbitrary data which should be sent back to the receiver when the invoice is paid. You can use this to track your invoices, although you can more reliably track payments by generating a [unique address](/glossary/terms#term-unique-address) for each payment and then tracking when it gets paid.
 ```
 
-The “memo” field can be arbitrarily long, but if you make them too long, you’ll run into the 50,000 byte limit on the entire PaymentRequest, which includes the often several kilobytes given over to storing the certificate chain. As will be described in a later subsection, the “memo” field can be used by the spender after payment as part of a cryptographically-proven receipt.
+The [“memo”](/glossary/terms#term-pp-memo) field can be arbitrarily long, but if you make them too long, you’ll run into the 50,000 byte limit on the entire [PaymentRequest](/glossary/terms#term-paymentrequest), which includes the often several kilobytes given over to storing the [certificate chain](/glossary/terms#term-certificate-chain). As will be described in a later subsection, the [“memo”](/glossary/terms#term-pp-memo) field can be used by the spender after payment as part of a cryptographically-proven [receipt](/glossary/terms#term-receipt).
 
 #### Derivable Data
 
@@ -236,51 +236,51 @@ Each line is described below.
 
 ```python
 details.time = int(time()) ## Current epoch (Unix) time
-`time`: (required) PaymentRequests must indicate when they were created in number of seconds elapsed since 1970-01-01T00:00 UTC ([Unix epoch time](https://en.wikipedia.org/wiki/Unix_time) format).
+`time`: (required) [PaymentRequests](/glossary/terms#term-paymentrequest) must indicate when they were created in number of seconds elapsed since 1970-01-01T00:00 UTC ([Unix epoch time](https://en.wikipedia.org/wiki/Unix_time) format).
 ```
 
 ```python
 details.expires = int(time()) + 60 * 10  ## 10 minutes from now
-“expires”: (optional) the PaymentRequest may also set an “expires” time after which they’re no longer valid. You probably want to give receivers the ability to configure the expiration time delta; here we used the reasonable choice of 10 minutes. If this request is tied to an order total based on a fiat-to-reddoshis exchange rate, you probably want to base this on a delta from the time you got the exchange rate.
+[“expires”](/glossary/terms#term-pp-expires): (optional) the [PaymentRequest](/glossary/terms#term-paymentrequest) may also set an [“expires”](/glossary/terms#term-pp-expires) time after which they’re no longer valid. You probably want to give receivers the ability to configure the expiration time delta; here we used the reasonable choice of 10 minutes. If this request is tied to an order total based on a [fiat](/glossary/terms#term-fiat)-to-reddoshis exchange rate, you probably want to base this on a delta from the time you got the exchange rate.
 ```
 
 ```python
 request.serialized_payment_details = details.SerializeToString()
-`serialized_payment_details`: (required) we’ve now set everything we need to create the PaymentDetails, so we’ll use the SerializeToString function from the [protocol buffer](https://developers.google.com/protocol-buffers/) code to store the PaymentDetails in the appropriate field of the PaymentRequest.
+`serialized_payment_details`: (required) we’ve now set everything we need to create the [PaymentDetails](/glossary/terms#term-paymentdetails), so we’ll use the SerializeToString function from the [protocol buffer](https://developers.google.com/protocol-buffers/) code to store the [PaymentDetails](/glossary/terms#term-paymentdetails) in the appropriate field of the [PaymentRequest](/glossary/terms#term-paymentrequest).
 ```
 
 ```python
 request.pki_data = x509.SerializeToString()
-`pki_data`: (required for signed PaymentRequests) serialize the certificate chain PKI data and store it in the PaymentRequest
+`pki_data`: (required for signed [PaymentRequests](/glossary/terms#term-paymentrequest)) serialize the [certificate chain](/glossary/terms#term-certificate-chain) [PKI data](/glossary/terms#term-pp-pki-data) and store it in the [PaymentRequest](/glossary/terms#term-paymentrequest)
 ```
 
 ```python
 request.signature = ""
-We’ve filled out everything in the PaymentRequest except the signature, but before we sign it, we have to initialize the signature field by setting it to a zero-byte placeholder.
+We’ve filled out everything in the [PaymentRequest](/glossary/terms#term-paymentrequest) except the signature, but before we sign it, we have to initialize the signature field by setting it to a zero-byte placeholder.
 ```
 
 ```python
 request.signature = sign(private_key, request.SerializeToString(), "sha256")
-`signature`: (required for signed PaymentRequests) now we make the signature by signing the completed and serialized PaymentRequest. We’ll use the private key we stored in memory in the configuration section and the same hashing formula we specified in “pki_type” (sha256 in this case)
+`signature`: (required for signed [PaymentRequests](/glossary/terms#term-paymentrequest)) now we make the [signature](/glossary/terms#term-ssl-signature) by signing the completed and serialized [PaymentRequest](/glossary/terms#term-paymentrequest). We’ll use the private key we stored in memory in the configuration section and the same hashing formula we specified in [“pki_type”](/glossary/terms#term-pp-pki-type) (sha256 in this case)
 ```
 
 #### Output Code
 
-Now that we have PaymentRequest all filled out, we can serialize it and send it along with the HTTP headers, as shown in the code below.
+Now that we have [PaymentRequest](/glossary/terms#term-paymentrequest) all filled out, we can serialize it and send it along with the HTTP headers, as shown in the code below.
 
 ```python
 print "Content-Type: application/reddcoin-[paymentrequest][paymentrequest]"
 print "Content-Transfer-Encoding: binary"
 print ""
 ```
-(Required) [BIP71](https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki) defines the content types for PaymentRequests, Payments, and PaymentACKs.
+(Required) [BIP71](https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki) defines the content types for [PaymentRequests](/glossary/terms#term-paymentrequest), Payments, and PaymentACKs.
 
 ```python
 file.write(stdout, request.SerializeToString())
-`request`: (required) now, to finish, we just dump out the serialized PaymentRequest (which contains the serialized PaymentDetails). The serialized data is in binary, so we can’t use Python’s print() because it would add an extraneous newline.
+`request`: (required) now, to finish, we just dump out the serialized [PaymentRequest](/glossary/terms#term-paymentrequest) (which contains the serialized [PaymentDetails](/glossary/terms#term-paymentdetails)). The serialized data is in binary, so we can’t use Python’s print() because it would add an extraneous newline.
 ```
 
-The following screenshot shows how the authenticated PaymentDetails created by the program above appears in the GUI from Reddcoin Core 0.9.
+The following screenshot shows how the authenticated [PaymentDetails](/glossary/terms#term-paymentdetails) created by the program above appears in the GUI from Reddcoin Core 0.9.
 
 ![Reddcoin Core Showing Validated Payment Request](/img/dev/en-btcc-payment-request.png)
 

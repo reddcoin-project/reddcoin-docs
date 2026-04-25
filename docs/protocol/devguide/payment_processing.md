@@ -22,7 +22,7 @@ It is worth mentioning that each of these steps can be outsourced by using third
 
 ## Pricing Orders
 
-Because of exchange rate variability between reddoshis and national currencies (fiat), many Reddcoin orders are priced in fiat but paid in reddoshis, necessitating a price conversion.
+Because of exchange rate variability between reddoshis and national currencies ([fiat](/glossary/terms#term-fiat)), many Reddcoin orders are priced in [fiat](/glossary/terms#term-fiat) but paid in reddoshis, necessitating a price conversion.
 
 Exchange rate data is widely available through HTTP-based APIs provided by currency exchanges. Several organizations also aggregate data from multiple exchanges to create index prices, which are also available using HTTP-based APIs.
 
@@ -32,9 +32,9 @@ To minimize problems, your applications may want to collect data from at least t
 
 You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the Reddcoin market which could make it difficult to spend any reddoshis received today.
 
-Exchange rates lie outside the control of Reddcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from fiat into reddoshis.
+Exchange rates lie outside the control of Reddcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from [fiat](/glossary/terms#term-fiat) into reddoshis.
 
-Because the exchange rate fluctuates over time, order totals pegged to fiat must expire to prevent spenders from delaying payment in the hope that reddoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
+Because the exchange rate fluctuates over time, order totals pegged to [fiat](/glossary/terms#term-fiat) must expire to prevent spenders from delaying payment in the hope that reddoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
 Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a [refund](../devguide/payment_processing#issuing-refunds). Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
 
@@ -47,8 +47,8 @@ Using a separate address for each incoming payment makes it trivial to determine
 The next subsections will describe in detail the following four compatible ways to give the spender the address and amount to be paid. For increased convenience and compatibility, providing all of these options in your payment requests is recommended.
 
 1. All wallet software lets its users paste in or manually enter an address and amount into a payment screen. This is, of course, inconvenient—but it makes an effective fallback option.
-2. Almost all desktop wallets can associate with “reddcoin:” URIs, so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
-3. Most mobile wallets support scanning “reddcoin:” URIs encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
+2. Almost all desktop wallets can associate with [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri), so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
+3. Most mobile wallets support scanning [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri) encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
 4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using [X.509](https://en.wikipedia.org/wiki/X.509) certificates, and other important features such as [refunds](../devguide/payment_processing#issuing-refunds).
 
 **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks from replacing your Reddcoin address with the attacker’s address.
@@ -77,7 +77,7 @@ Indicating the denomination is critical. As of this writing, popular Reddcoin wa
 
 ### reddcoin: URI
 
-The “reddcoin:” URI scheme defined in [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
+The [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) scheme defined in [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
 
 ```
 reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN?amount=100
@@ -85,7 +85,7 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN?amount=100
 
 Only the address is required, and if it is the only thing specified, wallets will pre-fill a payment request with it and let the spender enter an amount. The amount specified is always in decimal reddcoins (RDD).
 
-Two other parameters are widely supported. The “label” parameter is generally used to provide wallet software with the recipient’s name. The “message” parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Reddcoin users cannot see them. Both the label and the message must be [URI encoded](https://tools.ietf.org/html/rfc3986).
+Two other parameters are widely supported. The [“label”](/glossary/terms#term-label) parameter is generally used to provide wallet software with the recipient’s name. The [“message”](/glossary/terms#term-message) parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Reddcoin users cannot see them. Both the label and the message must be [URI encoded](https://tools.ietf.org/html/rfc3986).
 
 All four parameters used together, with appropriate URI encoding, can be seen in the line-wrapped example below.
 
@@ -96,20 +96,20 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 &message=Order+of+flowers+%26+chocolates
 ```
 
-The URI scheme can be extended, as will be seen in the payment protocol section below, with both new optional and required parameters. As of this writing, the only widely-used parameter besides the four described above is the payment protocol’s “r” parameter.
+The URI scheme can be extended, as will be seen in the payment protocol section below, with both new optional and required parameters. As of this writing, the only widely-used parameter besides the four described above is the payment protocol’s [“r”](/glossary/terms#term-r-parameter) parameter.
 
 Programs accepting URIs in any form must ask the user for permission before paying unless the user has explicitly disabled prompting (as might be the case for micropayments).
 
 ### QR Codes
 
-QR codes are a popular way to exchange “reddcoin:” URIs in person, in images, or in videos. Most mobile Reddcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
+QR codes are a popular way to exchange [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri) in person, in images, or in videos. Most mobile Reddcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
 
-The figure below shows the same “reddcoin:” URI code encoded as four different Reddcoin QR codes at four different error correction levels. The QR code can include the “label” and “message” parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
+The figure below shows the same [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) code encoded as four different [Reddcoin QR codes](/glossary/terms#term-uri-qr-code) at four different error correction levels. The QR code can include the [“label”](/glossary/terms#term-label) and [“message”](/glossary/terms#term-message) parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
 
 ![Reddcoin QR Codes](/img/dev/en-qr-code.svg)
 
 Reddcoin QR Codes
-The error correction is combined with a checksum to ensure the Reddcoin QR code cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
+The error correction is combined with a checksum to ensure the [Reddcoin QR code](/glossary/terms#term-uri-qr-code) cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
 
 ### Payment Protocol
 
@@ -123,7 +123,7 @@ Reddcoin Core 0.9 supports the new payment protocol. The payment protocol adds m
 
 Instead of being asked to pay a meaningless address, such as “mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN”, spenders are asked to pay the Common Name (CN) description from the receiver’s [X.509](https://en.wikipedia.org/wiki/X.509) certificate, such as “www.reddcoin.com”.
 
-To request payment using the payment protocol, you use an extended (but backwards-compatible) “reddcoin:” URI. For example:
+To request payment using the payment protocol, you use an extended (but backwards-compatible) [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri). For example:
 
 ```
 reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
@@ -133,9 +133,9 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 &r=https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN
 ```
 
-None of the parameters provided above, except “r”, are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
+None of the parameters provided above, except [“r”](/glossary/terms#term-r-parameter), are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
 
-The “r” parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a PaymentRequest from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI.
+The [“r”](/glossary/terms#term-r-parameter) parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a [PaymentRequest](/glossary/terms#term-paymentrequest) from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI.
 
 ![BIP70 Payment Protocol](/img/dev/en-payment-protocol.svg)
 
@@ -147,29 +147,29 @@ Charlie, the client, is shopping on a website run by Bob, the businessman. Charl
 Bob’s server automatically adds the following information to its invoice database:
 
 - The details of Charlie’s order, including items ordered and shipping address.
-- An order total in reddoshis, perhaps created by converting prices in fiat to prices in reddoshis.
+- An order total in reddoshis, perhaps created by converting prices in [fiat](/glossary/terms#term-fiat) to prices in reddoshis.
 - An expiration time when that total will no longer be acceptable.
 - A pubkey script to which Charlie should send payment. Typically this will be a P2PKH or P2SH pubkey script containing a unique (never before used) [secp256k1](http://www.secg.org/sec2-v2.pdf) public key.
 
-After adding all that information to the database, Bob’s server displays a “reddcoin:” URI for Charlie to click to pay.
+After adding all that information to the database, Bob’s server displays a [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) for Charlie to click to pay.
 
-Charlie clicks on the “reddcoin:” URI in his browser. His browser’s URI handler sends the URI to his wallet program. The wallet is aware of the Payment Protocol, so it parses the “r” parameter and sends an HTTP GET to that URL looking for a PaymentRequest message.
+Charlie clicks on the [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) in his browser. His browser’s URI handler sends the URI to his wallet program. The wallet is aware of the Payment Protocol, so it parses the [“r”](/glossary/terms#term-r-parameter) parameter and sends an HTTP GET to that URL looking for a [PaymentRequest](/glossary/terms#term-paymentrequest) message.
 
-The PaymentRequest message returned may include private information, such as Charlie’s mailing address, but the wallet must be able to access it without using prior authentication, such as HTTP cookies, so a publicly accessible HTTPS URL with a guess-resistant part is typically used. The unique public key created for the payment request can be used to create a unique identifier. This is why, in the example URI above, the PaymentRequest URL contains the P2PKH address: `https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN`
+The [PaymentRequest](/glossary/terms#term-paymentrequest) message returned may include private information, such as Charlie’s mailing address, but the wallet must be able to access it without using prior authentication, such as HTTP cookies, so a publicly accessible HTTPS URL with a guess-resistant part is typically used. The unique public key created for the payment request can be used to create a unique identifier. This is why, in the example URI above, the [PaymentRequest](/glossary/terms#term-paymentrequest) URL contains the P2PKH address: `https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN`
 
-After receiving the HTTP GET to the URL above, the PaymentRequest-generating CGI program on Bob’s webserver takes the unique identifier from the URL and looks up the corresponding details in the database. It then creates a PaymentDetails message with the following information:
+After receiving the HTTP GET to the URL above, the [PaymentRequest](/glossary/terms#term-paymentrequest)-generating CGI program on Bob’s webserver takes the unique identifier from the URL and looks up the corresponding details in the database. It then creates a [PaymentDetails](/glossary/terms#term-paymentdetails) message with the following information:
 
 - The amount of the order in reddoshis and the pubkey script to be paid.
 - A memo containing the list of items ordered, so Charlie knows what he’s paying for. It may also include Charlie’s mailing address so he can double-check it.
-- The time the PaymentDetails message was created plus the time it expires.
+- The time the [PaymentDetails](/glossary/terms#term-paymentdetails) message was created plus the time it expires.
 - A URL to which Charlie’s wallet should send its completed transaction.
 
-That PaymentDetails message is put inside a PaymentRequest message. The payment request lets Bob’s server sign the entire Request with the server’s [X.509](https://en.wikipedia.org/wiki/X.509) SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
+That [PaymentDetails](/glossary/terms#term-paymentdetails) message is put inside a [PaymentRequest](/glossary/terms#term-paymentrequest) message. The payment request lets Bob’s server sign the entire Request with the server’s [X.509](https://en.wikipedia.org/wiki/X.509) SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
 
 ![Reddcoin Core Showing Validated Payment Request](/img/dev/en-btcc-payment-request.png)
 
 Reddcoin Core Showing Validated Payment Request
-Charlie’s wallet receives the PaymentRequest message, checks its signature, and then displays the details from the PaymentDetails message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Reddcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the [network](../devguide/p2p_network). Instead, the wallet constructs a Payment message and sends it to the URL provided in the PaymentDetails message as an HTTP POST. Among other things, the Payment message contains:
+Charlie’s wallet receives the [PaymentRequest](/glossary/terms#term-paymentrequest) message, checks its signature, and then displays the details from the [PaymentDetails](/glossary/terms#term-paymentdetails) message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Reddcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the [network](../devguide/p2p_network). Instead, the wallet constructs a Payment message and sends it to the URL provided in the [PaymentDetails](/glossary/terms#term-paymentdetails) message as an HTTP POST. Among other things, the Payment message contains:
 
 - The signed transaction in which Charlie pays Bob.
 - An optional memo Charlie can send to Bob. (There’s no guarantee that Bob will read it.)
@@ -179,9 +179,9 @@ Bob’s server receives the Payment message, verifies the transaction pays the r
 
 Charlie’s wallet sees the PaymentACK and tells Charlie that the payment has been sent. The PaymentACK doesn’t mean that Bob has verified Charlie’s payment—see the Verifying Payment subsection below—but it does mean that Charlie can go do something else while the transaction gets confirmed. After Bob’s server verifies from the block chain that Charlie’s transaction has been suitably confirmed, it authorizes shipping Charlie’s order.
 
-In the case of a dispute, Charlie can generate a cryptographically proven receipt out of the various signed or otherwise-proven information.
+In the case of a dispute, Charlie can generate a cryptographically proven [receipt](/glossary/terms#term-receipt) out of the various signed or otherwise-proven information.
 
-- The PaymentDetails message signed by Bob’s webserver proves Charlie received an invoice to pay a specified pubkey script for a specified number of reddoshis for goods specified in the memo field.
+- The [PaymentDetails](/glossary/terms#term-paymentdetails) message signed by Bob’s webserver proves Charlie received an invoice to pay a specified pubkey script for a specified number of reddoshis for goods specified in the memo field.
 - The Reddcoin block chain can prove that the pubkey script specified by Bob was paid the specified number of reddoshis.
 
 If a [refund](../devguide/payment_processing#issuing-refunds) needs to be issued, Bob’s server can safely pay the [refund](../devguide/payment_processing#issuing-refunds)-to pubkey script provided by Charlie. See the [Refunds](../devguide/payment_processing#issuing-refunds) section below for more details.
@@ -226,11 +226,11 @@ Occasionally receivers using your applications will need to issue [refunds](../d
 - Alice opens her wallet program and sends some reddoshis to that address. Her wallet program automatically chooses to spend those reddoshis from one of its unspent outputs, an output corresponding to the Reddcoin address mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 - Bob discovers Alice paid too many reddoshis. Being an honest fellow, Bob [refunds](../devguide/payment_processing#issuing-refunds) the extra reddoshis to the mjSk… address.
 
-This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give unique addresses to each user, so it has no way to know that Bob’s [refund](../devguide/payment_processing#issuing-refunds) is meant for Alice. Now the [refund](../devguide/payment_processing#issuing-refunds) is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those reddoshis were meant for her.
+This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give [unique addresses](/glossary/terms#term-unique-address) to each user, so it has no way to know that Bob’s [refund](../devguide/payment_processing#issuing-refunds) is meant for Alice. Now the [refund](../devguide/payment_processing#issuing-refunds) is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those reddoshis were meant for her.
 
 This leaves receivers only two correct ways to issue [refunds](../devguide/payment_processing#issuing-refunds):
 
-- If an address was copy-and-pasted or a basic “reddcoin:” URI was used, contact the spender directly and ask them to provide a [refund](../devguide/payment_processing#issuing-refunds) address.
+- If an address was copy-and-pasted or a basic [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) was used, contact the spender directly and ask them to provide a [refund](../devguide/payment_processing#issuing-refunds) address.
 - If the payment protocol was used, send the [refund](../devguide/payment_processing#issuing-refunds) to the output listed in the `refund_to` field of the Payment message.
 
 Note: it would be wise to contact the spender directly if the [refund](../devguide/payment_processing#issuing-refunds) is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the `refund_to` address.
@@ -241,21 +241,21 @@ Many receivers worry that their reddoshis will be less valuable in the future th
 
 If your application provides this business logic, it will need to choose which outputs to spend first. There are a few different algorithms which can lead to different results.
 
-- A merge avoidance algorithm makes it harder for outsiders looking at block chain data to figure out how many reddoshis the receiver has earned, spent, and saved.
+- A [merge avoidance](/glossary/terms#term-merge-avoidance) algorithm makes it harder for outsiders looking at block chain data to figure out how many reddoshis the receiver has earned, spent, and saved.
 - A last-in-first-out (LIFO) algorithm spends newly acquired reddoshis while there’s still double spend risk, possibly pushing that risk on to others. This can be good for the receiver’s balance sheet but possibly bad for their reputation.
 - A first-in-first-out (FIFO) algorithm spends the oldest reddoshis first, which can help ensure that the receiver’s payments always confirm, although this has utility only in a few edge cases.
 
 ### Merge Avoidance
 
-When a receiver receives reddoshis in an output, the spender can track (in a crude way) how the receiver spends those reddoshis. But the spender can’t automatically see other reddoshis paid to the receiver by other spenders as long as the receiver uses unique addresses for each transaction.
+When a receiver receives reddoshis in an output, the spender can track (in a crude way) how the receiver spends those reddoshis. But the spender can’t automatically see other reddoshis paid to the receiver by other spenders as long as the receiver uses [unique addresses](/glossary/terms#term-unique-address) for each transaction.
 
-However, if the receiver spends reddoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a merge, and the more a receiver merges outputs, the easier it is for an outsider to track how many reddoshis the receiver has earned, spent, and saved.
+However, if the receiver spends reddoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a [merge](/glossary/terms#term-merge), and the more a receiver merges outputs, the easier it is for an outsider to track how many reddoshis the receiver has earned, spent, and saved.
 
-Merge avoidance means trying to avoid spending unrelated outputs in the same transaction. For persons and businesses which want to keep their transaction data secret from other people, it can be an important strategy.
+[Merge avoidance](/glossary/terms#term-merge-avoidance) means trying to avoid spending unrelated outputs in the same transaction. For persons and businesses which want to keep their transaction data secret from other people, it can be an important strategy.
 
-A crude merge avoidance strategy is to try to always pay with the smallest output you have which is larger than the amount being requested. For example, if you have four outputs holding, respectively, 100, 200, 500, and 900 reddoshis, you would pay a bill for 300 reddoshis with the 500-reddoshi output. This way, as long as you have outputs larger than your bills, you avoid merging.
+A crude [merge avoidance](/glossary/terms#term-merge-avoidance) strategy is to try to always pay with the smallest output you have which is larger than the amount being requested. For example, if you have four outputs holding, respectively, 100, 200, 500, and 900 reddoshis, you would pay a bill for 300 reddoshis with the 500-reddoshi output. This way, as long as you have outputs larger than your bills, you avoid merging.
 
-More advanced merge avoidance strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
+More advanced [merge avoidance](/glossary/terms#term-merge-avoidance) strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
 
 ### Last In, First Out (LIFO)
 
@@ -297,9 +297,9 @@ The only practical use of FIFO is by receivers who spend all or most of their in
 
 Automated recurring payments are not possible with decentralized Reddcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 
-This means automated recurring Reddcoin payments can only be made from a centralized server which handles reddoshis on behalf of its spenders. In practice, receivers who want to set prices in fiat terms must also let the same centralized server choose the appropriate exchange rate.
+This means automated recurring Reddcoin payments can only be made from a centralized server which handles reddoshis on behalf of its spenders. In practice, receivers who want to set prices in [fiat](/glossary/terms#term-fiat) terms must also let the same centralized server choose the appropriate exchange rate.
 
-Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a PaymentRequest “reddcoin:” URI in an HTML email.
+Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a [PaymentRequest](/glossary/terms#term-paymentrequest) [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) in an HTML email.
 
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 

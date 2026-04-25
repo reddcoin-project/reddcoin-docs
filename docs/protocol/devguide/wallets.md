@@ -99,7 +99,7 @@ Wallet programs which run in difficult-to-secure environments, such as webserver
 
 Distributing-Only Wallets
 - Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To [avoid key reuse](../devguide/transactions#avoiding-key-reuse), webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
-- Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the key index number.
+- Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the [key index](/glossary/terms#term-key-index) number.
 
 Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the [Payment Processing](../devguide/payment_processing) section for details.
 
@@ -174,7 +174,7 @@ For consistent word ordering:
 
 The hierarchical deterministic key creation and transfer protocol (HD protocol) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
-The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key creation function, “point()”, which takes a large integer (the private key) and turns it into a graph point (the public key):
+The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key creation function, [“point()”](/glossary/terms#term-point-function), which takes a large integer (the private key) and turns it into a graph point (the public key):
 
 ```
 point(private_key) == public_key
@@ -205,7 +205,7 @@ As illustrated above, HD key derivation takes four inputs:
 
 - The parent private key and *parent public key* are regular uncompressed 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) keys.
 - The parent chain code is 256 bits of seemingly-random data.
-- The index number is a 32-bit integer specified by the program.
+- The [index](/glossary/terms#term-key-index) number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash ([HMAC-SHA512](https://en.wikipedia.org/wiki/HMAC)) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
@@ -226,7 +226,7 @@ A root seed is created from either 128 bits, 256 bits, or 512 bits of random dat
 
 **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
-The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using “point()”, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
+The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using [“point()”](/glossary/terms#term-point-function), which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
 #### Hardened Keys
 
@@ -287,7 +287,7 @@ Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecat
 
 These unused private keys are stored in a virtual “key pool”, with new keys being generated whenever a previously-generated key was used, ensuring the pool maintained 100 unused keys. (If the wallet is encrypted, new keys are only generated while the wallet is unlocked.)
 
-This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new key pair set is generated, used, and then lost prior to a backup, the stored reddoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
+This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new [key pair](/glossary/terms#term-key-pair) set is generated, used, and then lost prior to a backup, the stored reddoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
 
 This wallet type is being actively phased out and discouraged from being used due to the backup hassle.
 

@@ -137,7 +137,7 @@ This subsection covers one of the simplest possible raw transactions.
 > UTXO_TXID=3f4fa19803dec4d6a84fae3821da7ac7577080ef75451294e71f[...]
 > UTXO_VOUT=0
 ```
-Re-run [“listunspent”](../reference/rpc/listunspent). We now have three UTXOs: the two transactions we created before plus the coinbase transaction from block #2. We save the txid and output index number (vout) of that coinbase UTXO to shell variables.
+Re-run [“listunspent”](../reference/rpc/listunspent). We now have three UTXOs: the two transactions we created before plus the coinbase transaction from block #2. We save the txid and [output index](/glossary/terms#term-output-index) number (vout) of that coinbase UTXO to shell variables.
 
 ```bash
 > reddcoin-cli -regtest getnewaddress
@@ -321,7 +321,7 @@ In this example, we’ll create a transaction with two inputs and two outputs. W
 > UTXO2_VOUT=0
 > UTXO2_ADDRESS=muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt
 ```
-For our two inputs, we select two UTXOs by placing the txid and output index numbers (vouts) in shell variables. We also save the addresses corresponding to the public keys (hashed or unhashed) used in those transactions. We need the addresses so we can get the corresponding private keys from our wallet.
+For our two inputs, we select two UTXOs by placing the txid and [output index](/glossary/terms#term-output-index) numbers (vouts) in shell variables. We also save the addresses corresponding to the public keys (hashed or unhashed) used in those transactions. We need the addresses so we can get the corresponding private keys from our wallet.
 
 ```bash
 > reddcoin-cli -regtest dumpprivkey $UTXO1_ADDRESS
@@ -565,7 +565,7 @@ Put the previously signed (but not sent) transaction into a shell variable.
 > UTXO_VALUE=10.00000000
 > UTXO_OUTPUT_SCRIPT=76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6[...]
 ```
-Decode the signed raw transaction so we can get its txid. Also, choose a specific one of its UTXOs to spend and save that UTXO’s output index number (vout) and hex pubkey script (scriptPubKey) into shell variables.
+Decode the signed raw transaction so we can get its txid. Also, choose a specific one of its UTXOs to spend and save that UTXO’s [output index](/glossary/terms#term-output-index) number (vout) and hex pubkey script (scriptPubKey) into shell variables.
 
 ```bash
 > reddcoin-cli -regtest getnewaddress
@@ -615,7 +615,7 @@ Attempt to sign the raw transaction without any special arguments, the way we su
 Old Transaction Data Required To Be Signed
 As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the [“createrawtransaction”](../reference/rpc/createrawtransaction) raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.
 
-In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and output index number to find the previous pubkey script and insert it automatically.
+In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and [output index](/glossary/terms#term-output-index) number to find the previous pubkey script and insert it automatically.
 
 In this case, you’re spending an output which is unknown to the wallet, so it can’t automatically insert the previous pubkey script.
 
@@ -835,7 +835,7 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
 > UTXO_VOUT=0
 > UTXO_OUTPUT_SCRIPT=a9149af61346ce0aa2dffcf697352b4b704c84dcbaff87
 ```
-We use the [“getrawtransaction” RPC](../reference/rpc/getrawtransaction) with the optional second argument (*true*) to get the decoded transaction we just created with [“sendtoaddress”](../reference/rpc/sendtoaddress). We choose one of the outputs to be our UTXO and get its output index number (vout) and pubkey script (scriptPubKey).
+We use the [“getrawtransaction” RPC](../reference/rpc/getrawtransaction) with the optional second argument (*true*) to get the decoded transaction we just created with [“sendtoaddress”](../reference/rpc/sendtoaddress). We choose one of the outputs to be our UTXO and get its [output index](/glossary/terms#term-output-index) number (vout) and pubkey script (scriptPubKey).
 
 ```bash
 > reddcoin-cli -regtest getnewaddress

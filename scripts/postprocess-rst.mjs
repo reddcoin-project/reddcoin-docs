@@ -14,8 +14,8 @@
  *   node scripts/postprocess-rst.mjs
  */
 
-import {readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
-import {dirname, extname, join} from 'node:path';
+import {existsSync, readdirSync, readFileSync, statSync, writeFileSync} from 'node:fs';
+import {dirname, extname, join, relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const repo = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -30,6 +30,52 @@ function walkMd(dir, out = []) {
   }
   return out;
 }
+
+// Build a name → URL map for autocrossref-resolve. The map lets the
+// {ref} rewrites turn `{ref}\`text <anchor>\`` into a proper Markdown
+// link instead of dropping it to plain text. Two sources:
+//
+// 1. docs/glossary/terms.md — published by scripts/publish-terms.mjs.
+//    Holds the full term-* registry from upstream's terms.rst, each
+//    entry exposed as a heading + HTML anchor.
+// 2. (name)= MyST anchor labels embedded inline in the raw protocol
+//    docs (only a handful — `blocksig`, `txin`, `coinstake`, etc.).
+//
+// docs/glossary/terms.md must exist before postprocess runs. The
+// publish step is one-shot; postprocess assumes it has already run.
+function buildAnchorMap() {
+  const map = new Map();
+
+  // (1) terms.md — recognise `{#id}` heading-IDs.
+  const termsPath = join(repo, 'docs/glossary/terms.md');
+  if (existsSync(termsPath)) {
+    const t = readFileSync(termsPath, 'utf8');
+    for (const m of t.matchAll(/\{#([a-z][a-z0-9_-]*)\}/g)) {
+      map.set(m[1], `/glossary/terms#${m[1]}`);
+    }
+  }
+
+  // (2) Inline (name)= anchors inside docs/protocol. terms.md wins for
+  //     name collisions because it's the canonical published target.
+  const protocolDir = join(repo, 'docs/protocol');
+  if (existsSync(protocolDir)) {
+    for (const file of walkMd(protocolDir)) {
+      const content = readFileSync(file, 'utf8');
+      const matches = [...content.matchAll(/^\(([a-z][a-z0-9_-]*)\)=$/gm)];
+      if (matches.length === 0) continue;
+      let route = '/protocol/' + relative(protocolDir, file).replace(/\.md$/, '');
+      // index.md collapses to its parent route.
+      route = route.replace(/\/index$/, '');
+      for (const m of matches) {
+        if (!map.has(m[1])) map.set(m[1], `${route}#${m[1]}`);
+      }
+    }
+  }
+
+  return map;
+}
+
+const anchorMap = buildAnchorMap();
 
 // Each pass either runs over the full document body (default) or
 // line-by-line while tracking ```-fence state (for rewrites that must
@@ -46,8 +92,34 @@ const passes = [
   //    autocrossref table).
   {name: 'doc-with-text', re: /\{doc\}`([^`<]+?)\s*<([^`>]+)>`/g, sub: '[$1]($2)'},
   {name: 'doc-bare',      re: /\{doc\}`([^`<>]+)`/g,              sub: '[$1]($1)'},
-  {name: 'ref-with-text', re: /\{ref\}`([^`<]+?)\s*<[^`>]+>`/g,   sub: '$1'},
-  {name: 'ref-bare',      re: /\{ref\}`([^`<>]+)`/g,              sub: '$1'},
+
+  // {ref} resolution via the anchor map built from docs/glossary/terms.md
+  // and the inline (name)= anchors in docs/protocol. If the anchor is
+  // known, emit a Markdown link to its resolved URL; otherwise fall
+  // through to plain text (keeps the human-readable hint visible even
+  // when the cross-ref target was lost in conversion).
+  {
+    name: 'autocrossref-with-text',
+    re: /\{ref\}`([^`<]+?)\s*<([^`>]+)>`/g,
+    sub: (_, text, anchor) => {
+      const url = anchorMap.get(anchor);
+      return url ? `[${text}](${url})` : text;
+    },
+  },
+  {
+    name: 'autocrossref-bare',
+    re: /\{ref\}`([^`<>]+)`/g,
+    sub: (_, anchor) => {
+      const url = anchorMap.get(anchor);
+      return url ? `[${anchor}](${url})` : anchor;
+    },
+  },
+
+  // {term} references the user-facing glossary. Leaving as plain text
+  // for now — the glossary's converted definition-list structure has
+  // no per-term anchors yet, so generating links would create dozens
+  // of broken-anchor warnings. Wiring per-term anchors into the
+  // glossary is a separate later task.
   {name: 'term-with-text', re: /\{term\}`([^`<]+?)\s*<[^`>]+>`/g, sub: '$1'},
   {name: 'term-bare',      re: /\{term\}`([^`<>]+)`/g,            sub: '$1'},
   {name: 'actual',   re: /\{actual\}`([^`]+)`/g,   sub: '$1'},
@@ -155,6 +227,15 @@ const passes = [
   //     the link so it matches the actual route.
   {name: 'strip-index-suffix', re: /\]\((\.\.\/[^)]+?)\/index(#[^)]*)?\)/g, sub: ']($1$2)'},
 
+  // 5d. Specific auto-slug → explicit-id link fixup. The Sphinx-era
+  //     link `#block-signature` referenced the heading auto-slug, but
+  //     `myst-anchor-to-heading-id` now overrides that heading with
+  //     the MyST short label `{#blocksig}`, so the auto-slug no
+  //     longer resolves. One known reference; rewrite it to point at
+  //     the explicit ID. Add similar entries here when other auto-slug
+  //     references surface in the build warnings.
+  {name: 'fixup-block-signature-anchor', re: /#block-signature\b/g, sub: '#blocksig'},
+
   // 6. <https://…> autolinks → [URL](URL). MDX reads `<` as the start
   //    of a JSX tag and chokes on the `://` slashes.
   {name: 'autolink-url', re: /<((?:https?|ftp|mailto):[^>\s]+)>/g, sub: '[$1]($1)'},
@@ -195,20 +276,16 @@ const passes = [
   {name: 'container-directives', fn: stripContainerDirectives},
   {name: 'note-directives',      fn: convertNoteDirectives},
 
-  // 3g. MyST `(name)=` anchor labels followed by a heading become an
-  //     HTML anchor on its own line, immediately before the heading.
-  //     MDX v3 reads `{#id}` as a JSX expression and crashes, so we
-  //     can't use Docusaurus's `## Heading {#id}` syntax. Putting the
-  //     anchor on the heading line itself contaminates the auto-slug
-  //     (e.g. "Block Signature" stops slugifying as "block-signature").
-  //     A standalone <a id="…"/> before the heading keeps the slug
-  //     clean and gives us a runtime scroll target for `#name`
-  //     fragments in cross-doc links — Docusaurus may still warn that
-  //     such an anchor isn't a heading, but the link works.
+  // 3g. MyST `(name)=` anchor labels followed by a heading become a
+  //     Docusaurus explicit heading ID on the heading line. With
+  //     `markdown.format: 'detect'` in docusaurus.config.ts the .md
+  //     files parse as plain Markdown (not MDX), so the `{#id}`
+  //     syntax is honoured by the anchor scanner — cross-doc links
+  //     to `#id` resolve cleanly.
   {
-    name: 'myst-anchor-to-html',
-    re: /^\(([a-z][a-z0-9_-]*)\)=\s*\n\s*\n(#{1,6}\s+[^\n]+)$/gm,
-    sub: '<a id="$1"></a>\n\n$2',
+    name: 'myst-anchor-to-heading-id',
+    re: /^\(([a-z][a-z0-9_-]*)\)=\s*\n\s*\n(#{1,6}\s+[^\n]+?)\s*$/gm,
+    sub: '$2 {#$1}',
   },
 ];
 
