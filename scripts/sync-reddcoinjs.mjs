@@ -21,7 +21,7 @@
  */
 
 import {execSync} from 'node:child_process';
-import {cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -77,5 +77,29 @@ if (existsSync(readme)) {
 }
 const mediaDir = join(target, '_media');
 if (existsSync(mediaDir)) rmSync(mediaDir, {recursive: true});
+
+// Every typedoc-generated README.md shares a breadcrumb preface
+// before its real H1 (e.g. "[**reddcoinjs-lib v7.0.1-rdd.1**](…)
+// • **Docs**\n\n***\n\n# payments"). Docusaurus's title extractor
+// reads the first heading-like construct and lands on "README"
+// (the doc id) instead. Prepend a `title:` frontmatter pulled from
+// the H1 so the navbar / breadcrumbs / `<title>` are sensible.
+function* walkReadmes(dir) {
+  for (const ent of readdirSync(dir, {withFileTypes: true})) {
+    const p = join(dir, ent.name);
+    if (ent.isDirectory()) yield* walkReadmes(p);
+    else if (ent.name === 'README.md') yield p;
+  }
+}
+for (const path of walkReadmes(target)) {
+  let body = readFileSync(path, 'utf8');
+  if (/^---\n/.test(body)) continue; // already has frontmatter
+  const m = body.match(/^#\s+(.+?)\s*$/m);
+  const title = m ? m[1].trim() : 'reddcoinjs-lib';
+  // For the top-level README, prefer the package name. For namespace
+  // READMEs the H1 IS the namespace name, which is what we want.
+  body = `---\ntitle: ${title}\n---\n\n` + body;
+  writeFileSync(path, body);
+}
 
 console.log(`> upstream pinned at commit ${UPSTREAM_COMMIT}`);
