@@ -1,0 +1,44 @@
+% This file is licensed under the MIT License (MIT) available on
+% http://opensource.org/licenses/MIT.
+
+# settxfee
+
+`settxfee amount`
+
+Set the transaction fee rate in RDD/kvB for this wallet. Overrides the global -paytxfee command line parameter.
+
+Can be deactivated by passing 0 as the fee. In that case automatic fee selection will be used by default.
+
+## Argument #1 - amount
+
+**Type:** numeric or string, required
+
+The transaction fee rate in RDD/kvB
+
+## Result
+
+```{eval-rst}
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - true|false
+     - boolean
+     - Returns true if successful
+```
+
+## Examples
+
+```{highlight} shell
+```
+
+```
+reddcoin-cli settxfee 0.00001
+```
+
+```
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "settxfee", "params": [0.00001]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+```
+

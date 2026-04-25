@@ -1,0 +1,219 @@
+---
+orphan: true
+---
+
+# Terms
+
+:::{note}
+This is a temporary page with references used as targets for links in the documentation. They should be replaced by adding proper labels inline in the respective pages. This is more easily be done manually so this page acts as a temporary placeholder for that until the automatic import and conversion to RST is completed.
+:::
+
+(signature-script-modification-warning)=
+
+signature_script_modification_warning (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#signature_script_modification_warning))
+
+(term-reddcoin-uri)=
+
+term-reddcoin-uri (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-reddcoin-uri)): A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
+
+(term-certificate-chain)=
+
+term-certificate-chain (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-certificate-chain)): A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+
+(term-coinbase-block-height)=
+
+term-coinbase-block-height (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-coinbase-block-height)): The current block's height encoded into the first bytes of the coinbase field.
+
+(term-fiat)=
+
+term-fiat (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-fiat)): National currencies such as the dollar or euro.
+
+(term-intermediate-certificate)=
+
+term-intermediate-certificate (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-intermediate-certificate)): A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+
+(term-key-index)=
+
+term-key-index (wallets-guide) ([original target](https://reddcoin.com/en/wallets-guide#term-key-index)): An index number used in the HD wallet formula to generate child keys from a parent key.
+
+(term-key-pair)=
+
+term-key-pair (transactions-guide) ([original target](https://reddcoin.com/en/transactions-guide#term-key-pair)): A private key and its derived public key.
+
+(term-label)=
+
+term-label (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-label)): The label parameter of a reddcoin: URI which provides the spender with the receiver's name (unauthenticated).
+
+(term-leaf-certificate)=
+
+term-leaf-certificate (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-leaf-certificate)): The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of reddoshis.
+
+(term-merge)=
+
+term-merge (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-merge)): Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many reddoshis you control.
+
+(term-merge-avoidance)=
+
+term-merge-avoidance (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-merge-avoidance)): A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+
+(term-message)=
+
+term-message (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-message)): A parameter of reddcoin: URIs which allows the receiver to optionally specify a message to the spender.
+
+(term-micropayment-channel)=
+
+term-micropayment-channel (contracts-guide) ([original target](https://reddcoin.com/en/contracts-guide#term-micropayment-channel))
+
+(term-msg-block)=
+
+term-msg_block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_block)): The block header hash data type identifier of an inventory on the P2P network.
+
+(term-msg-cmpct-block)=
+
+term-msg_cmpct_block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_cmpct_block)): An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
+
+(term-msg-filtered-witness-block)=
+
+term-msg_filtered_witness_block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_filtered_witness_block)): An alternative to the block header hash data type identifier of an inventory on the P2P network that is reserved for future use and unused.
+
+(term-msg-tx)=
+
+term-msg_tx (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_tx)): The TXID data type identifier of an inventory on the P2P network.
+
+(term-msg-witness-block)=
+
+term-msg_witness_block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_witness_block)): An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
+
+(term-msg-witness-tx)=
+
+term-msg_witness_tx (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-msg_witness_tx)): An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
+
+(term-op-checkmultisig)=
+
+term-op-checkmultisig (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-checkmultisig)): Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
+
+(term-op-checksig)=
+
+term-op-checksig (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-checksig)): Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key.
+
+(term-op-dup)=
+
+term-op-dup (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-dup)): Operation which duplicates the entry below it on the stack.
+
+(term-op-equal)=
+
+term-op-equal (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-equal)): Operation which returns true if the two entries below it on the stack are equivalent.
+
+(term-op-equalverify)=
+
+term-op-equalverify (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-equalverify)): Operation which terminates the script in failure unless the two entries below it on the stack are equivalent.
+
+(term-op-hash160)=
+
+term-op-hash160 (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-hash160)): Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
+
+(term-op-return)=
+
+term-op-return (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-return)): Operation which terminates the script in failure.
+
+(term-op-verify)=
+
+term-op-verify (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-op-verify)): Operation which terminates the script if the entry below it on the stack is non-true (zero).
+
+(term-output-index)=
+
+term-output-index (transactions-guide) ([original target](https://reddcoin.com/en/transactions-guide#term-output-index)): The sequentially-numbered index of outputs in a single transaction starting from 0.
+
+(term-paymentdetails)=
+
+term-paymentdetails (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-paymentdetails)): The PaymentDetails of the payment protocol which allows the receiver to specify the payment details to the spender.
+
+(term-paymentrequest)=
+
+term-paymentrequest (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-paymentrequest)): The PaymentRequest of the payment protocol which contains and allows signing of the PaymentDetails.
+
+(term-pki)=
+
+term-pki (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pki)): Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+
+(term-point-function)=
+
+term-point-function (wallets-guide) ([original target](https://reddcoin.com/en/wallets-guide#term-point-function)): The ECDSA function used to create a public key from a private key.
+
+(term-pp-amount)=
+
+term-pp-amount (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-amount)): Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of reddoshis they want paid to a particular pubkey script.
+
+(term-pp-expires)=
+
+term-pp-expires (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-expires)): The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
+
+(term-pp-memo)=
+
+term-pp-memo (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-memo)): The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
+
+(term-pp-merchant-data)=
+
+term-pp-merchant-data (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-merchant-data)): The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
+
+(term-pp-pki-data)=
+
+term-pp-pki-data (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-pki-data)): The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
+
+(term-pp-pki-type)=
+
+term-pp-pki-type (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-pki-type)): The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
+
+(term-pp-script)=
+
+term-pp-script (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-pp-script)): The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
+
+(term-previous-block-header-hash)=
+
+term-previous-block-header-hash (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-previous-block-header-hash)): A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
+
+(term-r-parameter)=
+
+term-r-parameter (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-r-parameter)): The payment request parameter in a reddcoin: URI.
+
+(term-receipt)=
+
+term-receipt (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-receipt)): A cryptographically-verifiable receipt created using parts of a payment request and a confirmed transaction.
+
+(term-root-certificate)=
+
+term-root-certificate (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-root-certificate)):
+A certificate belonging to a certificate authority (CA).
+
+(term-ssl-signature)=
+
+term-ssl-signature (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-ssl-signature)): Signatures created and recognized by major SSL implementations such as OpenSSL.
+
+(term-standard-block-relay)=
+
+term-standard-block-relay (p2p-network-guide) ([original target](https://reddcoin.com/en/p2p-network-guide#term-standard-block-relay)): The regular block relay method: announcing a block with an inv message and waiting for a response.
+
+(term-transaction-version-number)=
+
+term-transaction-version-number (transactions-guide) ([original target](https://reddcoin.com/en/transactions-guide#term-transaction-version-number)): A version number prefixed to transactions to allow upgrading.
+
+(term-unique-address)=
+
+term-unique-address (transactions-guide) ([original target](https://reddcoin.com/en/transactions-guide#term-unique-address)): Address which are only used once to protect privacy and increase security.
+
+(term-unsolicited-block-push)=
+
+term-unsolicited-block-push (p2p-network-guide) ([original target](https://reddcoin.com/en/p2p-network-guide#term-unsolicited-block-push)): When a miner sends a block message without sending an inv message first.
+
+(term-uri-qr-code)=
+
+term-uri-qr-code (payment-processing-guide) ([original target](https://reddcoin.com/en/payment-processing-guide#term-uri-qr-code)): A QR code containing a reddcoin: URI.
+
+(term-v2-block)=
+
+term-v2-block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-v2-block)): The current version of Reddcoin blocks.
+
+(term-x509certificates)=
+
+term-x509certificates (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-x509certificates))
+
