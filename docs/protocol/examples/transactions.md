@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 
@@ -610,7 +610,7 @@ Create the raw transaction the same way we’ve done in the previous subsections
 ```
 Attempt to sign the raw transaction without any special arguments, the way we successfully signed the the raw transaction in the Simple Raw Transaction subsection. If you’ve read the [Transaction section](../devguide/transactions) of the guide, you may know why the call fails and leaves the raw transaction hex unchanged.
 
-![Old Transaction Data Required To Be Signed](/img/dev/en-signing-output-to-spend.svg)
+![Old Transaction Data Required To Be Signed](/img/protocol/dev/en-signing-output-to-spend.svg)
 
 Old Transaction Data Required To Be Signed
 As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the [“createrawtransaction”](../reference/rpc/createrawtransaction) raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.

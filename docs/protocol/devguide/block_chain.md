@@ -6,7 +6,7 @@ The block chain provides Reddcoin's public ledger, an ordered and timestamped re
 
 Each full node in the Reddcoin [network](../devguide/p2p_network) independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in [consensus](/glossary/#consensus). The validation rules these nodes follow to maintain consensus are called [consensus rules](/glossary/#consensus-rules). This section describes many of the consensus rules used by Reddcoin Core.
 
-![Block Chain Overview](/img/dev/en-blockchain-overview.svg)
+![Block Chain Overview](/img/protocol/dev/en-blockchain-overview.svg)
 
 Block Chain Overview
 The illustration above shows a simplified version of a block chain. A [block](/glossary/#block) of one or more new transactions is collected into the transaction data part of a block. Copies of each transaction are hashed, and the hashes are then paired, hashed, paired again, and hashed again until a single hash remains, the [merkle root](/glossary/#merkle-root) of a merkle tree.
@@ -15,7 +15,7 @@ The merkle root is stored in the block header. Each block also stores the hash o
 
 Transactions are also chained together. Reddcoin wallet software gives the impression that reddoshis are sent from and to wallets, but bitcoins really move from transaction to transaction. Each transaction spends the reddoshis previously received in one or more earlier transactions, so the input of one transaction is the output of a previous transaction.
 
-![Transaction Propagation](/img/dev/en-transaction-propagation.svg)
+![Transaction Propagation](/img/protocol/dev/en-transaction-propagation.svg)
 
 Transaction Propagation
 A single transaction can create multiple outputs, as would be the case when sending to multiple addresses, but each output of a particular transaction can only be used as an input once in the block chain. Any subsequent reference is a forbidden double spend—an attempt to spend the same reddoshis twice.
@@ -59,7 +59,7 @@ PoS blocks also include a cryptographic block signature using the key that contr
 
 Any Reddcoin staker who constructs a valid stake kernel (or historically, any miner who found a valid PoW hash) can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their [block height](/glossary/#block-height)—the number of blocks between them and the first Reddcoin block (block 0, most commonly known as the [genesis block](/glossary/#genesis-block)).
 
-![Common And Uncommon Block Chain Forks](/img/dev/en-blockchain-fork.svg)
+![Common And Uncommon Block Chain Forks](/img/protocol/dev/en-blockchain-fork.svg)
 
 Common And Uncommon Block Chain Forks
 Multiple blocks can all have the same block height, as is common when two or more stakers each produce a block at roughly the same time. This creates an apparent [fork](/glossary/#fork) in the block chain, as shown in the illustration above.
@@ -113,12 +113,12 @@ To maintain consensus, all full nodes validate blocks using the same consensus r
 
 In the first case, rejection by non-upgraded nodes, mining software which gets block chain data from those non-upgraded nodes refuses to build on the same chain as mining software getting data from upgraded nodes. This creates permanently divergent chains—one for non-upgraded nodes and one for upgraded nodes—called a [hard fork](/glossary/#hard-fork).
 
-![Hard Fork](/img/dev/en-hard-fork.svg)
+![Hard Fork](/img/protocol/dev/en-hard-fork.svg)
 
 Hard Fork
 In the second case, rejection by upgraded nodes, it’s possible to keep the block chain from permanently diverging if upgraded nodes control a majority of the hash rate. That’s because, in this case, non-upgraded nodes will accept as valid all the same blocks as upgraded nodes, so the upgraded nodes can build a stronger chain that the non-upgraded nodes will accept as the best valid block chain. This is called a [soft fork](/glossary/#soft-fork).
 
-![Soft Fork](/img/dev/en-soft-fork.svg)
+![Soft Fork](/img/protocol/dev/en-soft-fork.svg)
 
 Soft Fork
 Although a fork is an actual divergence in block chains, changes to the consensus rules are often described by their potential to create either a hard or soft fork. For example, “increasing the block size above 1 MB requires a hard fork.” In this example, an actual block chain fork is not required—but it is a possible outcome.

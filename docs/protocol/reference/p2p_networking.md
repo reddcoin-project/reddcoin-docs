@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 
@@ -50,7 +50,7 @@ f9beb4d9 ................... Start string: Mainnet
 
 The following [network](../devguide/p2p_network) messages all request or provide data related to transactions and blocks.
 
-![Overview Of P2P Protocol Data Request And Reply Messages](/img/dev/en-p2p-data-messages.svg)
+![Overview Of P2P Protocol Data Request And Reply Messages](/img/protocol/dev/en-p2p-data-messages.svg)
 
 Overview Of P2P Protocol Data Request And Reply Messages
 Many of the data messages use [inventories](/glossary/#inventory) as unique identifiers for transactions and blocks. Inventories have a simple 36-byte structure:
@@ -248,7 +248,7 @@ As seen in the annotated hexdump above, the [“merkleblock” message](../refer
 
 You can use the transaction count to construct an empty merkle tree. We’ll call each entry in the tree a node; on the bottom are TXID nodes—the hashes for these nodes are TXIDs; the remaining nodes (including the merkle root) are non-TXID nodes—they may actually have the same hash as a TXID, but we treat them differently.
 
-![Example Of Parsing A MerkleBlock Message](/img/dev/animated-en-merkleblock-parsing.gif)
+![Example Of Parsing A MerkleBlock Message](/img/protocol/dev/animated-en-merkleblock-parsing.gif)
 
 Example Of Parsing A MerkleBlock Message
 Keep the hashes and flags in the order they appear in the [“merkleblock” message](../reference/p2p_networking#merkleblock). When we say “next flag” or “next hash”, we mean the next flag or hash on the list, even if it’s the first one we’ve used so far.
@@ -283,7 +283,7 @@ It’s easier to understand how to create a [“merkleblock” message](../refer
 
 Create a complete merkle tree with TXIDs on the bottom row and all the other hashes calculated up to the merkle root on the top row. For each transaction that matches the filter, track its TXID node and all of its ancestor nodes.
 
-![Example Of Creating A MerkleBlock Message](/img/dev/animated-en-merkleblock-creation.gif)
+![Example Of Creating A MerkleBlock Message](/img/protocol/dev/animated-en-merkleblock-creation.gif)
 
 Example Of Creating A MerkleBlock Message
 Start processing the tree with the merkle root node. The table below describes how to process both TXID nodes and non-TXID nodes based on whether the node is a match, a match ancestor, or neither a match nor a match ancestor.
@@ -431,7 +431,7 @@ For an example hexdump of the raw transaction format, see the [raw transaction s
 
 The following [network](../devguide/p2p_network) messages all help control the connection between two peers or allow them to advise each other about the rest of the [network](../devguide/p2p_network).
 
-![Overview Of P2P Protocol Control And Advisory Messages](/img/dev/en-p2p-control-messages.svg)
+![Overview Of P2P Protocol Control And Advisory Messages](/img/protocol/dev/en-p2p-control-messages.svg)
 
 Overview Of P2P Protocol Control And Advisory Messages
 Note that almost none of the control messages are authenticated in any way, meaning they can contain incorrect or intentionally harmful information. In addition, this section does not yet cover P2P protocol operation over the [Tor network](https://en.wikipedia.org/wiki/Tor_%28anonymity_network%29); if you would like to contribute information about Tor, please [open an issue](https://github.com/reddcoin-project/reddcoin/issues).
@@ -668,7 +668,7 @@ The following annotated hexdump of a transaction is from the [raw transaction fo
 
 Clients will often want to track inputs that spend outputs (outpoints) relevant to their wallet, so the filterload field *nFlags* can be set to allow the filtering node to update the filter when a match is found. When the filtering node sees a pubkey script that pays a pubkey, address, or other data element matching the filter, the filtering node immediately updates the filter with the outpoint corresponding to that pubkey script.
 
-![Automatically Updating Bloom Filters](/img/dev/en-bloom-update.svg)
+![Automatically Updating Bloom Filters](/img/protocol/dev/en-bloom-update.svg)
 
 Automatically Updating Bloom Filters
 If an input later spends that outpoint, the filter will match it, allowing the filtering node to tell the client that one of its transaction outputs has been spent.

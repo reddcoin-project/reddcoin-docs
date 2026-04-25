@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 
@@ -13,7 +13,7 @@ Payment processing encompasses the steps spenders and receivers perform to make 
 
 This section will explain how receivers and spenders can, respectively, request and make payments using Reddcoin—and how they can deal with complications such as [refunds](../devguide/payment_processing#issuing-refunds) and [recurrent rebilling](../devguide/payment_processing#rebilling-recurring-payments).
 
-![Reddcoin Payment Processing](/img/dev/en-payment-processing.svg)
+![Reddcoin Payment Processing](/img/protocol/dev/en-payment-processing.svg)
 
 Reddcoin Payment Processing
 The figure above illustrates payment processing using Reddcoin from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
@@ -106,7 +106,7 @@ QR codes are a popular way to exchange [“reddcoin:” URIs](/glossary/terms#te
 
 The figure below shows the same [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) code encoded as four different [Reddcoin QR codes](/glossary/terms#term-uri-qr-code) at four different error correction levels. The QR code can include the [“label”](/glossary/terms#term-label) and [“message”](/glossary/terms#term-message) parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
 
-![Reddcoin QR Codes](/img/dev/en-qr-code.svg)
+![Reddcoin QR Codes](/img/protocol/dev/en-qr-code.svg)
 
 Reddcoin QR Codes
 The error correction is combined with a checksum to ensure the [Reddcoin QR code](/glossary/terms#term-uri-qr-code) cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
@@ -137,7 +137,7 @@ None of the parameters provided above, except [“r”](/glossary/terms#term-r-p
 
 The [“r”](/glossary/terms#term-r-parameter) parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a [PaymentRequest](/glossary/terms#term-paymentrequest) from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI.
 
-![BIP70 Payment Protocol](/img/dev/en-payment-protocol.svg)
+![BIP70 Payment Protocol](/img/protocol/dev/en-payment-protocol.svg)
 
 BIP70 Payment Protocol
 The Payment Protocol is described in depth in [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki), [BIP71](https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki), and [BIP72](https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki). An example CGI program and description of all the parameters which can be used in the Payment Protocol is provided in the Developer Examples [Payment Protocol](../examples/payment_processing#payment-protocol) subsection. In this subsection, we will briefly describe in story format how the Payment Protocol is typically used.
@@ -166,7 +166,7 @@ After receiving the HTTP GET to the URL above, the [PaymentRequest](/glossary/te
 
 That [PaymentDetails](/glossary/terms#term-paymentdetails) message is put inside a [PaymentRequest](/glossary/terms#term-paymentrequest) message. The payment request lets Bob’s server sign the entire Request with the server’s [X.509](https://en.wikipedia.org/wiki/X.509) SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
 
-![Reddcoin Core Showing Validated Payment Request](/img/dev/en-btcc-payment-request.png)
+![Reddcoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
 
 Reddcoin Core Showing Validated Payment Request
 Charlie’s wallet receives the [PaymentRequest](/glossary/terms#term-paymentrequest) message, checks its signature, and then displays the details from the [PaymentDetails](/glossary/terms#term-paymentdetails) message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Reddcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the [network](../devguide/p2p_network). Instead, the wallet constructs a Payment message and sends it to the URL provided in the [PaymentDetails](/glossary/terms#term-paymentdetails) message as an HTTP POST. Among other things, the Payment message contains:

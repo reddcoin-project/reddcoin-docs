@@ -56,7 +56,7 @@ If a block only has a coinbase transaction and one other transaction, the TXIDs 
 
 If a block has three or more transactions, intermediate merkle tree rows are formed. The TXIDs are placed in order and paired, starting with the coinbase transaction’s TXID. Each pair is concatenated together as 64 raw bytes and SHA256(SHA256()) hashed to form a second row of hashes. If there are an odd (non-even) number of TXIDs, the last TXID is concatenated with a copy of itself and hashed. If there are more than two hashes in the second row, the process is repeated to create a third row (and, if necessary, repeated further to create additional rows). Once a row is obtained with only two hashes, those hashes are concatenated and hashed to produce the merkle root.
 
-![Example Merkle Tree Construction](/img/dev/en-merkle-tree-construction.svg)
+![Example Merkle Tree Construction](/img/protocol/dev/en-merkle-tree-construction.svg)
 
 Example Merkle Tree Construction
 TXIDs and intermediate hashes are always in internal byte order when they’re concatenated, and the resulting merkle root is also in internal byte order when it’s placed in the block header.
@@ -65,12 +65,12 @@ TXIDs and intermediate hashes are always in internal byte order when they’re c
 
 The target threshold is a 256-bit unsigned integer which a header hash must be equal to or below in order for that header to be a valid part of the block chain. However, the header field *nBits* provides only 32 bits of space, so the target number uses a less precise format called “compact” which works like a base-256 version of scientific notation:
 
-![Converting nBits Into A Target Threshold](/img/dev/en-nbits-overview.svg)
+![Converting nBits Into A Target Threshold](/img/protocol/dev/en-nbits-overview.svg)
 
 Converting nBits Into A Target Threshold
 As a base-256 number, nBits can be quickly parsed as bytes the same way you might parse a decimal number in base-10 scientific notation:
 
-![Quickly Converting nBits](/img/dev/en-nbits-quick-parse.svg)
+![Quickly Converting nBits](/img/protocol/dev/en-nbits-quick-parse.svg)
 
 Quickly Converting nBits
 Although the target threshold should be an unsigned integer, the original nBits implementation inherits properties from a signed data class, allowing the target threshold to be negative if the high bit of the significand is set. This is useless—the header hash is treated as an unsigned number, so it can never be equal to or lower than a negative target threshold. Reddcoin Core deals with this in two ways:

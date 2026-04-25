@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 

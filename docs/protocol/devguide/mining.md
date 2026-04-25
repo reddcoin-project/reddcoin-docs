@@ -18,7 +18,7 @@ Mining took on two forms:
 
 As illustrated below, solo miners typically use `reddcoind` to get new transactions from the [network](../devguide/p2p_network). Their mining software periodically polls `reddcoind` for new transactions using the [“getblocktemplate” RPC](../reference/rpc/getblocktemplate), which provides the list of new transactions plus the public key to which the coinbase transaction should be sent.
 
-![Solo Reddcoin Mining](/img/dev/en-solo-mining-overview.svg)
+![Solo Reddcoin Mining](/img/protocol/dev/en-solo-mining-overview.svg)
 
 Solo Reddcoin Mining
 The mining software constructs a block using the template (described below) and creates a block header. It then sends the 80-byte block header to its mining hardware (an ASIC) along with a target threshold (difficulty setting). The mining hardware iterates through every possible value for the block header nonce and generates the corresponding hash.
@@ -31,7 +31,7 @@ On the other hand, if a hash is found below the target threshold, the mining har
 
 Pool miners follow a similar workflow, illustrated below, which allows mining pool operators to pay miners based on their share of the work done. The mining pool gets new transactions from the [network](../devguide/p2p_network) using `reddcoind`. Using one of the methods discussed later, each miner’s mining software connects to the pool and requests the information it needs to construct block headers.
 
-![Pooled Reddcoin Mining](/img/dev/en-pooled-mining-overview.svg)
+![Pooled Reddcoin Mining](/img/protocol/dev/en-pooled-mining-overview.svg)
 
 Pooled Reddcoin Mining
 In pooled mining, the mining pool sets the target threshold a few orders of magnitude higher (less difficult) than the [network](../devguide/p2p_network) difficulty. This causes the mining hardware to return many block headers which don’t hash to a value eligible for inclusion on the block chain but which do hash below the pool’s target, proving (on average) that the miner checked a percentage of the possible hash values.

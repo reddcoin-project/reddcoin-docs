@@ -61,19 +61,19 @@ Reddcoin Core uses the IBD method any time the last block on its local best bloc
 
 Reddcoin Core (up until version [0.9.3](https://github.com/reddcoin-project/reddcoin/releases)) uses a simple initial block download (IBD) method we’ll call *blocks-first*. The goal is to download the blocks from the best block chain in sequence.
 
-![Overview Of Blocks-First Method](/img/dev/en-blocks-first-flowchart.svg)
+![Overview Of Blocks-First Method](/img/protocol/dev/en-blocks-first-flowchart.svg)
 
 Overview Of Blocks-First Method
 The first time a node is started, it only has a single block in its local best block chain—the hardcoded genesis block (block 0). This node chooses a remote peer, called the sync node, and sends it the [“getblocks” message](../reference/p2p_networking#getblocks) illustrated below.
 
-![First GetBlocks Message Sent During IBD](/img/dev/en-ibd-getblocks.svg)
+![First GetBlocks Message Sent During IBD](/img/protocol/dev/en-ibd-getblocks.svg)
 
 First GetBlocks Message Sent During IBD
 In the header hashes field of the [“getblocks” message](../reference/p2p_networking#getblocks), this new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
 Upon [receipt](/glossary/terms#term-receipt) of the [“getblocks” message](../reference/p2p_networking#getblocks), the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 500 block inventories (the maximum response to a [“getblocks” message](../reference/p2p_networking#getblocks)) starting from block 1. It sends these inventories in the [“inv” message](../reference/p2p_networking#inv) illustrated below.
 
-![First Inv Message Sent During IBD](/img/dev/en-ibd-inv.svg)
+![First Inv Message Sent During IBD](/img/protocol/dev/en-ibd-inv.svg)
 
 First Inv Message Sent During IBD
 Inventories are unique identifiers for information on the [network](../devguide/p2p_network). Each inventory contains a type field and the unique identifier for an instance of the object. For blocks, the unique identifier is a hash of the block’s header.
@@ -82,19 +82,19 @@ The block inventories appear in the [“inv” message](../reference/p2p_network
 
 The IBD node uses the received inventories to request 128 blocks from the sync node in the [“getdata” message](../reference/p2p_networking#getdata) illustrated below.
 
-![First GetData Message Sent During IBD](/img/dev/en-ibd-getdata.svg)
+![First GetData Message Sent During IBD](/img/protocol/dev/en-ibd-getdata.svg)
 
 First GetData Message Sent During IBD
 It’s important to blocks-first nodes that the blocks be requested and sent in order because each block header references the header hash of the preceding block. That means the IBD node can’t fully validate a block until its parent block has been received. Blocks that can’t be validated because their parents haven’t been received are called orphan blocks; a subsection below describes them in more detail.
 
 Upon [receipt](/glossary/terms#term-receipt) of the [“getdata” message](../reference/p2p_networking#getdata), the sync node replies with each of the blocks requested. Each block is put into serialized block format and sent in a separate [“block” message](../reference/p2p_networking#block). The first [“block” message](../reference/p2p_networking#block) sent (for block 1) is illustrated below.
 
-![First Block Message Sent During IBD](/img/dev/en-ibd-block.svg)
+![First Block Message Sent During IBD](/img/protocol/dev/en-ibd-block.svg)
 
 First Block Message Sent During IBD
 The IBD node downloads each block, validates it, and then requests the next block it hasn’t requested yet, maintaining a queue of up to 128 blocks to download. When it has requested every block for which it has an inventory, it sends another [“getblocks” message](../reference/p2p_networking#getblocks) to the sync node requesting the inventories of up to 500 more blocks. This second [“getblocks” message](../reference/p2p_networking#getblocks) contains multiple header hashes as illustrated below:
 
-![Second GetBlocks Message Sent During IBD](/img/dev/en-ibd-getblocks2.svg)
+![Second GetBlocks Message Sent During IBD](/img/protocol/dev/en-ibd-getblocks2.svg)
 
 Second GetBlocks Message Sent During IBD
 Upon [receipt](/glossary/terms#term-receipt) of the second [“getblocks” message](../reference/p2p_networking#getblocks), the sync node searches its local best block chain for a block that matches one of the header hashes in the message, trying each hash in the order they were received. If it finds a matching hash, it replies with 500 block inventories starting with the next block from that point. But if there is no matching hash (besides the stopping hash), it assumes the only block the two nodes have in common is block 0 and so it sends an `inv` starting with block 1 (the same [“inv” message](../reference/p2p_networking#inv) seen several illustrations above).
@@ -127,19 +127,19 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 
 [Reddcoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best [header chain](/glossary/#header-chain), partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
-![Overview Of Headers-First Method](/img/dev/en-headers-first-flowchart.svg)
+![Overview Of Headers-First Method](/img/protocol/dev/en-headers-first-flowchart.svg)
 
 Overview Of Headers-First Method
 The first time a node is started, it only has a single block in its local best block chain—the hardcoded genesis block (block 0). The node chooses a remote peer, which we’ll call the sync node, and sends it the [“getheaders” message](../reference/p2p_networking#getheaders) illustrated below.
 
-![First getheaders message](/img/dev/en-ibd-getheaders.svg)
+![First getheaders message](/img/protocol/dev/en-ibd-getheaders.svg)
 
 First getheaders message
 In the header hashes field of the [“getheaders” message](../reference/p2p_networking#getheaders), the new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
 Upon [receipt](/glossary/terms#term-receipt) of the [“getheaders” message](../reference/p2p_networking#getheaders), the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 2,000 header (the maximum response) starting from block 1. It sends these header hashes in the [“headers” message](../reference/p2p_networking#headers) illustrated below.
 
-![First headers message](/img/dev/en-ibd-headers.svg)
+![First headers message](/img/protocol/dev/en-ibd-headers.svg)
 
 First headers message
 The IBD node can partially validate these block headers by ensuring that all fields follow consensus rules and that the hash of the header is below the target threshold according to the nBits field. (Full validation still requires all transactions from the corresponding block.)
@@ -154,7 +154,7 @@ After the IBD node has partially validated the block headers, it can do two thin
 
    To spread the load between multiple peers, Reddcoin Core will only request up to 16 blocks at a time from a single peer. Combined with its maximum of 8 outbound connections, this means headers-first Reddcoin Core will request a maximum of 128 blocks simultaneously during IBD (the same maximum number that blocks-first Reddcoin Core requested from its sync node).
 
-![Simulated Headers-First Download Window](/img/dev/en-headers-first-moving-window.svg)
+![Simulated Headers-First Download Window](/img/protocol/dev/en-headers-first-moving-window.svg)
 
 Simulated Headers-First Download Window
 Reddcoin Core’s headers-first mode uses a 1,024-block moving download window to maximize download speed. The lowest-height block in the window is the next block to be validated; if the block hasn’t arrived by the time Reddcoin Core is ready to validate it, Reddcoin Core will wait a minimum of two more seconds for the stalling node to send the block. If the block still hasn’t arrived, Reddcoin Core will disconnect from the stalling node and attempt to connect to another node. For example, in the illustration above, Node A will be disconnected if it doesn’t send block 3 within at least two seconds.
@@ -206,7 +206,7 @@ Full nodes validate the received block and then advertise it to their peers usin
 
 Blocks-first nodes may download orphan blocks—blocks whose [previous block header hash](/glossary/terms#term-previous-block-header-hash) field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
 
-![Difference Between Orphan And Stale Blocks](/img/dev/en-orphan-stale-definition.svg)
+![Difference Between Orphan And Stale Blocks](/img/protocol/dev/en-orphan-stale-definition.svg)
 
 Difference Between Orphan And Stale Blocks
 When a blocks-first node downloads an orphan block, it will not validate it. Instead, it will send a [“getblocks” message](../reference/p2p_networking#getblocks) to the node which sent the orphan block; the broadcasting node will respond with an [“inv” message](../reference/p2p_networking#inv) containing inventories of any blocks the downloading node is missing (up to 500); the downloading node will request those blocks with a [“getdata” message](../reference/p2p_networking#getdata); and the broadcasting node will send those blocks with a [“block” message](../reference/p2p_networking#block). The downloading node will validate those blocks, and once the parent of the former orphan block has been validated, it will validate the former orphan block.

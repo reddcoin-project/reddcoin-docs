@@ -8,14 +8,14 @@ This section will describe each part and demonstrate how to use them together to
 
 To keep things simple, this section pretends coinbase transactions do not exist. Coinbase transactions can only be created by Reddcoin miners and they’re an exception to many of the rules listed below. Instead of pointing out the coinbase exception to each rule, we invite you to read about coinbase transactions in the block chain section of this guide.
 
-![The Parts Of A Transaction](/img/dev/en-tx-overview.svg)
+![The Parts Of A Transaction](/img/protocol/dev/en-tx-overview.svg)
 
 The Parts Of A Transaction
 The figure above shows the main parts of a Reddcoin transaction. Each transaction has at least one input and one output. Each [input](/glossary/#input) spends the reddoshis paid to a previous output. Each [output](/glossary/#output) then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Reddcoin wallet tells you that you have a 10,000 reddoshi balance, it really means that you have 10,000 reddoshis waiting in one or more UTXOs.
 
 Each transaction is prefixed by a four-byte [transaction version number](/glossary/terms#term-transaction-version-number) which tells Reddcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
-![Spending An Output](/img/dev/en-tx-overview-spending.svg)
+![Spending An Output](/img/protocol/dev/en-tx-overview-spending.svg)
 
 Spending An Output
 An output has an implied index number based on its location in the transaction—the index of the first output is zero. The output also has an amount in reddoshis which it pays to a conditional pubkey script. Anyone who can satisfy the conditions of that pubkey script can spend up to the amount of reddoshis paid to it.
@@ -24,7 +24,7 @@ An input uses a transaction identifier (txid) and an [output index](/glossary/te
 
 The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. [P2PKH](/glossary/#p2pkh-address) lets Alice spend reddoshis to a typical Reddcoin address, and then lets Bob further spend those reddoshis using a simple cryptographic [key pair](/glossary/terms#term-key-pair).
 
-![Creating A P2PKH Public Key Hash To Receive Payment](/img/dev/en-creating-p2pkh-output.svg)
+![Creating A P2PKH Public Key Hash To Receive Payment](/img/protocol/dev/en-creating-p2pkh-output.svg)
 
 Creating A P2PKH Public Key Hash To Receive Payment
 Bob must first generate a private/public [key pair](/glossary/terms#term-key-pair) before Alice can create the first transaction. Reddcoin uses the Elliptic Curve Digital Signature Algorithm ([ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA)) with the [secp256k1](http://www.secg.org/sec2-v2.pdf) curve; [secp256k1](http://www.secg.org/sec2-v2.pdf) [private keys](/glossary/#private-key) are 256 bits of random data. A copy of that data is deterministically transformed into an [secp256k1](http://www.secg.org/sec2-v2.pdf) [public key](/glossary/#public-key). Because the transformation can be reliably repeated later, the public key does not need to be stored.
@@ -41,7 +41,7 @@ When, some time later, Bob decides to spend the UTXO, he must create an input wh
 
 Pubkey scripts and signature scripts combine [secp256k1](http://www.secg.org/sec2-v2.pdf) pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
 
-![Unlocking A P2PKH Output For Spending](/img/dev/en-unlocking-p2pkh-output.svg)
+![Unlocking A P2PKH Output For Spending](/img/protocol/dev/en-unlocking-p2pkh-output.svg)
 
 Unlocking A P2PKH Output For Spending
 For a P2PKH-style output, Bob’s signature script will contain the following two pieces of data:
@@ -51,7 +51,7 @@ For a P2PKH-style output, Bob’s signature script will contain the following tw
 
 Bob’s [secp256k1](http://www.secg.org/sec2-v2.pdf) signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the [peer-to-peer network](../devguide/p2p_network).
 
-![Some Things Signed When Spending An Output](/img/dev/en-signing-output-to-spend.svg)
+![Some Things Signed When Spending An Output](/img/protocol/dev/en-signing-output-to-spend.svg)
 
 Some Things Signed When Spending An Output
 As illustrated in the figure above, the data Bob signs includes the txid and [output index](/glossary/terms#term-output-index) of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of reddoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures.
@@ -76,7 +76,7 @@ The script language is a [Forth-like](https://en.wikipedia.org/wiki/Forth_%28pro
 
 To test whether the transaction is valid, signature script and pubkey script operations are executed one item at a time, starting with Bob’s signature script and continuing to the end of Alice’s pubkey script. The figure below shows the evaluation of a standard P2PKH pubkey script; below the figure is a description of the process.
 
-![P2PKH Stack Evaluation](/img/dev/en-p2pkh-stack.svg)
+![P2PKH Stack Evaluation](/img/protocol/dev/en-p2pkh-stack.svg)
 
 P2PKH Stack Evaluation
 - The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
@@ -105,12 +105,12 @@ To solve these problems, pay-to-script-hash ([P2SH](/glossary/#p2sh-address)) tr
 
 The basic P2SH workflow, illustrated below, looks almost identical to the P2PKH workflow. Bob creates a redeem script with whatever script he wants, hashes the redeem script, and provides the redeem script hash to Alice. Alice creates a P2SH-style output containing Bob’s redeem script hash.
 
-![Creating A P2SH Redeem Script And Hash](/img/dev/en-creating-p2sh-output.svg)
+![Creating A P2SH Redeem Script And Hash](/img/protocol/dev/en-creating-p2sh-output.svg)
 
 Creating A P2SH Redeem Script And Hash
 When Bob wants to spend the output, he provides his signature along with the full (serialized) redeem script in the signature script. The [peer-to-peer network](../devguide/p2p_network) ensures the full redeem script hashes to the same value as the script hash Alice put in her output; it then processes the redeem script exactly as it would if it were the primary pubkey script, letting Bob spend the output if the redeem script does not return false.
 
-![Unlocking A P2SH Output For Spending](/img/dev/en-unlocking-p2sh-output.svg)
+![Unlocking A P2SH Output For Spending](/img/protocol/dev/en-unlocking-p2sh-output.svg)
 
 Unlocking A P2SH Output For Spending
 The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard Reddcoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.

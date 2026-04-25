@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 
@@ -29,7 +29,7 @@ Note: we speak about distributing public keys generically. In many cases, P2PKH 
 
 The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.
 
-![Full-Service Wallets](/img/dev/en-wallets-full-service.svg)
+![Full-Service Wallets](/img/protocol/dev/en-wallets-full-service.svg)
 
 Full-Service Wallets
 As of this writing, almost all popular wallets can be used as full-service wallets.
@@ -46,7 +46,7 @@ To increase security, private keys can be generated and stored by a separate wal
 
 Signing-only wallets programs typically use deterministic key creation (described in a later subsection) to create parent private and public keys which can create child private and public keys.
 
-![Signing-Only Wallets](/img/dev/en-wallets-signing-only.svg)
+![Signing-Only Wallets](/img/protocol/dev/en-wallets-signing-only.svg)
 
 Signing-Only Wallets
 When first run, the signing-only wallet creates a parent private key and transfers the corresponding parent public key to the networked wallet.
@@ -95,7 +95,7 @@ An additional (hopefully temporary) disadvantage is that, as of this writing, ve
 
 Wallet programs which run in difficult-to-secure environments, such as webservers, can be designed to distribute public keys (including P2PKH or P2SH addresses) and nothing more. There are two common ways to design these minimalist wallets:
 
-![Distributing-Only Wallets](/img/dev/en-wallets-distributing-only.svg)
+![Distributing-Only Wallets](/img/protocol/dev/en-wallets-distributing-only.svg)
 
 Distributing-Only Wallets
 - Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To [avoid key reuse](../devguide/transactions#avoiding-key-reuse), webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
@@ -145,7 +145,7 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 
 Reddcoin [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public keys represent a point on a particular Elliptic Curve (EC) defined in [secp256k1](http://www.secg.org/sec2-v2.pdf). In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Reddcoin, y2 = x3 + 7, over a field of contiguous numbers.
 
-![Point On ECDSA Curve](/img/dev/en-ecdsa-compressed-public-key.svg)
+![Point On ECDSA Curve](/img/protocol/dev/en-ecdsa-compressed-public-key.svg)
 
 Point On ECDSA Curve
 ([Secp256k1](http://www.secg.org/sec2-v2.pdf) actually modulos coordinates by a large prime, which produces a field of non-contiguous integers and a significantly less clear plot, although the principles are the same.)
@@ -198,7 +198,7 @@ Whether creating child public keys or further-descended public keys, a predictab
 
 The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a [chain code](/glossary/#chain-code), so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the [master chain code](/glossary/#master-chain-code) to continue being useful even if, for example, a web-based public key distribution program gets hacked.
 
-![Overview Of Hierarchical Deterministic Key Derivation](/img/dev/en-hd-overview.svg)
+![Overview Of Hierarchical Deterministic Key Derivation](/img/protocol/dev/en-hd-overview.svg)
 
 Overview Of Hierarchical Deterministic Key Derivation
 As illustrated above, HD key derivation takes four inputs:
@@ -219,7 +219,7 @@ Specifying different index numbers will create different unlinkable child keys f
 
 Because creating child keys requires both a key and a chain code, the key and chain code together are called the [extended key](/glossary/#extended-key). An [extended private key](/glossary/#extended-key) and its corresponding [extended public key](/glossary/#extended-key) have the same chain code. The (top-level parent) [master private key](/glossary/#master-chain-code) and master chain code are derived from random data, as illustrated below.
 
-![Creating A Root Extended Key Pair](/img/dev/en-hd-root-keys.svg)
+![Creating A Root Extended Key Pair](/img/protocol/dev/en-hd-root-keys.svg)
 
 Creating A Root Extended Key Pair
 A [root seed](/glossary/#hd-wallet-seed) is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
@@ -232,7 +232,7 @@ The root seed is hashed to create 512 bits of seemingly-random data, from which 
 
 Hardened extended keys fix a potential problem with normal extended keys. If an attacker gets a normal parent chain code and parent public key, he can brute-force all chain codes deriving from it. If the attacker also obtains a child, grandchild, or further-descended private key, he can use the chain code to generate all of the extended private keys descending from that private key, as shown in the grandchild and great-grandchild generations of the illustration below.
 
-![Cross-Generational Key Compromise](/img/dev/en-hd-cross-generational-key-compromise.svg)
+![Cross-Generational Key Compromise](/img/protocol/dev/en-hd-cross-generational-key-compromise.svg)
 
 Cross-Generational Key Compromise
 Perhaps worse, the attacker can reverse the normal child private key derivation formula and subtract a parent chain code from a child private key to recover the parent private key, as shown in the child and parent generations of the illustration above. This means an attacker who acquires an extended public key and any private key descended from it can recover that public key’s private key and all keys descended from it.
@@ -243,7 +243,7 @@ This can be fixed, with some tradeoffs, by replacing the normal key derivation f
 
 The normal key derivation formula, described in the section above, combines together the index number, the parent chain code, and the parent public key to create the child chain code and the integer value which is combined with the parent private key to create the child private key.
 
-![Creating Child Public Keys From An Extended Private Key](/img/dev/en-hd-private-parent-to-private-child.svg)
+![Creating Child Public Keys From An Extended Private Key](/img/protocol/dev/en-hd-private-parent-to-private-child.svg)
 
 Creating Child Public Keys From An Extended Private Key
 The hardened formula, illustrated above, combines together the index number, the parent chain code, and the parent private key to create the data used to generate the child chain code and child private key. This formula makes it impossible to create child public keys without knowing the parent private key. In other words, parent extended public keys can’t create hardened child public keys.
@@ -256,7 +256,7 @@ The HD protocol uses different index numbers to indicate whether a normal or har
 
 This compact description is further combined with slashes prefixed by *m* or *M* to indicate hierarchy and key type, with *m* being a private key and *M* being a public key. For example, m/0’/0/122’ refers to the 123rd hardened private child (by index number) of the first normal child (by index) of the first hardened child (by index) of the master private key. The following hierarchy illustrates prime notation and hardened key firewalls.
 
-![Example HD Wallet Tree Using Prime Notation](/img/dev/en-hd-tree.svg)
+![Example HD Wallet Tree Using Prime Notation](/img/protocol/dev/en-hd-tree.svg)
 
 Example HD Wallet Tree Using Prime Notation
 Wallets following the [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) HD protocol only create hardened children of the master private key (*m*) to prevent a compromised child key from compromising the master key. As there are no normal children for the master keys, the master public key is not used in HD wallets. All other keys can have normal children, so the corresponding extended public keys may be used instead.

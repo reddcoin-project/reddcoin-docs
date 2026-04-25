@@ -1,7 +1,7 @@
 ---
 substitutions:
   Warning icon: |-
-    ```{image} /img/icons/icon_warning.svg
+    ```{image} /img/protocol/icons/icon_warning.svg
     ```
 ---
 
@@ -31,7 +31,7 @@ The [PaymentRequest](/glossary/terms#term-paymentrequest) is created with data s
 
 The full sequence of events is illustrated below, starting with the spender clicking a [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) or scanning a `reddcoin:` QR code.
 
-![BIP70 Payment Protocol](/img/dev/en-payment-protocol.svg)
+![BIP70 Payment Protocol](/img/protocol/dev/en-payment-protocol.svg)
 
 BIP70 Payment Protocol
 For the script to use the [protocol buffer](https://developers.google.com/protocol-buffers/), you will need a copy of Google’s [Protocol Buffer](https://developers.google.com/protocol-buffers/) compiler (`protoc`), which is available in most modern Linux package managers and [directly from Google.](https://developers.google.com/protocol-buffers/) Non-Google [protocol buffer](https://developers.google.com/protocol-buffers/) compilers are available for a variety of programming languages. You will also need a copy of the [PaymentRequest](/glossary/terms#term-paymentrequest) [Protocol Buffer description](https://github.com/reddcoin-project/reddcoin/blob/0.19/src/qt/paymentrequest.proto) from the Reddcoin Core source code.
@@ -129,7 +129,7 @@ You must also provide any [intermediate certificates](/glossary/terms#term-inter
 
 The certificates must be provided in a specific order—the same order used by Apache’s `SSLCertificateFile` directive and other server software. The figure below shows the [certificate chain](/glossary/terms#term-certificate-chain) of the www.reddcoin.com [X.509](https://en.wikipedia.org/wiki/X.509) certificate and how each certificate (except the [root certificate](/glossary/terms#term-root-certificate)) would be loaded into the [X509Certificates](/glossary/terms#term-x509certificates) [protocol buffer](https://developers.google.com/protocol-buffers/) message.
 
-![X509Certificates Loading Order](/img/dev/en-cert-order.svg)
+![X509Certificates Loading Order](/img/protocol/dev/en-cert-order.svg)
 
 X509Certificates Loading Order
 To be specific, the first certificate provided must be the [X.509](https://en.wikipedia.org/wiki/X.509) certificate corresponding to the private SSL key which will make the signature, called the [leaf certificate](/glossary/terms#term-leaf-certificate). Any [intermediate certificates](/glossary/terms#term-intermediate-certificate) necessary to link that signed public SSL key to the [root certificate](/glossary/terms#term-root-certificate) (the certificate authority) are attached separately, with each certificate in [DER format](https://en.wikipedia.org/wiki/X.690#DER_encoding) bearing the signature of the certificate that follows it all the way to (but not including) the [root certificate](/glossary/terms#term-root-certificate).
@@ -282,6 +282,6 @@ file.write(stdout, request.SerializeToString())
 
 The following screenshot shows how the authenticated [PaymentDetails](/glossary/terms#term-paymentdetails) created by the program above appears in the GUI from Reddcoin Core 0.9.
 
-![Reddcoin Core Showing Validated Payment Request](/img/dev/en-btcc-payment-request.png)
+![Reddcoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
 
 Reddcoin Core Showing Validated Payment Request

@@ -284,6 +284,16 @@ const passes = [
   //     rules.
   {name: 'fixup-locktime-anchor', re: /#locktime_parsing_rules\b/g, sub: '#locktime-and-sequence-number'},
 
+  // 5g. Image dir reorg per MIGRATION_PLAN.md Section 5: the upstream
+  //     img/{dev,full-node,icons} subtree lives under
+  //     static/img/protocol/ in the new layout. Rewrite all references
+  //     to match. Idempotent — won't re-match `/img/protocol/...`.
+  {
+    name: 'rewrite-image-paths-to-protocol',
+    re: /\/img\/(dev|full-node|icons)\//g,
+    sub: '/img/protocol/$1/',
+  },
+
   // 6. <https://…> autolinks → [URL](URL). MDX reads `<` as the start
   //    of a JSX tag and chokes on the `://` slashes.
   {name: 'autolink-url', re: /<((?:https?|ftp|mailto):[^>\s]+)>/g, sub: '[$1]($1)'},
