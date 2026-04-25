@@ -23,6 +23,7 @@ const config: Config = {
   // until the autocrossref / :ref: rewrite step lands. Warn during the
   // cleanup pass; restore to 'throw' before Phase 1 closes.
   onBrokenLinks: 'warn',
+  onBrokenAnchors: 'warn',
 
   markdown: {
     hooks: {

@@ -149,6 +149,12 @@ const passes = [
   //     relative paths). Preserves any #anchor.
   {name: 'strip-html-ext', re: /\]\(([^)]+?)\.html(#[^)]*)?\)/g, sub: ']($1$2)'},
 
+  // 5c. Trailing /index on relative cross-doc links — Docusaurus
+  //     resolves /protocol/<section>/index to /protocol/<section>/
+  //     because the index doc owns the section root. Drop /index from
+  //     the link so it matches the actual route.
+  {name: 'strip-index-suffix', re: /\]\((\.\.\/[^)]+?)\/index(#[^)]*)?\)/g, sub: ']($1$2)'},
+
   // 6. <https://…> autolinks → [URL](URL). MDX reads `<` as the start
   //    of a JSX tag and chokes on the `://` slashes.
   {name: 'autolink-url', re: /<((?:https?|ftp|mailto):[^>\s]+)>/g, sub: '[$1]($1)'},
@@ -188,6 +194,22 @@ const passes = [
   {name: 'figure-directives',    fn: convertFigureDirectives},
   {name: 'container-directives', fn: stripContainerDirectives},
   {name: 'note-directives',      fn: convertNoteDirectives},
+
+  // 3g. MyST `(name)=` anchor labels followed by a heading become an
+  //     HTML anchor on its own line, immediately before the heading.
+  //     MDX v3 reads `{#id}` as a JSX expression and crashes, so we
+  //     can't use Docusaurus's `## Heading {#id}` syntax. Putting the
+  //     anchor on the heading line itself contaminates the auto-slug
+  //     (e.g. "Block Signature" stops slugifying as "block-signature").
+  //     A standalone <a id="…"/> before the heading keeps the slug
+  //     clean and gives us a runtime scroll target for `#name`
+  //     fragments in cross-doc links — Docusaurus may still warn that
+  //     such an anchor isn't a heading, but the link works.
+  {
+    name: 'myst-anchor-to-html',
+    re: /^\(([a-z][a-z0-9_-]*)\)=\s*\n\s*\n(#{1,6}\s+[^\n]+)$/gm,
+    sub: '<a id="$1"></a>\n\n$2',
+  },
 ];
 
 // Detect a line that is entirely a single-backtick inline-code span

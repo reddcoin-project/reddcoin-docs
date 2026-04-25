@@ -202,7 +202,7 @@ Once the transaction is included in a block, double spends are impossible withou
 
 **6 confirmations**: The [network](../devguide/p2p_network) has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total [network](../devguide/p2p_network) hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
-Reddcoin Core provides several [RPCs](../reference/rpc/index) which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the [“listunspent” RPC](../reference/rpc/listunspent) provides an array of every reddoshi you can spend along with its confirmation score.
+Reddcoin Core provides several [RPCs](../reference/rpc) which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the [“listunspent” RPC](../reference/rpc/listunspent) provides an array of every reddoshi you can spend along with its confirmation score.
 
 Although confirmations provide excellent double-spend protection most of the time, there are at least three cases where double-spend risk analysis can be required:
 

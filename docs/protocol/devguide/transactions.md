@@ -301,7 +301,7 @@ This isn’t a problem for most Reddcoin transactions which are designed to be a
 
 Reddcoin developers have been working to reduce transaction malleability among standard transaction types, one outcome of those efforts is [BIP 141: Segregated Witness](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki), which is supported by Reddcoin Core and was activated in August 2017. When SegWit is not being used, new transactions should not depend on previous transactions which have not been added to the block chain yet, especially if large amounts of reddoshis are at stake.
 
-Transaction malleability also affects payment tracking. Reddcoin Core’s [RPC](../reference/rpc/index) interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the [network](../devguide/p2p_network).
+Transaction malleability also affects payment tracking. Reddcoin Core’s [RPC](../reference/rpc) interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the [network](../devguide/p2p_network).
 
 Current best practices for transaction tracking dictate that a transaction should be tracked by the transaction outputs (UTXOs) it spends as inputs, as they cannot be changed without invalidating the transaction.
 

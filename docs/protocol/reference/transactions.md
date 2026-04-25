@@ -144,7 +144,7 @@ A raw transaction has the following top-level format:
 
 A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section](../reference/transactions#compactsize-unsigned-integers).
 
-(txin)=
+<a id="txin"></a>
 
 ### TxIn: A Transaction Input (Non-Coinbase)
 
@@ -157,7 +157,7 @@ Each non-coinbase input spends an outpoint from a previous transaction. (Coinbas
 | *Varies* | signature script | char[]           | A script-language script which satisfies the conditions placed in the outpoint's pubkey script. Should only contain data pushes; see the signature script modification warning. |
 | 4        | sequence         | uint32_t         | Sequence number. Default for Reddcoin Core and almost all other programs is 0xffffffff.                                                                                                                                        |
 
-(outpoint)=
+<a id="outpoint"></a>
 
 ### Outpoint: The Specific Part Of A Specific Output
 
@@ -168,7 +168,7 @@ Because a single transaction can include multiple outputs, the outpoint structur
 | 32    | hash  | char[32]  | The TXID of the transaction holding the output to spend. The TXID is a hash provided here in internal byte order.                        |
 | 4     | index | uint32_t  | The output index number of the specific output to spend from the transaction. The first output is 0x00000000. |
 
-(txout)=
+<a id="txout"></a>
 
 ### TxOut: A Transaction Output
 
@@ -180,7 +180,7 @@ Each output spends a certain number of reddoshis, placing them under control of 
 | 1+       | pk_script bytes | compactSize uint | Number of bytes in the pubkey script. Maximum is 10,000 bytes.                                                                                                                                                                                                    |
 | *Varies* | pk_script       | char[]           | Defines the conditions which must be satisfied to spend this output.                                                                                                                                                                                              |
 
-(coinbase)=
+<a id="coinbase"></a>
 
 ### Coinbase Transaction (PoS Blocks)
 
@@ -221,7 +221,7 @@ An itemized PoS coinbase transaction (block 5,558,400):
 6690e366 .............................. nTime: transaction timestamp
 ```
 
-(coinstake)=
+<a id="coinstake"></a>
 
 ### Coinstake Transaction
 
@@ -293,7 +293,7 @@ An itemized coinstake transaction (block 5,558,400):
 6690e366 .............................. nTime: transaction timestamp
 ```
 
-(tx-signing)=
+<a id="tx-signing"></a>
 
 ## Transaction Signing
 

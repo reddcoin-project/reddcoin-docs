@@ -48,7 +48,7 @@ In both solo and pool mining, the mining software needs to get the information n
 
 ### getwork RPC
 
-The simplest and earliest method was the now-deprecated Reddcoin Core `getwork` [RPC](../reference/rpc/index), which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `getwork` requests a second. Solo miners may still use `getwork` on v0.9.5 or below, but most pools today discourage or disallow its use.
+The simplest and earliest method was the now-deprecated Reddcoin Core `getwork` [RPC](../reference/rpc), which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `getwork` requests a second. Solo miners may still use `getwork` on v0.9.5 or below, but most pools today discourage or disallow its use.
 
 ### getblocktemplate RPC
 
@@ -61,7 +61,7 @@ An improved method is the Reddcoin Core [“getblocktemplate” RPC](../referenc
 
 Using the transactions received, the mining software adds a nonce to the coinbase extra nonce field and then converts all the transactions into a merkle tree to derive a merkle root it can use in a block header. Whenever the extra nonce field needs to be changed, the mining software rebuilds the necessary parts of the merkle tree and updates the time and merkle root fields in the block header.
 
-Like all `reddcoind` [RPCs](../reference/rpc/index), [“getblocktemplate”](../reference/rpc/getblocktemplate) is sent over HTTP. To ensure they get the most recent work, most miners use [HTTP longpoll](https://en.wikipedia.org/wiki/Push_technology#Long_polling) to leave a [“getblocktemplate”](../reference/rpc/getblocktemplate) request open at all times. This allows the mining pool to push a new [“getblocktemplate”](../reference/rpc/getblocktemplate) to the miner as soon as any miner on the [peer-to-peer network](../devguide/p2p_network) publishes a new block or the pool wants to send more transactions to the mining software.
+Like all `reddcoind` [RPCs](../reference/rpc), [“getblocktemplate”](../reference/rpc/getblocktemplate) is sent over HTTP. To ensure they get the most recent work, most miners use [HTTP longpoll](https://en.wikipedia.org/wiki/Push_technology#Long_polling) to leave a [“getblocktemplate”](../reference/rpc/getblocktemplate) request open at all times. This allows the mining pool to push a new [“getblocktemplate”](../reference/rpc/getblocktemplate) to the miner as soon as any miner on the [peer-to-peer network](../devguide/p2p_network) publishes a new block or the pool wants to send more transactions to the mining software.
 
 ## Stratum
 

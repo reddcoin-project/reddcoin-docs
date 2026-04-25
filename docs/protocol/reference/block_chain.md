@@ -108,7 +108,7 @@ Reddcoin transitioned from Proof of Work to Proof of Stake Velocity (PoSV) at bl
 
 Together, the transaction fees and staking reward are called the block reward. A coinstake transaction is invalid if it tries to spend more value than is available from the block reward.
 
-(blocksig)=
+<a id="blocksig"></a>
 
 ### Block Signature
 

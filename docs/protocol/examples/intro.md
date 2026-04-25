@@ -4,9 +4,9 @@ The following guide aims to provide examples to help you start building Reddcoin
 
 Once installed, you’ll have access to three programs: `reddcoind`, `reddcoin-qt`, and `reddcoin-cli`.
 
-- `reddcoin-qt` provides a combination full Reddcoin peer and wallet frontend. From the Help menu, you can access a console where you can enter the [RPC](../reference/rpc/index) commands used throughout this document.
-- `reddcoind` is more useful for programming: it provides a full peer which you can interact with through [RPCs](../reference/rpc/index) to port 45445 (or 55445 for testnet).
-- `reddcoin-cli` allows you to send [RPC](../reference/rpc/index) commands to `reddcoind` from the command line. For example, `reddcoin-cli help`
+- `reddcoin-qt` provides a combination full Reddcoin peer and wallet frontend. From the Help menu, you can access a console where you can enter the [RPC](../reference/rpc) commands used throughout this document.
+- `reddcoind` is more useful for programming: it provides a full peer which you can interact with through [RPCs](../reference/rpc) to port 45445 (or 55445 for testnet).
+- `reddcoin-cli` allows you to send [RPC](../reference/rpc) commands to `reddcoind` from the command line. For example, `reddcoin-cli help`
 
 All three programs get settings from `reddcoin.conf` in the `Reddcoin` application directory:
 
@@ -14,7 +14,7 @@ All three programs get settings from `reddcoin.conf` in the `Reddcoin` applicati
 - OSX: `$HOME/Library/Application Support/Reddcoin/`
 - Linux: `$HOME/.reddcoin/`
 
-To use `reddcoind` and `reddcoin-cli`, you will need to add a [RPC](../reference/rpc/index) password to your `reddcoin.conf` file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
+To use `reddcoind` and `reddcoin-cli`, you will need to add a [RPC](../reference/rpc) password to your `reddcoin.conf` file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
 
 ```
 rpcpassword=change_this_to_a_long_random_password
