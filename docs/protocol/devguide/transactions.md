@@ -289,7 +289,7 @@ Avoiding key reuse can also provide security against attacks which might allow r
 1. Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public keys hidden (hashed) until the first time reddoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.
 2. Unique (non-reused) private keys protect against the second type of attack by only generating one signature per private key, so attackers never get a subsequent signature to use in comparison-based attacks. Existing comparison-based attacks are only practical today when insufficient entropy is used in signing or when the entropy used is exposed by some means, such as a [side-channel attack](https://en.wikipedia.org/wiki/Side_channel_attack).
 
-So, for both privacy and security, we encourage you to build your applications to avoid public key reuse and, when possible, to discourage users from reusing addresses. If your application needs to provide a fixed URI to which payments should be sent, please see the [“reddcoin:” URI section](../devguide/payment_processing#bitcoin-uri) below.
+So, for both privacy and security, we encourage you to build your applications to avoid public key reuse and, when possible, to discourage users from reusing addresses. If your application needs to provide a fixed URI to which payments should be sent, please see the [“reddcoin:” URI section](../devguide/payment_processing#reddcoin-uri) below.
 
 ## Transaction Malleability
 

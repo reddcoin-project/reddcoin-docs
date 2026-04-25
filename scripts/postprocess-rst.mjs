@@ -271,6 +271,19 @@ const passes = [
   //     references surface in the build warnings.
   {name: 'fixup-block-signature-anchor', re: /#block-signature\b/g, sub: '#blocksig'},
 
+  // 5e. Bitcoin-fork legacy: the upstream RST kept `#bitcoin-uri`
+  //     after rebrand. The actual heading in payment_processing.md is
+  //     `### reddcoin: URI` (auto-slug `reddcoin-uri`).
+  {name: 'fixup-bitcoin-uri-anchor', re: /#bitcoin-uri\b/g, sub: '#reddcoin-uri'},
+
+  // 5f. The upstream link `#locktime_parsing_rules` referenced a
+  //     `:ref:` label that was never defined in the source. The
+  //     intended target is the "Locktime And Sequence Number" section
+  //     in devguide/transactions.md (auto-slug
+  //     `locktime-and-sequence-number`), which covers the parsing
+  //     rules.
+  {name: 'fixup-locktime-anchor', re: /#locktime_parsing_rules\b/g, sub: '#locktime-and-sequence-number'},
+
   // 6. <https://…> autolinks → [URL](URL). MDX reads `<` as the start
   //    of a JSX tag and chokes on the `://` slashes.
   {name: 'autolink-url', re: /<((?:https?|ftp|mailto):[^>\s]+)>/g, sub: '[$1]($1)'},

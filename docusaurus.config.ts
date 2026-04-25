@@ -19,11 +19,8 @@ const config: Config = {
   organizationName: 'reddcoin-project',
   projectName: 'reddcoin-docs',
 
-  // Phase 1 conversion leaves a long tail of broken cross-references
-  // until the autocrossref / :ref: rewrite step lands. Warn during the
-  // cleanup pass; restore to 'throw' before Phase 1 closes.
-  onBrokenLinks: 'warn',
-  onBrokenAnchors: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenAnchors: 'throw',
 
   markdown: {
     // .md files parse as plain CommonMark (Docusaurus's heading-ID
