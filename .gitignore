@@ -17,6 +17,9 @@
 # Local deploy config — contains the Droplet origin IP; not for the repo.
 /scripts/deploy.env
 
+# Python venv — created via `python3 -m venv .venv`; contents are not for git.
+/.venv
+
 # Misc
 .DS_Store
 .env.local
