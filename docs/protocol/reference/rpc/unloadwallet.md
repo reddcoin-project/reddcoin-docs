@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # unloadwallet
 
 `unloadwallet ( "wallet_name" load_on_startup )`

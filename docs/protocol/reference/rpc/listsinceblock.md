@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # listsinceblock
 
 `listsinceblock ( "blockhash" target_confirmations include_watchonly include_removed )`

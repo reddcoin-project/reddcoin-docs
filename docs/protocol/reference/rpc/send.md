@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # send
 
 `send [{"address":amount,...},{"data":"hex"},...] ( conf_target "estimate_mode" fee_rate options )`

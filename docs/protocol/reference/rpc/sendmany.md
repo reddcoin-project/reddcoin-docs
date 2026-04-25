@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # sendmany
 
 `sendmany "" {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode" fee_rate verbose )`

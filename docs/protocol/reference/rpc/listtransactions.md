@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # listtransactions
 
 `listtransactions ( "label" count skip include_watchonly )`

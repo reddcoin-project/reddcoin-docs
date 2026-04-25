@@ -104,6 +104,19 @@ const passes = [
   //    text already says "warning"; the icon was rendered by Sphinx.
   {name: 'jinja-warning-icon', re: /\{\{\s*Warning icon\s*\}\}\s*/g, sub: ''},
 
+  // 1b. Strip the Pandoc-style `% …` license-header comment block at
+  //     the very top of 150+ RPC pages. rst2myst preserved them but
+  //     they render as a visible paragraph and — worse, on index.md
+  //     pages — block Docusaurus's H1-based title extraction (the
+  //     /protocol/reference/rpc/ landing was reading as "index"
+  //     instead of "RPC API Reference"). The licence already lives in
+  //     LICENSE; no need to repeat it on every page.
+  {
+    name: 'strip-leading-license-comments',
+    re: /^(?:%[^\n]*\n)+\s*\n/,
+    sub: '',
+  },
+
   // 2. Sphinx role wrappers. {doc} becomes a relative link; {ref} and
   //    {term} drop the wrapper, leaving the human-readable text (the
   //    cross-ref restoration step rebuilds proper links from the

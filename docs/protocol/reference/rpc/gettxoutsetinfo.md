@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # gettxoutsetinfo
 
 `gettxoutsetinfo ( "hash_type" hash_or_height use_index )`

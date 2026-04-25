@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # listreceivedbyaddress
 
 `listreceivedbyaddress ( minconf include_empty include_watchonly "address_filter" )`

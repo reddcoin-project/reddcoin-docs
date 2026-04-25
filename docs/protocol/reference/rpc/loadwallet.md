@@ -1,6 +1,3 @@
-% This file is licensed under the MIT License (MIT) available on
-% http://opensource.org/licenses/MIT.
-
 # loadwallet
 
 `loadwallet "filename" ( load_on_startup )`
