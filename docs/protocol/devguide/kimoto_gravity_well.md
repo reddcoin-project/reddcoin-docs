@@ -103,36 +103,13 @@ EventHorizonDeviationSlow = 1 / EventHorizonDeviation;
 
 This is the distinctive part of KGW. It defines an allowed band `[EventHorizonDeviationSlow, EventHorizonDeviationFast]` that shrinks monotonically toward 1 as the window grows. A handful of representative values:
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-   :widths: 20 25 25 30
-
-   * - Blocks in window
-     - EHD (fast, ratio ≥ this means "too slow")
-     - EHD slow (ratio ≤ this means "too fast")
-     - Allowed deviation from target
-   * - 15
-     - 6.23
-     - 0.16
-     - ±523% / −84%
-   * - 144
-     - 1.71
-     - 0.59
-     - ±71% / −41%
-   * - 360
-     - 1.24
-     - 0.80
-     - ±24% / −20%
-   * - 1,440
-     - 1.05
-     - 0.95
-     - ±5% / −5%
-   * - 10,080
-     - 1.003
-     - 0.997
-     - ±0.3%
-```
+| Blocks in window | EHD (fast, ratio ≥ this means "too slow") | EHD slow (ratio ≤ this means "too fast") | Allowed deviation from target |
+| --- | --- | --- | --- |
+| 15 | 6.23 | 0.16 | ±523% / −84% |
+| 144 | 1.71 | 0.59 | ±71% / −41% |
+| 360 | 1.24 | 0.80 | ±24% / −20% |
+| 1,440 | 1.05 | 0.95 | ±5% / −5% |
+| 10,080 | 1.003 | 0.997 | ±0.3% |
 
 As soon as two conditions are both met — we have accumulated at least `PastBlocksMin` samples **and** `PastRateAdjustmentRatio` has drifted outside the allowed band — the loop stops:
 

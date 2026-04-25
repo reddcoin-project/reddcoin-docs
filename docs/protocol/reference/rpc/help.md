@@ -12,15 +12,7 @@ The command to get help on
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The help text
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The help text |
 

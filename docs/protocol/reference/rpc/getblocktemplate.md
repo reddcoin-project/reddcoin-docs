@@ -43,17 +43,9 @@ null    (json null)
 
 ## Result (If the proposal was not accepted with mode=='proposal')
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - According to BIP22
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | According to BIP22 |
 
 ## Result (Otherwise)
 

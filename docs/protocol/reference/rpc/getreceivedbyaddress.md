@@ -18,17 +18,9 @@ Only include transactions confirmed at least this many times.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The total amount in RDD received at this address.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The total amount in RDD received at this address. |
 
 ## Examples
 

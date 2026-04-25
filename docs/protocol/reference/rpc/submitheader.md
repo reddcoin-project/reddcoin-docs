@@ -14,17 +14,9 @@ the hex-encoded block header data
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - null
-     - json null
-     - None
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| null | json null | None |
 
 ## Examples
 

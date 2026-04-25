@@ -36,17 +36,9 @@ The block in which to look for the transaction
 
 ## Result (if verbose is not set or set to false)
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The serialized, hex-encoded data for 'txid'
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The serialized, hex-encoded data for 'txid' |
 
 ## Result (if verbose is set to true)
 

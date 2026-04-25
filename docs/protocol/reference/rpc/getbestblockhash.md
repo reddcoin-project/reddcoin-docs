@@ -6,17 +6,9 @@ Returns the hash of the best (tip) block in the most-work fully-validated chain.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - the block hash, hex-encoded
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | the block hash, hex-encoded |
 
 ## Examples
 

@@ -24,17 +24,9 @@ The number of blocks to check.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - Verified or not
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | Verified or not |
 
 ## Examples
 

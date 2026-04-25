@@ -18,17 +18,9 @@ The message to create a signature of.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The signature of the message encoded in base 64
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The signature of the message encoded in base 64 |
 
 ## Examples
 

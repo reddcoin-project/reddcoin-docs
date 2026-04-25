@@ -12,17 +12,9 @@ The height index
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - The block hash
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | The block hash |
 
 ## Examples
 

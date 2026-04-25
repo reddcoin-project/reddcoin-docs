@@ -14,17 +14,9 @@ The address type to use. Options are "legacy", "p2sh-segwit", and "bech32".
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The address
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The address |
 
 ## Examples
 

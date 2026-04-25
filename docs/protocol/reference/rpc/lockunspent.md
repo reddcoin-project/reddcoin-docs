@@ -41,17 +41,9 @@ The transaction outputs and within each, the txid (string) vout (numeric).
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - Whether the command was successful or not
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | Whether the command was successful or not |
 
 ## Examples
 

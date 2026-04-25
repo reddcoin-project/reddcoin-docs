@@ -24,17 +24,9 @@ The message that was signed.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - If the signature is verified or not.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | If the signature is verified or not. |
 
 ## Examples
 

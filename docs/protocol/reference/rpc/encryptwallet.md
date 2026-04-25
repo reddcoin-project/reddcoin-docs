@@ -19,17 +19,9 @@ The pass phrase to encrypt the wallet with. It must be at least 1 character, but
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - A string with further instructions
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | A string with further instructions |
 
 ## Examples
 

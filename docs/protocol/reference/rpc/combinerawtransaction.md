@@ -22,17 +22,9 @@ The hex strings of partially signed transactions
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The hex-encoded raw transaction with signature(s)
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The hex-encoded raw transaction with signature(s) |
 
 ## Examples
 

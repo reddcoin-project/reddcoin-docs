@@ -21,17 +21,9 @@ The base64 strings of partially signed transactions
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The base64-encoded partially signed transaction
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The base64-encoded partially signed transaction |
 
 ## Examples
 

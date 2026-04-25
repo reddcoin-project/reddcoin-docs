@@ -12,17 +12,9 @@ The block height to prune up to. May be set to a discrete height, or to a UNIX e
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - Height of the last block pruned
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | Height of the last block pruned |
 
 ## Examples
 

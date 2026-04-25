@@ -28,17 +28,9 @@ Reject transactions whose fee rate is higher than the specified value, expressed
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - The transaction hash in hex
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | The transaction hash in hex |
 
 ## Examples
 

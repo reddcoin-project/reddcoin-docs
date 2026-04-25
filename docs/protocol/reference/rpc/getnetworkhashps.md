@@ -22,17 +22,9 @@ To estimate at the time of the given height.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - Hashes per second estimated
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | Hashes per second estimated |
 
 ## Examples
 

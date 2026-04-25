@@ -8,17 +8,9 @@ Note: Use "getwalletinfo" to query the scanning progress.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - Whether the abort was successful
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | Whether the abort was successful |
 
 ## Examples
 

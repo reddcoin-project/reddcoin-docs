@@ -62,17 +62,9 @@ Marks this transaction as BIP125 replaceable.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The resulting raw transaction (base64-encoded string)
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The resulting raw transaction (base64-encoded string) |
 
 ## Examples
 

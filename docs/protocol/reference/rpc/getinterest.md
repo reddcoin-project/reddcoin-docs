@@ -21,17 +21,9 @@ End time (unixtime).
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The total amount in RDD interest generated for this wallet.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The total amount in RDD interest generated for this wallet. |
 
 ## Examples
 

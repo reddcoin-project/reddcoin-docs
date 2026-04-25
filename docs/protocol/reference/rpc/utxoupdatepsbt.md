@@ -29,17 +29,9 @@ An array of either strings or objects
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The base64-encoded partially signed transaction with inputs updated
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The base64-encoded partially signed transaction with inputs updated |
 
 ## Examples
 

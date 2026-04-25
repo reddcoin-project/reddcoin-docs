@@ -6,17 +6,9 @@ Returns the number of connections to other nodes.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The connection count
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The connection count |
 
 ## Examples
 

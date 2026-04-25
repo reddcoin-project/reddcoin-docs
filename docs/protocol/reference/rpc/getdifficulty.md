@@ -6,17 +6,9 @@ Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - the proof-of-work difficulty as a multiple of the minimum difficulty.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | the proof-of-work difficulty as a multiple of the minimum difficulty. |
 
 ## Examples
 

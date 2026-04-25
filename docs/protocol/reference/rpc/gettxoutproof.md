@@ -30,15 +30,7 @@ If specified, looks for txid in the block with this hash
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - A string that is a serialized, hex-encoded data for the proof.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | A string that is a serialized, hex-encoded data for the proof. |
 

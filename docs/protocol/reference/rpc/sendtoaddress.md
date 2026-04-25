@@ -75,17 +75,9 @@ The fee estimate mode, must be one of (case insensitive):
 
 ## Result (if verbose is not set or set to false)
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - The transaction id.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | The transaction id. |
 
 ## Result (if verbose is set to true)
 

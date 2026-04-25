@@ -33,17 +33,9 @@ Whether the transaction hex is a serialized witness transaction.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The resulting raw transaction (base64-encoded string)
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The resulting raw transaction (base64-encoded string) |
 
 ## Examples
 

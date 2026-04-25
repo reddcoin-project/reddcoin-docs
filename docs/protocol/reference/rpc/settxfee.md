@@ -14,17 +14,9 @@ The transaction fee rate in RDD/kvB
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - Returns true if successful
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | Returns true if successful |
 
 ## Examples
 

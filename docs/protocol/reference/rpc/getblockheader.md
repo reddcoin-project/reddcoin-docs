@@ -42,17 +42,9 @@ true for a json object, false for the hex-encoded data
 
 ## Result (for verbose=false)
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - A string that is serialized, hex-encoded data for block 'hash'
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | A string that is serialized, hex-encoded data for block 'hash' |
 
 ## Examples
 

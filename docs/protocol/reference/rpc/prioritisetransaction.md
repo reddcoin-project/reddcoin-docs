@@ -30,17 +30,9 @@ The fee value (in reddoshis) to add (or subtract, if negative).
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - true|false
-     - boolean
-     - Returns true
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| true\|false | boolean | Returns true |
 
 ## Examples
 

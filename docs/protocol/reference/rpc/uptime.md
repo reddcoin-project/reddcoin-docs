@@ -6,17 +6,9 @@ Returns the total uptime of the server.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The number of seconds that the server has been running
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The number of seconds that the server has been running |
 
 ## Examples
 

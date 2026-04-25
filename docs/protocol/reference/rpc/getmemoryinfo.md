@@ -29,17 +29,9 @@ determines what kind of information is returned.
 
 ## Result (mode "mallocinfo")
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - "<malloc version="1">..."
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | "<malloc version="1">..." |
 
 ## Examples
 

@@ -33,17 +33,9 @@ Also include balance in watch-only addresses (see 'importaddress')
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The total amount in RDD received for this wallet.
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The total amount in RDD received for this wallet. |
 
 ## Examples
 

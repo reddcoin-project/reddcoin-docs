@@ -84,17 +84,9 @@ Specify a fee rate in reddoshi/vB.
 
 ## Result (if verbose is not set or set to false)
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - The transaction id for the send. Only 1 transaction is created regardless of
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | The transaction id for the send. Only 1 transaction is created regardless of |
 
 ## Result (if verbose is set to true)
 

@@ -8,17 +8,9 @@ The genesis block has height 0.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - n
-     - numeric
-     - The current block count
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| n | numeric | The current block count |
 
 ## Examples
 

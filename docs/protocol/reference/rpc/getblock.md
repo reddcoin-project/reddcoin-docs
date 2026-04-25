@@ -22,17 +22,9 @@ The block hash
 
 ## Result (for verbosity = 0)
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - A string that is serialized, hex-encoded data for block 'hash'
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | A string that is serialized, hex-encoded data for block 'hash' |
 
 ## Result (for verbosity = 1)
 

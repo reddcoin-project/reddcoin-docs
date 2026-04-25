@@ -14,17 +14,9 @@ The reddcoin address for the private key
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - str
-     - string
-     - The private key
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| str | string | The private key |
 
 ## Examples
 

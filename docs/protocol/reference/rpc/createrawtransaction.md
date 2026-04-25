@@ -67,17 +67,9 @@ Marks this transaction as BIP125-replaceable.
 
 ## Result
 
-```{eval-rst}
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-   * - hex
-     - string
-     - hex string of the transaction
-```
+| Name | Type | Description |
+| --- | --- | --- |
+| hex | string | hex string of the transaction |
 
 ## Examples
 

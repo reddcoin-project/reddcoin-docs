@@ -346,6 +346,7 @@ const passes = [
   {name: 'figure-directives',    fn: convertFigureDirectives},
   {name: 'container-directives', fn: stripContainerDirectives},
   {name: 'note-directives',      fn: convertNoteDirectives},
+  {name: 'list-table-directives', fn: convertListTables},
 
   // 3g. MyST `(name)=` anchor labels followed by a heading become a
   //     Docusaurus explicit heading ID on the heading line. With
@@ -415,6 +416,79 @@ function convertNoteDirectives(content) {
   return content.replace(
     /^:::\{note\}\s*\n([\s\S]*?)\n:::\s*$/gm,
     ':::note\n$1\n:::',
+  );
+}
+
+// ```{eval-rst}\n.. list-table:: …\n``` → real Markdown table.
+// rst2myst couldn't translate `.. list-table::` so it wrapped it in
+// an `{eval-rst}` block, which renders as raw RST inside a code
+// block — that's the "Result" section mess on most RPC pages.
+//
+// Each row in the source looks like:
+//
+//   * - Name
+//     - Type
+//     - Description
+//   * - str
+//     - string
+//     - The resulting raw transaction
+//
+// We honour `:header-rows: N` and ignore other options (`:widths:`
+// has no Markdown equivalent). Cells are joined with " " on
+// continuation lines and pipes are escaped.
+function convertListTables(content) {
+  const escape = c => c.replace(/\|/g, '\\|');
+
+  return content.replace(
+    /^```\{eval-rst\}\s*\n\.\. list-table::[^\n]*\n([\s\S]*?)\n```$/gm,
+    (match, body) => {
+      const lines = body.split('\n');
+      let i = 0;
+      let headerRows = 0;
+      // Skip directive options at top.
+      while (i < lines.length && /^\s*:[a-z-]+:/.test(lines[i])) {
+        const m = lines[i].match(/header-rows:\s*(\d+)/);
+        if (m) headerRows = parseInt(m[1], 10);
+        i++;
+      }
+      while (i < lines.length && lines[i].trim() === '') i++;
+
+      const rows = [];
+      let cur = null;
+      while (i < lines.length) {
+        const line = lines[i];
+        if (/^\s*\*\s+-/.test(line)) {
+          if (cur) rows.push(cur);
+          cur = [line.replace(/^\s*\*\s+-\s?/, '').trimEnd()];
+        } else if (/^\s+-\s/.test(line) && cur) {
+          cur.push(line.replace(/^\s+-\s?/, '').trimEnd());
+        } else if (line.trim() && cur) {
+          cur[cur.length - 1] = (cur[cur.length - 1] + ' ' + line.trim()).trim();
+        }
+        i++;
+      }
+      if (cur) rows.push(cur);
+
+      if (rows.length === 0) return match;
+      const cols = Math.max(...rows.map(r => r.length));
+      for (const r of rows) while (r.length < cols) r.push('');
+
+      const out = [];
+      if (headerRows >= 1) {
+        out.push('| ' + rows[0].map(escape).join(' | ') + ' |');
+        out.push('|' + rows[0].map(() => ' --- ').join('|') + '|');
+        for (let r = 1; r < rows.length; r++) {
+          out.push('| ' + rows[r].map(escape).join(' | ') + ' |');
+        }
+      } else {
+        out.push('|' + Array(cols).fill('   ').join('|') + '|');
+        out.push('|' + Array(cols).fill(' --- ').join('|') + '|');
+        for (const r of rows) {
+          out.push('| ' + r.map(escape).join(' | ') + ' |');
+        }
+      }
+      return out.join('\n');
+    },
   );
 }
 
