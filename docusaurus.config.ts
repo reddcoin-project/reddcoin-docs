@@ -71,7 +71,7 @@ const config: Config = {
         path: 'docs/protocol',
         routeBasePath: 'protocol',
         sidebarPath: './sidebars/protocol.ts',
-        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/main/',
+        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
       },
     ],
     [
@@ -81,7 +81,7 @@ const config: Config = {
         path: 'docs/guides',
         routeBasePath: 'guides',
         sidebarPath: './sidebars/guides.ts',
-        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/main/',
+        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
       },
     ],
     [
@@ -91,7 +91,7 @@ const config: Config = {
         path: 'docs/contribute',
         routeBasePath: 'contribute',
         sidebarPath: './sidebars/contribute.ts',
-        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/main/',
+        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
       },
     ],
     [
@@ -101,7 +101,7 @@ const config: Config = {
         path: 'docs/glossary',
         routeBasePath: 'glossary',
         sidebarPath: './sidebars/glossary.ts',
-        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/main/',
+        editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
       },
     ],
   ],

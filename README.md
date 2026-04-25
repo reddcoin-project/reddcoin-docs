@@ -99,7 +99,7 @@ Real values are shared out-of-band, not in this repo or in any PR.
 
 ### When to deploy
 
-After a PR merges into `main`. Small content fixes can deploy
+After a PR merges into `master`. Small content fixes can deploy
 immediately. Larger reorganisations — new sections, sidebar
 restructures, theme changes, generated-content syncs — should be
 smoke-tested locally with `npm run build && npm run serve` before
