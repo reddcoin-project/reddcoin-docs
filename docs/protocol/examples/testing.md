@@ -4,7 +4,7 @@ Reddcoin Core provides testing tools designed to let developers test their appli
 
 ## Testnet
 
-When run with no arguments, all Reddcoin Core programs default to Reddcoin’s main [network](../devguide/p2p_network) (mainnet). However, for development, it’s safer and cheaper to use Reddcoin’s test [network](../devguide/p2p_network) (testnet) where the reddoshis spent have no real-world value. Testnet also relaxes some restrictions (such as standard transaction checks) so you can test functions which might currently be disabled by default on mainnet.
+When run with no arguments, all Reddcoin Core programs default to Reddcoin’s main [network](../devguide/p2p_network) ([mainnet](/glossary/#mainnet)). However, for development, it’s safer and cheaper to use Reddcoin’s test [network](../devguide/p2p_network) (testnet) where the reddoshis spent have no real-world value. Testnet also relaxes some restrictions (such as standard transaction checks) so you can test functions which might currently be disabled by default on mainnet.
 
 To use testnet, use the argument `-testnet` with `reddcoin-cli`, `reddcoind` or `reddcoin-qt` or add `testnet=1` to your `reddcoin.conf` file as [described earlier](../examples). To get free reddoshis for testing, use [Piotr Piasecki’s testnet faucet](https://tpfaucet.appspot.com/). Testnet is a public resource provided for free by members of the community, so please don’t abuse it.
 

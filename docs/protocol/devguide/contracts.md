@@ -14,9 +14,9 @@ Charlie-the-customer wants to buy a product from Bob-the-businessman, but neithe
 
 A simple contract could say that Charlie will spend reddoshis to an output which can only be spent if Charlie and Bob both sign the input spending it. That means Bob won’t get paid unless Charlie gets his merchandise, but Charlie can’t get the merchandise and keep his payment.
 
-This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an escrow contract. Charlie spends his reddoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can [refund](../devguide/payment_processing#issuing-refunds) Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the reddoshis if there’s a dispute.
+This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an [escrow contract](/glossary/#escrow-contract). Charlie spends his reddoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can [refund](../devguide/payment_processing#issuing-refunds) Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the reddoshis if there’s a dispute.
 
-To create a multiple-signature (multisig) output, they each give the others a public key. Then Bob creates the following P2SH multisig redeem script:
+To create a multiple-signature ([multisig](/glossary/#multisig)) output, they each give the others a public key. Then Bob creates the following [P2SH multisig](/glossary/#p2sh-multisig) redeem script:
 
 ```
 OP_2 [A's pubkey] [B's pubkey] [C's pubkey] OP_3 OP_CHECKMULTISIG

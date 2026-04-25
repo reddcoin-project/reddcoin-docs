@@ -7,7 +7,7 @@ substitutions:
 
 # P2P Network
 
-This section describes the Reddcoin P2P [network](../devguide/p2p_network) protocol (but it is [not a specification](../reference/intro#not-a-specification)). It does not describe the discontinued direct [IP-to-IP payment protocol](https://en.bitcoin.it/wiki/IP_Transactions), the deprecated BIP70 payment protocol, the [GetBlockTemplate mining protocol](../devguide/mining#getblocktemplate-rpc), or any [network](../devguide/p2p_network) protocol never implemented in an official version of Reddcoin Core.
+This section describes the Reddcoin P2P [network](../devguide/p2p_network) protocol (but it is [not a specification](../reference/intro#not-a-specification)). It does not describe the discontinued direct [IP-to-IP payment protocol](https://en.bitcoin.it/wiki/IP_Transactions), the [deprecated BIP70 payment protocol](/glossary/#payment-protocol), the [GetBlockTemplate mining protocol](../devguide/mining#getblocktemplate-rpc), or any [network](../devguide/p2p_network) protocol never implemented in an official version of Reddcoin Core.
 
 All [peer-to-peer](../devguide/p2p_network) communication occurs entirely over TCP.
 
@@ -17,7 +17,7 @@ All [peer-to-peer](../devguide/p2p_network) communication occurs entirely over T
 
 The following constants and defaults are taken from Reddcoin Core’s [chainparams.cpp](https://github.com/reddcoin-project/reddcoin/blob/master/src/chainparams.cpp) source code file.
 
-| [Network](../devguide/p2p_network) | Default Port | Start String | Max nBits  |
+| [Network](../devguide/p2p_network) | Default Port | [Start String](/glossary/#start-string) | Max nBits  |
 | --------------------------------------- | ------------ | ----------------------------------- | ---------- |
 | Mainnet                                 | 45444        | 0xfbc0b6db                          | 0x1e0fffff |
 | Testnet                                 | 55444        | 0xfec3b9de                          | 0x1e0fffff |
@@ -53,7 +53,7 @@ The following [network](../devguide/p2p_network) messages all request or provide
 ![Overview Of P2P Protocol Data Request And Reply Messages](/img/dev/en-p2p-data-messages.svg)
 
 Overview Of P2P Protocol Data Request And Reply Messages
-Many of the data messages use inventories as unique identifiers for transactions and blocks. Inventories have a simple 36-byte structure:
+Many of the data messages use [inventories](/glossary/#inventory) as unique identifiers for transactions and blocks. Inventories have a simple 36-byte structure:
 
 | Bytes | Name            | Data Type | Description                                                              |
 | ----- | --------------- | --------- | ------------------------------------------------------------------------ |

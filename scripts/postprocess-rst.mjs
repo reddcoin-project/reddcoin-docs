@@ -55,6 +55,15 @@ function buildAnchorMap() {
     }
   }
 
+  // (1b) glossary/index.md — same `{#id}` form, different route.
+  const glossaryPath = join(repo, 'docs/glossary/index.md');
+  if (existsSync(glossaryPath)) {
+    const g = readFileSync(glossaryPath, 'utf8');
+    for (const m of g.matchAll(/\{#([a-z0-9][a-z0-9_-]*)\}/g)) {
+      if (!map.has(m[1])) map.set(m[1], `/glossary/#${m[1]}`);
+    }
+  }
+
   // (2) Inline (name)= anchors inside docs/protocol. terms.md wins for
   //     name collisions because it's the canonical published target.
   const protocolDir = join(repo, 'docs/protocol');
@@ -76,6 +85,15 @@ function buildAnchorMap() {
 }
 
 const anchorMap = buildAnchorMap();
+
+// Slugify a term name into a Docusaurus heading-id slug.
+// Lowercase, runs of non-alphanumeric collapsed to a single hyphen.
+function slugify(s) {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 // Each pass either runs over the full document body (default) or
 // line-by-line while tracking ```-fence state (for rewrites that must
@@ -115,13 +133,30 @@ const passes = [
     },
   },
 
-  // {term} references the user-facing glossary. Leaving as plain text
-  // for now — the glossary's converted definition-list structure has
-  // no per-term anchors yet, so generating links would create dozens
-  // of broken-anchor warnings. Wiring per-term anchors into the
-  // glossary is a separate later task.
-  {name: 'term-with-text', re: /\{term\}`([^`<]+?)\s*<[^`>]+>`/g, sub: '$1'},
-  {name: 'term-bare',      re: /\{term\}`([^`<>]+)`/g,            sub: '$1'},
+  // {term} resolution against the published glossary. Slugify the
+  // term name and look it up in the anchor map (which includes every
+  // glossary entry's explicit `{#slug}` ID). When the slug isn't in
+  // the map (e.g. terms not in our glossary) we fall through to plain
+  // text so the build doesn't surface a broken-anchor warning for
+  // every miss.
+  {
+    name: 'term-with-text',
+    re: /\{term\}`([^`<]+?)\s*<([^`>]+)>`/g,
+    sub: (_, text, term) => {
+      const slug = slugify(term);
+      const url = anchorMap.get(slug);
+      return url ? `[${text}](${url})` : text;
+    },
+  },
+  {
+    name: 'term-bare',
+    re: /\{term\}`([^`<>]+)`/g,
+    sub: (_, term) => {
+      const slug = slugify(term);
+      const url = anchorMap.get(slug);
+      return url ? `[${term}](${url})` : term;
+    },
+  },
   {name: 'actual',   re: /\{actual\}`([^`]+)`/g,   sub: '$1'},
   {name: 'expected', re: /\{expected\}`([^`]+)`/g, sub: '$1'},
   {name: 'target',   re: /\{target\}`([^`]+)`/g,   sub: '$1'},

@@ -115,7 +115,7 @@ Private keys are what are used to unlock reddoshis from a particular address. In
 
 #### Wallet Import Format (WIF)
 
-In order to make copying of private keys less prone to error, Wallet Import Format may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Reddcoin addresses.
+In order to make copying of private keys less prone to error, [Wallet Import Format](/glossary/#wallet-import-format) may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Reddcoin addresses.
 
 1. Take a private key.
 2. Add a 0xbd byte in front of it for mainnet addresses or 0xef for testnet addresses.
@@ -172,7 +172,7 @@ For consistent word ordering:
 -->
 ```
 
-The hierarchical deterministic key creation and transfer protocol (HD protocol) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
+The hierarchical deterministic key creation and transfer protocol ([HD protocol](/glossary/#hd-protocol)) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
 The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key creation function, [“point()”](/glossary/terms#term-point-function), which takes a large integer (the private key) and turns it into a graph point (the public key):
 
@@ -180,13 +180,13 @@ The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Ell
 point(private_key) == public_key
 ```
 
-Because of the way “point()” works, it’s possible to create a child public key by combining an existing (parent) public key with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the “point()” function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Reddcoin software (*p*):
+Because of the way “point()” works, it’s possible to create a [child public key](/glossary/#child-key) by combining an existing [(parent) public key](/glossary/#parent-key) with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the “point()” function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Reddcoin software (*p*):
 
 ```
 point( (parent_private_key + i) % p ) == parent_public_key + point(i)
 ```
 
-This means that two or more independent programs which agree on a sequence of integers can create a series of unique child key pairs from a single parent key pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
+This means that two or more independent programs which agree on a sequence of integers can create a series of unique [child key](/glossary/#child-key) pairs from a single [parent key](/glossary/#parent-key) pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
 
 Child public keys can also create their own child public keys (grandchild public keys) by repeating the child key derivation operations:
 
@@ -196,15 +196,15 @@ point( (child_private_key + i) % p ) == child_public_key + point(i)
 
 Whether creating child public keys or further-descended public keys, a predictable sequence of integer values would be no better than using a single public key for all transactions, as anyone who knew one child public key could find all of the other child public keys created from the same parent public key. Instead, a random seed can be used to deterministically generate the sequence of integer values so that the relationship between the child public keys is invisible to anyone without that seed.
 
-The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a chain code, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the master chain code to continue being useful even if, for example, a web-based public key distribution program gets hacked.
+The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a [chain code](/glossary/#chain-code), so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the [master chain code](/glossary/#master-chain-code) to continue being useful even if, for example, a web-based public key distribution program gets hacked.
 
 ![Overview Of Hierarchical Deterministic Key Derivation](/img/dev/en-hd-overview.svg)
 
 Overview Of Hierarchical Deterministic Key Derivation
 As illustrated above, HD key derivation takes four inputs:
 
-- The parent private key and *parent public key* are regular uncompressed 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) keys.
-- The parent chain code is 256 bits of seemingly-random data.
+- The [parent private key](/glossary/#parent-key) and *parent public key* are regular uncompressed 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) keys.
+- The [parent chain code](/glossary/#chain-code) is 256 bits of seemingly-random data.
 - The [index](/glossary/terms#term-key-index) number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash ([HMAC-SHA512](https://en.wikipedia.org/wiki/HMAC)) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
@@ -217,12 +217,12 @@ child_public_key == point(child_private_key) == parent_public_key + point(leftha
 
 Specifying different index numbers will create different unlinkable child keys from the same parent keys. Repeating the procedure for the child keys using the child chain code will create unlinkable grandchild keys.
 
-Because creating child keys requires both a key and a chain code, the key and chain code together are called the extended key. An extended private key and its corresponding extended public key have the same chain code. The (top-level parent) master private key and master chain code are derived from random data, as illustrated below.
+Because creating child keys requires both a key and a chain code, the key and chain code together are called the [extended key](/glossary/#extended-key). An [extended private key](/glossary/#extended-key) and its corresponding [extended public key](/glossary/#extended-key) have the same chain code. The (top-level parent) [master private key](/glossary/#master-chain-code) and master chain code are derived from random data, as illustrated below.
 
 ![Creating A Root Extended Key Pair](/img/dev/en-hd-root-keys.svg)
 
 Creating A Root Extended Key Pair
-A root seed is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
+A [root seed](/glossary/#hd-wallet-seed) is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
 
 **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
@@ -248,7 +248,7 @@ The normal key derivation formula, described in the section above, combines toge
 Creating Child Public Keys From An Extended Private Key
 The hardened formula, illustrated above, combines together the index number, the parent chain code, and the parent private key to create the data used to generate the child chain code and child private key. This formula makes it impossible to create child public keys without knowing the parent private key. In other words, parent extended public keys can’t create hardened child public keys.
 
-Because of that, a hardened extended private key is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
+Because of that, a [hardened extended private key](/glossary/#hardened-extended-key) is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
 
 The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 231-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the [prime symbol](https://en.wikipedia.org/wiki/Prime_%28symbol%29) to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
 

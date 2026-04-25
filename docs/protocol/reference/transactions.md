@@ -97,7 +97,7 @@ First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a [ECDSA](https:/
 
 4. Append the checksum to the version and hash, and encode it as a base58 string: `BASE58(version . hash . checksum)`
 
-Bitcoin's base58 encoding, called Base58Check may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
+Bitcoin's base58 encoding, called [Base58Check](/glossary/#base58check) may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki [Base58Check encoding](https://en.bitcoin.it/wiki/Base58Check_encoding) page under the [Creative Commons Attribution 3.0 license](https://creativecommons.org/licenses/by/3.0/):
 
 ```c
 code_string = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -124,7 +124,7 @@ To convert addresses back into hashes, reverse the base58 encoding, extract the 
 
 ## Raw Transaction Format
 
-Reddcoin transactions are broadcast between peers in a serialized byte format, called raw format. It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction—making the transaction format part of the consensus rules.
+Reddcoin transactions are broadcast between peers in a serialized byte format, called [raw format](/glossary/#serialized-transaction). It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction—making the transaction format part of the consensus rules.
 
 Reddcoin Core and many other tools print and accept raw transactions encoded as hex.
 

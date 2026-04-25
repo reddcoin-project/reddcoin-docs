@@ -115,7 +115,7 @@ The error correction is combined with a checksum to ensure the [Reddcoin QR code
 
 **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Reddcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Reddcoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
 
-Reddcoin Core 0.9 supports the new payment protocol. The payment protocol adds many important features to payment requests:
+Reddcoin Core 0.9 supports the new [payment protocol](/glossary/#payment-protocol). The payment protocol adds many important features to payment requests:
 
 - Supports [X.509](https://en.wikipedia.org/wiki/X.509) certificates and SSL encryption to verify receivers’ identity and help prevent [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks.
 - Provides more detail about the requested payment to spenders.
@@ -190,9 +190,9 @@ If a [refund](../devguide/payment_processing#issuing-refunds) needs to be issued
 
 As explained in the [Transactions](../devguide/transactions) and [Block Chain](../devguide/block_chain) sections, broadcasting a transaction to the [network](../devguide/p2p_network) doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
-Two or more transactions spending the same input are commonly referred to as a double spend.
+Two or more transactions spending the same input are commonly referred to as a [double spend](/glossary/#double-spend).
 
-Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Reddcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one confirmation. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
+Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Reddcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one [confirmation](/glossary/#confirmation-score). Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
 **0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the [network](../devguide/p2p_network) into including their version of a transaction.
 

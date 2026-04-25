@@ -1,771 +1,1025 @@
+---
+id: index
+title: Glossary
+description: ReddCoin and Bitcoin-family terminology used across the documentation.
+slug: /
+---
+
 # Glossary
 
-51 percent attack
-Majority attack
+Terminology used across the ReddCoin documentation. Each term is an
+anchor target for `{term}` cross-references from the protocol
+pages.
 
-> The ability of someone controlling a majority of network staking power (or hash rate during the PoW era) to revise transaction history and prevent new transactions from confirming.
+## 51 percent attack {#51-percent-attack}
 
-Address
+The ability of someone controlling a majority of network staking power (or hash rate during the PoW era) to revise transaction history and prevent new transactions from confirming.
 
-: A 20-byte hash formatted using base58check to produce either a P2PKH or P2SH Reddcoin address. Currently the most common way users exchange payment information.
+## Majority attack {#majority-attack}
 
-  **Not to be confused with:** IP address
+See [51 percent attack](#51-percent-attack).
 
-Base58check
+## Address {#address}
 
-: The method used in Reddcoin for converting 160-bit hashes into P2PKH and P2SH addresses. Also used in other parts of Reddcoin, such as encoding private keys for backup in WIP format. Not the same as other base58 implementations.
+A 20-byte hash formatted using base58check to produce either a P2PKH or P2SH Reddcoin address. Currently the most common way users exchange payment information.
 
-  **Not to be confused with:** P2PKH address, P2SH address, IP address
+**Not to be confused with:** IP address
 
-Block
+## Base58check {#base58check}
 
-: One or more transactions prefaced by a block header and protected by proof of stake (or proof of work for historical blocks before 260,800). Blocks are the data stored on the block chain.
+The method used in Reddcoin for converting 160-bit hashes into P2PKH and P2SH addresses. Also used in other parts of Reddcoin, such as encoding private keys for backup in WIP format. Not the same as other base58 implementations.
 
-Block chain
-Best block chain
+**Not to be confused with:** P2PKH address, P2SH address, IP address
 
-> A chain of blocks with each block referencing the block that preceded it. The most-difficult-to-recreate chain is the best block chain.
->
-> **Not to be confused with:** Header chain
+## Block {#block}
 
-Block header
-Header
+One or more transactions prefaced by a block header and protected by proof of stake (or proof of work for historical blocks before 260,800). Blocks are the data stored on the block chain.
 
-> An 80-byte header belonging to a single block which is hashed to identify the block. Under PoSV, the header is used in stake kernel computation rather than proof of work.
+## Block chain {#block-chain}
 
-Height
-Block height
+A chain of blocks with each block referencing the block that preceded it. The most-difficult-to-recreate chain is the best block chain.
 
-> The number of blocks preceding a particular block on a block chain. For example, the genesis block has a height of zero because zero block preceded it.
+**Not to be confused with:** Header chain
 
-Block reward
+## Best block chain {#best-block-chain}
 
-: The amount that stakers may claim as a reward for creating a block. Under PoSV, the reward is a 5% annual return on staked coin-days plus the transaction fees paid by transactions included in the block.
+See [Block chain](#block-chain).
 
-  **Not to be confused with:** Block subsidy, Transaction fees
+## Block header {#block-header}
 
-Maximum Block Size
+An 80-byte header belonging to a single block which is hashed to identify the block. Under PoSV, the header is used in stake kernel computation rather than proof of work.
 
-: The maximum size of a block according to the consensus rules. The current block size limit is 4 million weight units (1 million vbytes).
+## Header {#header}
 
-  **Not to be confused with:** Block, Blockchain, Blockchain size
+See [Block header](#block-header).
 
-Blocks-first sync
+## Height {#height}
 
-: Synchronizing the block chain by downloading each block from a peer and then validating it.
+The number of blocks preceding a particular block on a block chain. For example, the genesis block has a height of zero because zero block preceded it.
 
-  **Not to be confused with:** Headers-first sync
+## Block height {#block-height}
 
-Bloom filter
+See [Height](#height).
 
-: A filter used primarily by SPV clients to request only matching transactions and merkle blocks from full nodes.
+## Block reward {#block-reward}
 
-  **Not to be confused with:** Bloom filter (general computer science term, of which Reddcoin's bloom filters are a specific implementation)
+The amount that stakers may claim as a reward for creating a block. Under PoSV, the reward is a 5% annual return on staked coin-days plus the transaction fees paid by transactions included in the block.
 
-Chain code
+**Not to be confused with:** Block subsidy, Transaction fees
 
-: In HD wallets, 256 bits of entropy added to the public and private keys to help them generate secure child keys; the master chain code is usually derived from a seed along with the master private key
+## Maximum Block Size {#maximum-block-size}
 
-Change address
-Change output
+The maximum size of a block according to the consensus rules. The current block size limit is 4 million weight units (1 million vbytes).
 
-> An output in a transaction which returns reddoshis to the spender, thus preventing too much of the input value from going to transaction fees.
->
-> **Not to be confused with:** Address reuse
+**Not to be confused with:** Block, Blockchain, Blockchain size
 
-Child key
-Child public key
-Child private key
+## Blocks-first sync {#blocks-first-sync}
 
-> In HD wallets, a key derived from a parent key. The key can be either a private key or a public key, and the key derivation may also require a chain code.
->
-> **Not to be confused with:** Public key (derived from a private key, not a parent key)
+Synchronizing the block chain by downloading each block from a peer and then validating it.
 
-Coinbase
+**Not to be confused with:** Headers-first sync
 
-: A special field used as the sole input for coinbase transactions. The coinbase allows claiming the block reward and provides up to 100 bytes for arbitrary data.
+## Bloom filter {#bloom-filter}
 
-  **Not to be confused with:** Coinbase transaction, Coinbase.com
+A filter used primarily by SPV clients to request only matching transactions and merkle blocks from full nodes.
 
-Coinbase transaction
-Generation transaction
+**Not to be confused with:** Bloom filter (general computer science term, of which Reddcoin's bloom filters are a specific implementation)
 
-> The first transaction in a block. Always created by a miner, it includes a single coinbase.
->
-> **Not to be confused with:** Coinbase (the unique part of a coinbase transaction)
+## Chain code {#chain-code}
 
-CompactSize
+In HD wallets, 256 bits of entropy added to the public and private keys to help them generate secure child keys; the master chain code is usually derived from a seed along with the master private key
 
-: A type of variable-length integer commonly used in the Reddcoin P2P protocol and Reddcoin serialized data structures.
+## Change address {#change-address}
 
-  **Not to be confused with:** VarInt (a data type Reddcoin Core uses for local data storage), Compact (the data type used for nBits in the block header)
+An output in a transaction which returns reddoshis to the spender, thus preventing too much of the input value from going to transaction fees.
 
-Compressed public key
+**Not to be confused with:** Address reuse
 
-: An ECDSA public key that is 33 bytes long rather than the 65 bytes of an uncompressed public key.
+## Change output {#change-output}
 
-Confirmation score
-Confirmations
-Confirmed transaction
-Unconfirmed transaction
+See [Change address](#change-address).
 
-> A score indicating the number of blocks on the best block chain that would need to be modified to remove or modify a particular transaction. A confirmed transaction has a confirmation score of one or higher.
+## Child key {#child-key}
 
-Consensus
+In HD wallets, a key derived from a parent key. The key can be either a private key or a public key, and the key derivation may also require a chain code.
 
-: When several nodes (usually most nodes on the network) all have the same blocks in their locally-validated best block chain.
+**Not to be confused with:** Public key (derived from a private key, not a parent key)
 
-  **Not to be confused with:** Social consensus (often used in discussion among developers to indicate that most people agree with a particular plan), Consensus rules (the rules that allow nodes to maintain consensus)
+## Child public key {#child-public-key}
 
-Consensus rules
+See [Child key](#child-key).
 
-: The block validation rules that full nodes follow to stay in consensus with other nodes.
+## Child private key {#child-private-key}
 
-  **Not to be confused with:** Consensus (what happens when nodes follow the same consensus rules)
+See [Child key](#child-key).
 
-Child pays for parent
-CPFP
-Ancestor mining
+## Coinbase {#coinbase}
 
-> Selecting transactions for mining not just based on their fees but also based on the fees of their ancestors (parents) and descendants (children).
->
-> **Not to be confused with:** Replace by Fee, RBF
+A special field used as the sole input for coinbase transactions. The coinbase allows claiming the block reward and provides up to 100 bytes for arbitrary data.
 
-Denomination
-Reddcoins
-Reddoshis
+**Not to be confused with:** Coinbase transaction, Coinbase.com
 
-> Denominations of Reddcoin value, usually measured in fractions of a bitcoin but sometimes measured in multiples of a reddoshi. One bitcoin equals 100,000,000 reddoshis.
->
-> **Not to be confused with:** Binary bits, a unit of data with two possible values
+## Coinbase transaction {#coinbase-transaction}
 
-Difficulty
-Network difficulty
+The first transaction in a block. Always created by a miner, it includes a single coinbase.
 
-> How difficult it is to find a block relative to the difficulty of finding the easiest possible block. The easiest possible block has a proof-of-work difficulty of 1.
->
-> **Not to be confused with:** Target threshold (the value from which difficulty is calculated)
+**Not to be confused with:** Coinbase (the unique part of a coinbase transaction)
 
-DNS seed
+## Generation transaction {#generation-transaction}
 
-: A DNS server which returns IP addresses of full nodes on the Reddcoin network to assist in peer discovery.
+See [Coinbase transaction](#coinbase-transaction).
 
-  **Not to be confused with:** HD wallet seeds
+## CompactSize {#compactsize}
 
-Double spend
+A type of variable-length integer commonly used in the Reddcoin P2P protocol and Reddcoin serialized data structures.
 
-: A transaction that uses the same input as an already broadcast transaction. The attempt of duplication, deceit, or conversion, will be adjudicated when only one of the transactions is recorded in the blockchain.
+**Not to be confused with:** VarInt (a data type Reddcoin Core uses for local data storage), Compact (the data type used for nBits in the block header)
 
-Escrow contract
+## Compressed public key {#compressed-public-key}
 
-: A transaction in which a spender and receiver place funds in a 2-of-2 (or other m-of-n) multisig output so that neither can spend the funds until they're both satisfied with some external outcome.
+An ECDSA public key that is 33 bytes long rather than the 65 bytes of an uncompressed public key.
 
-Extended key
-Public extended key
-Private extended key
+## Confirmation score {#confirmation-score}
 
-> In the context of HD wallets, a public key or private key extended with the chain code to allow them to derive child keys.
+A score indicating the number of blocks on the best block chain that would need to be modified to remove or modify a particular transaction. A confirmed transaction has a confirmation score of one or higher.
 
-Fork
+## Confirmations {#confirmations}
 
-: When two or more blocks have the same block height, forking the block chain. Typically occurs when two or more miners find blocks at nearly the same time. Can also happen as part of an attack.
+See [Confirmation score](#confirmation-score).
 
-  **Not to be confused with:** Hard fork (a change in consensus rules that breaks security for nodes that don't upgrade), Soft fork (a change in consensus rules that weakens security for nodes that don't upgrade), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers)
+## Confirmed transaction {#confirmed-transaction}
 
-Genesis block
-Block 0
+See [Confirmation score](#confirmation-score).
 
-> The first block in the Reddcoin block chain.
->
-> **Not to be confused with:** Generation transaction (the first transaction in a block)
+## Unconfirmed transaction {#unconfirmed-transaction}
 
-Hard fork
+See [Confirmation score](#confirmation-score).
 
-: A permanent divergence in the block chain, commonly occurs when non-upgraded nodes can't validate blocks created by upgraded nodes that follow newer consensus rules.
+## Consensus {#consensus}
 
-  **Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+When several nodes (usually most nodes on the network) all have the same blocks in their locally-validated best block chain.
 
-Hardened extended key
+**Not to be confused with:** Social consensus (often used in discussion among developers to indicate that most people agree with a particular plan), Consensus rules (the rules that allow nodes to maintain consensus)
 
-: A variation on HD wallet extended keys where only the hardened extended private key can derive child keys. This prevents compromise of the chain code plus any private key from putting the whole wallet at risk.
+## Consensus rules {#consensus-rules}
 
-HD protocol
-HD wallet
+The block validation rules that full nodes follow to stay in consensus with other nodes.
 
-> The Hierarchical Deterministic (HD) key creation and transfer protocol (BIP32), which allows creating child keys from parent keys in a hierarchy. Wallets using the HD protocol are called HD wallets.
+**Not to be confused with:** Consensus (what happens when nodes follow the same consensus rules)
 
-HD wallet seed
-Root seed
+## Child pays for parent {#child-pays-for-parent}
 
-> A potentially-short value used as a seed to generate the master private key and master chain code for an HD wallet.
->
-> **Not to be confused with:** Mnemonic code / mnemonic seed (a binary root seed formatted as words to make it easier for humans to transcribe and possibly remember)
+Selecting transactions for mining not just based on their fees but also based on the fees of their ancestors (parents) and descendants (children).
 
-Header chain
-Best header chain
+**Not to be confused with:** Replace by Fee, RBF
 
-> A chain of block headers with each header linking to the header that preceded it; the most-difficult-to-recreate chain is the best header chain
->
-> **Not to be confused with:** Block chain
+## CPFP {#cpfp}
 
-Headers-first sync
+See [Child pays for parent](#child-pays-for-parent).
 
-: Synchronizing the block chain by downloading block headers before downloading the full blocks.
+## Ancestor mining {#ancestor-mining}
 
-  **Not to be confused with:** Blocks-first sync (Downloading entire blocks immediately without first getting their headers)
+See [Child pays for parent](#child-pays-for-parent).
 
-High-priority transaction
-Free transaction
+## Denomination {#denomination}
 
-> Transactions that don't have to pay a transaction fee because their inputs have been idle long enough to accumulated large amounts of priority. Note: miners choose whether to accept free transactions.
+Denominations of Reddcoin value, usually measured in fractions of a bitcoin but sometimes measured in multiples of a reddoshi. One bitcoin equals 100,000,000 reddoshis.
 
-Initial block download
-IBD
+**Not to be confused with:** Binary bits, a unit of data with two possible values
 
-> The process used by a new node (or long-offline node) to download a large number of blocks to catch up to the tip of the best block chain.
->
-> **Not to be confused with:** Blocks-first sync (syncing includes getting any amount of blocks; IBD is only used for large numbers of blocks)
+## Reddcoins {#reddcoins}
 
-Input
-TxIn
+See [Denomination](#denomination).
 
-> An input in a transaction which contains three fields: an outpoint, a signature script, and a sequence number. The outpoint references a previous output and the signature script allows spending it.
+## Reddoshis {#reddoshis}
 
-Internal byte order
+See [Denomination](#denomination).
 
-: The standard order in which hash digests are displayed as strings---the same format used in serialized blocks and transactions.
+## Difficulty {#difficulty}
 
-  **Not to be confused with:** RPC byte order (where the byte order is reversed)
+How difficult it is to find a block relative to the difficulty of finding the easiest possible block. The easiest possible block has a proof-of-work difficulty of 1.
 
-Inventory
+**Not to be confused with:** Target threshold (the value from which difficulty is calculated)
 
-: A data type identifier and a hash; used to identify transactions and blocks available for download through the Reddcoin P2P network.
+## Network difficulty {#network-difficulty}
 
-  **Not to be confused with:** Inv message (one of the P2P messages that transmits inventories)
+See [Difficulty](#difficulty).
 
-Locktime
-nLockTime
+## DNS seed {#dns-seed}
 
-> Part of a transaction which indicates the earliest time or earliest block when that transaction may be added to the block chain.
+A DNS server which returns IP addresses of full nodes on the Reddcoin network to assist in peer discovery.
 
-Mainnet
+**Not to be confused with:** HD wallet seeds
 
-: The original and main network for Reddcoin transactions, where reddoshis have real economic value.
+## Double spend {#double-spend}
 
-  **Not to be confused with:** Testnet (an open network very similar to mainnet where reddoshis have no value), Regtest (a private testing node similar to testnet)
+A transaction that uses the same input as an already broadcast transaction. The attempt of duplication, deceit, or conversion, will be adjudicated when only one of the transactions is recorded in the blockchain.
 
-Transaction malleability
-Transaction mutability
+## Escrow contract {#escrow-contract}
 
-> The ability of someone to change (mutate) unconfirmed transactions without making them invalid, which changes the transaction's txid, making child transactions invalid.
->
-> **Not to be confused with:** BIP62 (a proposal for an optional new transaction version that reduces the set of known mutations for common transactions)
+A transaction in which a spender and receiver place funds in a 2-of-2 (or other m-of-n) multisig output so that neither can spend the funds until they're both satisfied with some external outcome.
 
-Miner-activated soft fork
-MASF
+## Extended key {#extended-key}
 
-> A Soft Fork activated by through miner signalling.
->
-> **Not to be confused with:** User Activated Soft Fork (a soft fork activated by flag day or node enforcement instead of miner signalling.), Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+In the context of HD wallets, a public key or private key extended with the chain code to allow them to derive child keys.
 
-Master chain code
-Master private key
+## Public extended key {#public-extended-key}
 
-> In HD wallets, the master chain code and master private key are the two pieces of data derived from the root seed.
+See [Extended key](#extended-key).
 
-Merkle block
+## Private extended key {#private-extended-key}
 
-: A partial merkle tree connecting transactions matching a bloom filter to the merkle root of a block.
+See [Extended key](#extended-key).
 
-  **Not to be confused with:** MerkleBlock message (a P2P protocol message that transmits a merkle block)
+## Fork {#fork}
 
-Merkle root
+When two or more blocks have the same block height, forking the block chain. Typically occurs when two or more miners find blocks at nearly the same time. Can also happen as part of an attack.
 
-: The root node of a merkle tree, a descendant of all the hashed pairs in the tree. Block headers must include a valid merkle root descended from all transactions in that block.
+**Not to be confused with:** Hard fork (a change in consensus rules that breaks security for nodes that don't upgrade), Soft fork (a change in consensus rules that weakens security for nodes that don't upgrade), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers)
 
-  **Not to be confused with:** Merkle tree (the tree of which the merkle root is the root node), Merkle block (a partial merkle branch connecting the root to one or more leaves [transactions])
+## Genesis block {#genesis-block}
 
-Merkle tree
+The first block in the Reddcoin block chain.
 
-: A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root. In Reddcoin, the leaves are almost always transactions from a single block.
+**Not to be confused with:** Generation transaction (the first transaction in a block)
 
-  **Not to be confused with:** Partial merkle branch (a branch connecting one or more leaves to the root), Merkle block (a partial merkle branch connecting one or more transactions from a single block to the block merkle root)
+## Block 0 {#block-0}
 
-Message header
+See [Genesis block](#genesis-block).
 
-: The four header fields prefixed to all messages on the Reddcoin P2P network.
+## Hard fork {#hard-fork}
 
-Minimum relay fee
-Relay fee
+A permanent divergence in the block chain, commonly occurs when non-upgraded nodes can't validate blocks created by upgraded nodes that follow newer consensus rules.
 
-> The minimum transaction fee a transaction must pay (if it isn't a high-priority transaction) for a full node to relay that transaction to other nodes. There is no one minimum relay fee---each node chooses its own policy.
->
-> **Not to be confused with:** Transaction fee (the minimum relay fee is a policy setting that filters out transactions with too-low transaction fees)
+**Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
 
-Mining
-Miner
+## Hardened extended key {#hardened-extended-key}
 
-> Mining was the act of creating valid Reddcoin blocks using proof of work during the PoW era (blocks 0–260,799). Since block 260,800, Reddcoin uses Proof of Stake Velocity (PoSV) and blocks are created by stakers instead of miners. See Staking.
+A variation on HD wallet extended keys where only the hardened extended private key can derive child keys. This prevents compromise of the chain code plus any private key from putting the whole wallet at risk.
 
-Staking
-Staker
+## HD protocol {#hd-protocol}
 
-> Staking is the act of creating valid Reddcoin blocks under Proof of Stake Velocity (PoSV) by proving ownership of coins with sufficient coin age. Stakers keep their wallet open and connected to the network to participate in block creation and earn staking rewards.
+The Hierarchical Deterministic (HD) key creation and transfer protocol (BIP32), which allows creating child keys from parent keys in a hierarchy. Wallets using the HD protocol are called HD wallets.
 
-Proof of Stake Velocity
-PoSV
+## HD wallet {#hd-wallet}
 
-> Reddcoin's consensus mechanism, active since block 260,800. PoSV uses a non-linear coin age weighting function (cubic for 0–7 days, logarithmic for 7+ days) to incentivize active network participation (velocity) rather than passive coin hoarding. Stakers earn a 5% annual reward on staked coin-days.
+See [HD protocol](#hd-protocol).
 
-Coin age
+## HD wallet seed {#hd-wallet-seed}
 
-: The time elapsed since coins were last transacted or staked, used to calculate staking weight under PoSV. Coins must reach the minimum stake age (8 hours) before they are eligible to stake, and weight is capped at the maximum stake age (45 days).
+A potentially-short value used as a seed to generate the master private key and master chain code for an HD wallet.
 
-Coinstake transaction
+**Not to be confused with:** Mnemonic code / mnemonic seed (a binary root seed formatted as words to make it easier for humans to transcribe and possibly remember)
 
-: The transaction in a PoS block that proves the staker's coin ownership and distributes the staking reward. Identified by having a non-null first input and an empty first output (vout[0]). Analogous to a coinbase transaction in PoW blocks.
+## Root seed {#root-seed}
 
-Kimoto Gravity Well
-KGW
+See [HD wallet seed](#hd-wallet-seed).
 
-> Reddcoin's difficulty adjustment algorithm. Unlike Bitcoin's 2,016-block adjustment interval, KGW adjusts difficulty every block by taking the running arithmetic mean of past block targets over a sliding window of 360 to 10,080 blocks and scaling it by the ratio of actual to expected elapsed time, targeting a 60-second block time.
+## Header chain {#header-chain}
 
-Multisig
-Bare multisig
+A chain of block headers with each header linking to the header that preceded it; the most-difficult-to-recreate chain is the best header chain
 
-> A pubkey script that provides *n* number of pubkeys and requires the corresponding signature script provide *m* minimum number signatures corresponding to the provided pubkeys.
->
-> **Not to be confused with:** P2SH multisig (a multisig script contained inside P2SH), Advanced scripts that require multiple signatures without using OP_CHECKMULTISIG or OP_CHECKMULTISIGVERIFY
+**Not to be confused with:** Block chain
 
-nBits
-Target
+## Best header chain {#best-header-chain}
 
-> The target is the threshold below which a block header hash must be in order for the block to be valid, and nBits is the encoded form of the target threshold as it appears in the block header.
->
-> **Not to be confused with:** Difficulty (a number measuring the difficulty of finding a header hash relative to the difficulty of finding a header hash with the easiest target)
+See [Header chain](#header-chain).
 
-Node
-Full node
-Archival node
-Pruned node
-Peer
+## Headers-first sync {#headers-first-sync}
 
-> A computer that connects to the Reddcoin network.
->
-> **Not to be confused with:** Lightweight node, SPV node
+Synchronizing the block chain by downloading block headers before downloading the full blocks.
 
-Null data transaction
-OP_RETURN transaction
-Data carrier transaction
+**Not to be confused with:** Blocks-first sync (Downloading entire blocks immediately without first getting their headers)
 
-> A transaction type relayed and mined by default in Reddcoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don't have to store in their UTXO database.
->
-> **Not to be confused with:** OP_RETURN (an opcode used in one of the outputs in an OP_RETURN transaction)
+## High-priority transaction {#high-priority-transaction}
 
-Opcode
-Data-pushing opcode
-Non-data-pushing opcode
+Transactions that don't have to pay a transaction fee because their inputs have been idle long enough to accumulated large amounts of priority. Note: miners choose whether to accept free transactions.
 
-> Operation codes from the Reddcoin Script language which push data or perform functions within a pubkey script or signature script.
+## Free transaction {#free-transaction}
 
-Orphan block
+See [High-priority transaction](#high-priority-transaction).
 
-: Blocks whose parent block has not been processed by the local node, so they can't be fully validated yet.
+## Initial block download {#initial-block-download}
 
-  **Not to be confused with:** Stale block
+The process used by a new node (or long-offline node) to download a large number of blocks to catch up to the tip of the best block chain.
 
-Outpoint
+**Not to be confused with:** Blocks-first sync (syncing includes getting any amount of blocks; IBD is only used for large numbers of blocks)
 
-: The data structure used to refer to a particular transaction output, consisting of a 32-byte TXID and a 4-byte output index number (vout).
+## IBD {#ibd}
 
-  **Not to be confused with:** Output (an entire output from a transaction), TxOut (same as output)
+See [Initial block download](#initial-block-download).
 
-Output
-TxOut
+## Input {#input}
 
-> An output in a transaction which contains two fields: a value field for transferring zero or more reddoshis and a pubkey script for indicating what conditions must be fulfilled for those reddoshis to be further spent.
->
-> **Not to be confused with:** Outpoint (a reference to a particular output)
+An input in a transaction which contains three fields: an outpoint, a signature script, and a sequence number. The outpoint references a previous output and the signature script allows spending it.
 
-P2PKH address
-P2PKH output
+## TxIn {#txin}
 
-> A Reddcoin payment address comprising a hashed public key, allowing the spender to create a standard pubkey script that Pays To PubKey Hash (P2PKH).
->
-> **Not to be confused with:** P2PK output (an output paying a public key directly), P2SH address, P2SH output (an address comprising a hashed script, and its corresponding output)
+See [Input](#input).
 
-P2SH address
-P2SH output
+## Internal byte order {#internal-byte-order}
 
-> A Reddcoin payment address comprising a hashed script, allowing the spender to create a standard pubkey script that Pays To Script Hash (P2SH). The script can be almost any valid pubkey script.
->
-> **Not to be confused with:** P2PK output (an output paying a public key directly), P2PKH address, P2PKH output (an address comprising a hashed pubkey, and its corresponding output), P2SH multisig (a particular instance of P2SH where the script uses a multisig opcode)
+The standard order in which hash digests are displayed as strings---the same format used in serialized blocks and transactions.
 
-P2SH multisig
+**Not to be confused with:** RPC byte order (where the byte order is reversed)
 
-: A P2SH output where the redeem script uses one of the multisig opcodes. Up until Reddcoin Core 0.10.0, P2SH multisig scripts were standard transactions, but most other P2SH scripts were not.
+## Inventory {#inventory}
 
-  **Not to be confused with:** Multisig pubkey scripts (also called "bare multisig", these multisig scripts don't use P2SH encapsulation), P2SH (general P2SH, of which P2SH multisig is a specific instance that was special cased up until Reddcoin Core 0.10.0)
+A data type identifier and a hash; used to identify transactions and blocks available for download through the Reddcoin P2P network.
 
-Parent key
-Parent public key
-Parent private key
+**Not to be confused with:** Inv message (one of the P2P messages that transmits inventories)
 
-> In HD wallets, a key used to derive child keys. The key can be either a private key or a public key, and the key derivation may also require a chain code.
->
-> **Not to be confused with:** Public key (derived from a private key, not a parent key)
+## Locktime {#locktime}
 
-Payment protocol
-Payment request
+Part of a transaction which indicates the earliest time or earliest block when that transaction may be added to the block chain.
 
-> The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
->
-> **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Reddcoin)
+## nLockTime {#nlocktime}
 
-Private key
+See [Locktime](#locktime).
 
-: The private portion of a keypair which can create signatures that other people can verify using the public key.
+## Mainnet {#mainnet}
 
-  **Not to be confused with:** Public key (data derived from the private key), Parent key (a key used to create child keys, not necessarily a private key)
+The original and main network for Reddcoin transactions, where reddoshis have real economic value.
 
-Proof of work
-POW
+**Not to be confused with:** Testnet (an open network very similar to mainnet where reddoshis have no value), Regtest (a private testing node similar to testnet)
 
-> A hash below a target value which can only be obtained, on average, by performing a certain amount of brute force work---therefore demonstrating proof of work.
+## Transaction malleability {#transaction-malleability}
 
-Pubkey script
-ScriptPubKey
+The ability of someone to change (mutate) unconfirmed transactions without making them invalid, which changes the transaction's txid, making child transactions invalid.
 
-> A script included in outputs which sets the conditions that must be fulfilled for those reddoshis to be spent. Data for fulfilling the conditions can be provided in a signature script. Pubkey Scripts are called a scriptPubKey in code.
->
-> **Not to be confused with:** Pubkey (a public key, which can be used as part of a pubkey script but don't provide a programmable authentication mechanism), Signature script (a script that provides data to the pubkey script)
+**Not to be confused with:** BIP62 (a proposal for an optional new transaction version that reduces the set of known mutations for common transactions)
 
-Public key
+## Transaction mutability {#transaction-mutability}
 
-: The public portion of a keypair which can be used to verify signatures made with the private portion of the keypair.
+See [Transaction malleability](#transaction-malleability).
 
-  **Not to be confused with:** Private key (data from which the public key is derived), Parent key (a key used to create child keys, not necessarily a public key)
+## Miner-activated soft fork {#miner-activated-soft-fork}
 
-Replace by fee
-RBF
-Opt-in replace by fee
+A Soft Fork activated by through miner signalling.
 
-> Replacing one version of an unconfirmed transaction with a different version of the transaction that pays a higher transaction fee. May use BIP125 signaling.
->
-> **Not to be confused with:** Child pays for parent, CPFP
+**Not to be confused with:** User Activated Soft Fork (a soft fork activated by flag day or node enforcement instead of miner signalling.), Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
 
-Redeem script
-RedeemScript
+## MASF {#masf}
 
-> A script similar in function to a pubkey script. One copy of it is hashed to create a P2SH address (used in an actual pubkey script) and another copy is placed in the spending signature script to enforce its conditions.
->
-> **Not to be confused with:** Signature script (a script that provides data to the pubkey script, which includes the redeem script in a P2SH input)
+See [Miner-activated soft fork](#miner-activated-soft-fork).
 
-Regtest
-Regression test mode
+## Master chain code {#master-chain-code}
 
-> A local testing environment in which developers can almost instantly generate blocks on demand for testing events, and can create private reddoshis with no real-world value.
->
-> **Not to be confused with:** Testnet (a global testing environment which mostly mimics mainnet)
+In HD wallets, the master chain code and master private key are the two pieces of data derived from the root seed.
 
-RPC byte order
+## Master private key {#master-private-key}
 
-: A hash digest displayed with the byte order reversed; used in Reddcoin Core RPCs, many block explorers, and other software.
+See [Master chain code](#master-chain-code).
 
-  **Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
+## Merkle block {#merkle-block}
 
-Sequence number
+A partial merkle tree connecting transactions matching a bloom filter to the merkle root of a block.
 
-: Part of all transactions. A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction
+**Not to be confused with:** MerkleBlock message (a P2P protocol message that transmits a merkle block)
 
-  **Not to be confused with:** Output index number / vout (this is the 0-indexed number of an output within a transaction used by a later transaction to refer to that specific output)
+## Merkle root {#merkle-root}
 
-Serialized block
+The root node of a merkle tree, a descendant of all the hashed pairs in the tree. Block headers must include a valid merkle root descended from all transactions in that block.
 
-: A complete block in its binary format---the same format used to calculate total block byte size; often represented using hexadecimal.
+**Not to be confused with:** Merkle tree (the tree of which the merkle root is the root node), Merkle block (a partial merkle branch connecting the root to one or more leaves [transactions])
 
-Serialized transaction
-Raw transaction
+## Merkle tree {#merkle-tree}
 
-> Complete transactions in their binary format; often represented using hexadecimal. Sometimes called raw format because of the various Reddcoin Core commands with "raw" in their names.
+A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root. In Reddcoin, the leaves are almost always transactions from a single block.
 
-SIGHASH_ALL
+**Not to be confused with:** Partial merkle branch (a branch connecting one or more leaves to the root), Merkle block (a partial merkle branch connecting one or more transactions from a single block to the block merkle root)
 
-: Default signature hash type which signs the entire transaction except any signature scripts, preventing modification of the signed parts.
+## Message header {#message-header}
 
-SIGHASH_ANYONECANPAY
+The four header fields prefixed to all messages on the Reddcoin P2P network.
 
-: A signature hash type which signs only the current input.
+## Minimum relay fee {#minimum-relay-fee}
 
-  **Not to be confused with:** SIGHASH_SINGLE (which signs this input, its corresponding output, and other inputs partially)
+The minimum transaction fee a transaction must pay (if it isn't a high-priority transaction) for a full node to relay that transaction to other nodes. There is no one minimum relay fee---each node chooses its own policy.
 
-SIGHASH_NONE
+**Not to be confused with:** Transaction fee (the minimum relay fee is a policy setting that filters out transactions with too-low transaction fees)
 
-: Signature hash type which only signs the inputs, allowing anyone to change the outputs however they'd like.
+## Relay fee {#relay-fee}
 
-SIGHASH_SINGLE
+See [Minimum relay fee](#minimum-relay-fee).
 
-: Signature hash type that signs the output corresponding to this input (the one with the same index value), this input, and any other inputs partially. Allows modification of other outputs and the sequence number of other inputs.
+## Mining {#mining}
 
-  **Not to be confused with:** SIGHASH_ANYONECANPAY (a flag to signature hash types that only signs this single input)
+Mining was the act of creating valid Reddcoin blocks using proof of work during the PoW era (blocks 0–260,799). Since block 260,800, Reddcoin uses Proof of Stake Velocity (PoSV) and blocks are created by stakers instead of miners. See Staking.
 
-Signature
+## Miner {#miner}
 
-: A value related to a public key which could only have reasonably been created by someone who has the private key that created that public key. Used in Reddcoin to authorize spending reddoshis previously sent to a public key.
+See [Mining](#mining).
 
-Signature hash
-Sighash
+## Staking {#staking}
 
-> A flag to Reddcoin signatures that indicates what parts of the transaction the signature signs. (The default is SIGHASH_ALL.) The unsigned parts of the transaction may be modified.
->
-> **Not to be confused with:** Signed hash (a hash of the data to be signed), Transaction malleability / transaction mutability (although non-default sighash flags do allow optional malleability, malleability comprises any way a transaction may be mutated)
+Staking is the act of creating valid Reddcoin blocks under Proof of Stake Velocity (PoSV) by proving ownership of coins with sufficient coin age. Stakers keep their wallet open and connected to the network to participate in block creation and earn staking rewards.
 
-Signature script
-ScriptSig
+## Staker {#staker}
 
-> Data generated by a spender which is almost always used as variables to satisfy a pubkey script. Signature Scripts are called scriptSig in code.
->
-> **Not to be confused with:** ECDSA signature (a signature, which can be used as part of a pubkey script in addition to other data)
+See [Staking](#staking).
 
-SPV
-Simplified Payment Verification
-Lightweight client
-Thin client
+## Proof of Stake Velocity {#proof-of-stake-velocity}
 
-> A method for verifying if particular transactions are included in a block without downloading the entire block. The method is used by some lightweight Reddcoin clients.
+Reddcoin's consensus mechanism, active since block 260,800. PoSV uses a non-linear coin age weighting function (cubic for 0–7 days, logarithmic for 7+ days) to incentivize active network participation (velocity) rather than passive coin hoarding. Stakers earn a 5% annual reward on staked coin-days.
 
-Soft fork
+## PoSV {#posv}
 
-: A softfork is a change to the reddcoin protocol wherein only previously valid blocks/transactions are made invalid. Since old nodes will recognise the new blocks as valid, a softfork is backward-compatible.
+See [Proof of Stake Velocity](#proof-of-stake-velocity).
 
-  **Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+## Coin age {#coin-age}
 
-Stale block
+The time elapsed since coins were last transacted or staked, used to calculate staking weight under PoSV. Coins must reach the minimum stake age (8 hours) before they are eligible to stake, and weight is capped at the maximum stake age (45 days).
 
-: Blocks which were successfully mined but which aren't included on the current best block chain, likely because some other block at the same height had its chain extended first.
+## Coinstake transaction {#coinstake-transaction}
 
-  **Not to be confused with:** Orphan block (a block whose previous (parent) hash field points to an unknown block, meaning the orphan can't be validated)
+The transaction in a PoS block that proves the staker's coin ownership and distributes the staking reward. Identified by having a non-null first input and an empty first output (vout[0]). Analogous to a coinbase transaction in PoW blocks.
 
-Standard Transaction
+## Kimoto Gravity Well {#kimoto-gravity-well}
 
-: A transaction that passes Reddcoin Core's IsStandard() and IsStandardTx() tests. Only standard transactions are mined or broadcast by peers running the default Reddcoin Core software.
+Reddcoin's difficulty adjustment algorithm. Unlike Bitcoin's 2,016-block adjustment interval, KGW adjusts difficulty every block by taking the running arithmetic mean of past block targets over a sliding window of 360 to 10,080 blocks and scaling it by the ratio of actual to expected elapsed time, targeting a 60-second block time.
 
-Start string
-Network magic
+## KGW {#kgw}
 
-> Four defined bytes which start every message in the Reddcoin P2P protocol to allow seeking to the next message.
+See [Kimoto Gravity Well](#kimoto-gravity-well).
 
-Testnet
+## Multisig {#multisig}
 
-: A global testing environment in which developers can obtain and spend reddoshis that have no real-world value on a network that is very similar to the Reddcoin mainnet.
+A pubkey script that provides *n* number of pubkeys and requires the corresponding signature script provide *m* minimum number signatures corresponding to the provided pubkeys.
 
-  **Not to be confused with:** Regtest (a local testing environment where developers can control block generation)
+**Not to be confused with:** P2SH multisig (a multisig script contained inside P2SH), Advanced scripts that require multiple signatures without using OP_CHECKMULTISIG or OP_CHECKMULTISIGVERIFY
 
-Token
+## Bare multisig {#bare-multisig}
 
-: A token is a programmable digital asset with its own codebase that resides on an already existing block chain. Tokens are used to help facilitate the creation of decentralized applications.
+See [Multisig](#multisig).
 
-  **Not to be confused with:** Reddcoins, Reddoshis, Security token, Denominations
+## nBits {#nbits}
 
-Transaction fee
-Miners fee
+The target is the threshold below which a block header hash must be in order for the block to be valid, and nBits is the encoded form of the target threshold as it appears in the block header.
 
-> The amount remaining when the value of all outputs in a transaction are subtracted from all inputs in a transaction; the fee is paid to the miner who includes that transaction in a block.
->
-> **Not to be confused with:** Minimum relay fee (the lowest fee a transaction must pay to be accepted into the memory pool and relayed by Reddcoin Core nodes)
+**Not to be confused with:** Difficulty (a number measuring the difficulty of finding a header hash relative to the difficulty of finding a header hash with the easiest target)
 
-Txid
+## Target {#target}
 
-: An identifier used to uniquely identify a particular transaction; specifically, the sha256d hash of the transaction.
+See [nBits](#nbits).
 
-  **Not to be confused with:** Outpoint (the combination of a txid with a vout used to identify a specific output)
+## Node {#node}
 
-User-activated soft fork
-UASF
+A computer that connects to the Reddcoin network.
 
-> A Soft Fork activated by flag day or node enforcement instead of miner signalling.
->
-> **Not to be confused with:** Miner Activated Soft Fork (a soft fork activated through miner signalling), Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+**Not to be confused with:** Lightweight node, SPV node
 
-UTXO
+## Full node {#full-node}
 
-: An Unspent Transaction Output (UTXO) that can be spent as an input in a new transaction.
+See [Node](#node).
 
-  **Not to be confused with:** Output (any output, whether spent or not. Outputs are a superset of UTXOs)
+## Archival node {#archival-node}
 
-Wallet
+See [Node](#node).
 
-: Software that stores private keys and monitors the block chain (sometimes as a client of a server that does the processing) to allow users to spend and receive reddoshis.
+## Pruned node {#pruned-node}
 
-  **Not to be confused with:** HD wallet (a protocol that allows all of a wallet's keys to be created from a single seed)
+See [Node](#node).
 
-WIF
-Wallet Import Format
+## Peer {#peer}
 
-> A data interchange format designed to allow exporting and importing a single private key with a flag indicating whether or not it uses a compressed public key.
->
-> **Not to be confused with:** Extended private keys (which allow importing a hierarchy of private keys)
+See [Node](#node).
 
-Watch-only address
+## Null data transaction {#null-data-transaction}
 
-: An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
+A transaction type relayed and mined by default in Reddcoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don't have to store in their UTXO database.
 
-Reddcoin URI
+**Not to be confused with:** OP_RETURN (an opcode used in one of the outputs in an OP_RETURN transaction)
 
-: A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
+## OP_RETURN transaction {#op-return-transaction}
 
-Certificate chain
+See [Null data transaction](#null-data-transaction).
 
-: A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+## Data carrier transaction {#data-carrier-transaction}
 
-Coinbase block height
+See [Null data transaction](#null-data-transaction).
 
-: The current block's height encoded into the first bytes of the coinbase field.
+## Opcode {#opcode}
 
-Fiat
+Operation codes from the Reddcoin Script language which push data or perform functions within a pubkey script or signature script.
 
-: National currencies such as the dollar or euro.
+## Data-pushing opcode {#data-pushing-opcode}
 
-Intermediate certificate
+See [Opcode](#opcode).
 
-: A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+## Non-data-pushing opcode {#non-data-pushing-opcode}
 
-Key index
+See [Opcode](#opcode).
 
-: An index number used in the HD wallet formula to generate child keys from a parent key.
+## Orphan block {#orphan-block}
 
-Key pair
+Blocks whose parent block has not been processed by the local node, so they can't be fully validated yet.
 
-: A private key and its derived public key.
+**Not to be confused with:** Stale block
 
-Label
+## Outpoint {#outpoint}
 
-: The label parameter of a reddcoin: URI which provides the spender with the receiver's name (unauthenticated).
+The data structure used to refer to a particular transaction output, consisting of a 32-byte TXID and a 4-byte output index number (vout).
 
-Leaf certificate
+**Not to be confused with:** Output (an entire output from a transaction), TxOut (same as output)
 
-: The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of reddoshis.
+## Output {#output}
 
-Merge
+An output in a transaction which contains two fields: a value field for transferring zero or more reddoshis and a pubkey script for indicating what conditions must be fulfilled for those reddoshis to be further spent.
 
-: Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many reddoshis you control.
+**Not to be confused with:** Outpoint (a reference to a particular output)
 
-Merge avoidance
+## TxOut {#txout}
 
-: A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+See [Output](#output).
 
-Message
+## P2PKH address {#p2pkh-address}
 
-: A parameter of reddcoin: URIs which allows the receiver to optionally specify a message to the spender.
+A Reddcoin payment address comprising a hashed public key, allowing the spender to create a standard pubkey script that Pays To PubKey Hash (P2PKH).
 
-Micropayment channel
+**Not to be confused with:** P2PK output (an output paying a public key directly), P2SH address, P2SH output (an address comprising a hashed script, and its corresponding output)
 
-: term-micropayment-channel (contracts-guide) ([original target](https://reddcoin.com/en/contracts-guide#term-micropayment-channel))
+## P2PKH output {#p2pkh-output}
 
-OP CHECKMULTISIG
+See [P2PKH address](#p2pkh-address).
 
-: Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
+## P2SH address {#p2sh-address}
 
-Output index
+A Reddcoin payment address comprising a hashed script, allowing the spender to create a standard pubkey script that Pays To Script Hash (P2SH). The script can be almost any valid pubkey script.
 
-: The sequentially-numbered index of outputs in a single transaction starting from 0.
+**Not to be confused with:** P2PK output (an output paying a public key directly), P2PKH address, P2PKH output (an address comprising a hashed pubkey, and its corresponding output), P2SH multisig (a particular instance of P2SH where the script uses a multisig opcode)
 
-PKI
+## P2SH output {#p2sh-output}
 
-: Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+See [P2SH address](#p2sh-address).
 
-Point function
+## P2SH multisig {#p2sh-multisig}
 
-: The ECDSA function used to create a public key from a private key.
+A P2SH output where the redeem script uses one of the multisig opcodes. Up until Reddcoin Core 0.10.0, P2SH multisig scripts were standard transactions, but most other P2SH scripts were not.
 
-PP amount
+**Not to be confused with:** Multisig pubkey scripts (also called "bare multisig", these multisig scripts don't use P2SH encapsulation), P2SH (general P2SH, of which P2SH multisig is a specific instance that was special cased up until Reddcoin Core 0.10.0)
 
-: Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of reddoshis they want paid to a particular pubkey script.
+## Parent key {#parent-key}
 
-PP expires
+In HD wallets, a key used to derive child keys. The key can be either a private key or a public key, and the key derivation may also require a chain code.
 
-: The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
+**Not to be confused with:** Public key (derived from a private key, not a parent key)
 
-PP memo
+## Parent public key {#parent-public-key}
 
-: The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
+See [Parent key](#parent-key).
 
-PP merchant data
+## Parent private key {#parent-private-key}
 
-: The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
+See [Parent key](#parent-key).
 
-PP pki data
+## Payment protocol {#payment-protocol}
 
-: The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
+The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
 
-PP pki type
+**Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Reddcoin)
 
-: The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
+## Payment request {#payment-request}
 
-PP script
+See [Payment protocol](#payment-protocol).
 
-: The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
+## Private key {#private-key}
 
-Previous block header hash
+The private portion of a keypair which can create signatures that other people can verify using the public key.
 
-: A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
+**Not to be confused with:** Public key (data derived from the private key), Parent key (a key used to create child keys, not necessarily a private key)
 
-R parameter
+## Proof of work {#proof-of-work}
 
-: The payment request parameter in a reddcoin: URI.
+A hash below a target value which can only be obtained, on average, by performing a certain amount of brute force work---therefore demonstrating proof of work.
 
-Receipt
+## POW {#pow}
 
-: A cryptographically-verifiable receipt created using parts of a payment request and a confirmed transaction.
+See [Proof of work](#proof-of-work).
 
-Root certificate
+## Pubkey script {#pubkey-script}
 
-: A certificate belonging to a certificate authority (CA).
+A script included in outputs which sets the conditions that must be fulfilled for those reddoshis to be spent. Data for fulfilling the conditions can be provided in a signature script. Pubkey Scripts are called a scriptPubKey in code.
 
-SSL signature
+**Not to be confused with:** Pubkey (a public key, which can be used as part of a pubkey script but don't provide a programmable authentication mechanism), Signature script (a script that provides data to the pubkey script)
 
-: Signatures created and recognized by major SSL implementations such as OpenSSL.
+## ScriptPubKey {#scriptpubkey}
 
-Stanndard block relay
+See [Pubkey script](#pubkey-script).
 
-: The regular block relay method: announcing a block with an inv message and waiting for a response.
+## Public key {#public-key}
 
-Transaction version number
+The public portion of a keypair which can be used to verify signatures made with the private portion of the keypair.
 
-: A version number prefixed to transactions to allow upgrading.
+**Not to be confused with:** Private key (data from which the public key is derived), Parent key (a key used to create child keys, not necessarily a public key)
 
-Unique Address
+## Replace by fee {#replace-by-fee}
 
-: Address which are only used once to protect privacy and increase security.
+Replacing one version of an unconfirmed transaction with a different version of the transaction that pays a higher transaction fee. May use BIP125 signaling.
 
-Unsolicited block push
+**Not to be confused with:** Child pays for parent, CPFP
 
-: When a miner sends a block message without sending an inv message first.
+## RBF {#rbf}
 
-URI qr code
+See [Replace by fee](#replace-by-fee).
 
-: A QR code containing a reddcoin: URI.
+## Opt-in replace by fee {#opt-in-replace-by-fee}
 
-V2 block
+See [Replace by fee](#replace-by-fee).
 
-: The current version of Reddcoin blocks.
+## Redeem script {#redeem-script}
 
-x509certificates
+A script similar in function to a pubkey script. One copy of it is hashed to create a P2SH address (used in an actual pubkey script) and another copy is placed in the spending signature script to enforce its conditions.
+
+**Not to be confused with:** Signature script (a script that provides data to the pubkey script, which includes the redeem script in a P2SH input)
+
+## RedeemScript {#redeemscript}
+
+See [Redeem script](#redeem-script).
+
+## Regtest {#regtest}
+
+A local testing environment in which developers can almost instantly generate blocks on demand for testing events, and can create private reddoshis with no real-world value.
+
+**Not to be confused with:** Testnet (a global testing environment which mostly mimics mainnet)
+
+## Regression test mode {#regression-test-mode}
+
+See [Regtest](#regtest).
+
+## RPC byte order {#rpc-byte-order}
+
+A hash digest displayed with the byte order reversed; used in Reddcoin Core RPCs, many block explorers, and other software.
+
+**Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
+
+## Sequence number {#sequence-number}
+
+Part of all transactions. A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction
+
+**Not to be confused with:** Output index number / vout (this is the 0-indexed number of an output within a transaction used by a later transaction to refer to that specific output)
+
+## Serialized block {#serialized-block}
+
+A complete block in its binary format---the same format used to calculate total block byte size; often represented using hexadecimal.
+
+## Serialized transaction {#serialized-transaction}
+
+Complete transactions in their binary format; often represented using hexadecimal. Sometimes called raw format because of the various Reddcoin Core commands with "raw" in their names.
+
+## Raw transaction {#raw-transaction}
+
+See [Serialized transaction](#serialized-transaction).
+
+## SIGHASH_ALL {#sighash-all}
+
+Default signature hash type which signs the entire transaction except any signature scripts, preventing modification of the signed parts.
+
+## SIGHASH_ANYONECANPAY {#sighash-anyonecanpay}
+
+A signature hash type which signs only the current input.
+
+**Not to be confused with:** SIGHASH_SINGLE (which signs this input, its corresponding output, and other inputs partially)
+
+## SIGHASH_NONE {#sighash-none}
+
+Signature hash type which only signs the inputs, allowing anyone to change the outputs however they'd like.
+
+## SIGHASH_SINGLE {#sighash-single}
+
+Signature hash type that signs the output corresponding to this input (the one with the same index value), this input, and any other inputs partially. Allows modification of other outputs and the sequence number of other inputs.
+
+**Not to be confused with:** SIGHASH_ANYONECANPAY (a flag to signature hash types that only signs this single input)
+
+## Signature {#signature}
+
+A value related to a public key which could only have reasonably been created by someone who has the private key that created that public key. Used in Reddcoin to authorize spending reddoshis previously sent to a public key.
+
+## Signature hash {#signature-hash}
+
+A flag to Reddcoin signatures that indicates what parts of the transaction the signature signs. (The default is SIGHASH_ALL.) The unsigned parts of the transaction may be modified.
+
+**Not to be confused with:** Signed hash (a hash of the data to be signed), Transaction malleability / transaction mutability (although non-default sighash flags do allow optional malleability, malleability comprises any way a transaction may be mutated)
+
+## Sighash {#sighash}
+
+See [Signature hash](#signature-hash).
+
+## Signature script {#signature-script}
+
+Data generated by a spender which is almost always used as variables to satisfy a pubkey script. Signature Scripts are called scriptSig in code.
+
+**Not to be confused with:** ECDSA signature (a signature, which can be used as part of a pubkey script in addition to other data)
+
+## ScriptSig {#scriptsig}
+
+See [Signature script](#signature-script).
+
+## SPV {#spv}
+
+A method for verifying if particular transactions are included in a block without downloading the entire block. The method is used by some lightweight Reddcoin clients.
+
+## Simplified Payment Verification {#simplified-payment-verification}
+
+See [SPV](#spv).
+
+## Lightweight client {#lightweight-client}
+
+See [SPV](#spv).
+
+## Thin client {#thin-client}
+
+See [SPV](#spv).
+
+## Soft fork {#soft-fork}
+
+A softfork is a change to the reddcoin protocol wherein only previously valid blocks/transactions are made invalid. Since old nodes will recognise the new blocks as valid, a softfork is backward-compatible.
+
+**Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+
+## Stale block {#stale-block}
+
+Blocks which were successfully mined but which aren't included on the current best block chain, likely because some other block at the same height had its chain extended first.
+
+**Not to be confused with:** Orphan block (a block whose previous (parent) hash field points to an unknown block, meaning the orphan can't be validated)
+
+## Standard Transaction {#standard-transaction}
+
+A transaction that passes Reddcoin Core's IsStandard() and IsStandardTx() tests. Only standard transactions are mined or broadcast by peers running the default Reddcoin Core software.
+
+## Start string {#start-string}
+
+Four defined bytes which start every message in the Reddcoin P2P protocol to allow seeking to the next message.
+
+## Network magic {#network-magic}
+
+See [Start string](#start-string).
+
+## Testnet {#testnet}
+
+A global testing environment in which developers can obtain and spend reddoshis that have no real-world value on a network that is very similar to the Reddcoin mainnet.
+
+**Not to be confused with:** Regtest (a local testing environment where developers can control block generation)
+
+## Token {#token}
+
+A token is a programmable digital asset with its own codebase that resides on an already existing block chain. Tokens are used to help facilitate the creation of decentralized applications.
+
+**Not to be confused with:** Reddcoins, Reddoshis, Security token, Denominations
+
+## Transaction fee {#transaction-fee}
+
+The amount remaining when the value of all outputs in a transaction are subtracted from all inputs in a transaction; the fee is paid to the miner who includes that transaction in a block.
+
+**Not to be confused with:** Minimum relay fee (the lowest fee a transaction must pay to be accepted into the memory pool and relayed by Reddcoin Core nodes)
+
+## Miners fee {#miners-fee}
+
+See [Transaction fee](#transaction-fee).
+
+## Txid {#txid}
+
+An identifier used to uniquely identify a particular transaction; specifically, the sha256d hash of the transaction.
+
+**Not to be confused with:** Outpoint (the combination of a txid with a vout used to identify a specific output)
+
+## User-activated soft fork {#user-activated-soft-fork}
+
+A Soft Fork activated by flag day or node enforcement instead of miner signalling.
+
+**Not to be confused with:** Miner Activated Soft Fork (a soft fork activated through miner signalling), Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+
+## UASF {#uasf}
+
+See [User-activated soft fork](#user-activated-soft-fork).
+
+## UTXO {#utxo}
+
+An Unspent Transaction Output (UTXO) that can be spent as an input in a new transaction.
+
+**Not to be confused with:** Output (any output, whether spent or not. Outputs are a superset of UTXOs)
+
+## Wallet {#wallet}
+
+Software that stores private keys and monitors the block chain (sometimes as a client of a server that does the processing) to allow users to spend and receive reddoshis.
+
+**Not to be confused with:** HD wallet (a protocol that allows all of a wallet's keys to be created from a single seed)
+
+## WIF {#wif}
+
+A data interchange format designed to allow exporting and importing a single private key with a flag indicating whether or not it uses a compressed public key.
+
+**Not to be confused with:** Extended private keys (which allow importing a hierarchy of private keys)
+
+## Wallet Import Format {#wallet-import-format}
+
+See [WIF](#wif).
+
+## Watch-only address {#watch-only-address}
+
+An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
+
+## Reddcoin URI {#reddcoin-uri}
+
+A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
+
+## Certificate chain {#certificate-chain}
+
+A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+
+## Coinbase block height {#coinbase-block-height}
+
+The current block's height encoded into the first bytes of the coinbase field.
+
+## Fiat {#fiat}
+
+National currencies such as the dollar or euro.
+
+## Intermediate certificate {#intermediate-certificate}
+
+A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+
+## Key index {#key-index}
+
+An index number used in the HD wallet formula to generate child keys from a parent key.
+
+## Key pair {#key-pair}
+
+A private key and its derived public key.
+
+## Label {#label}
+
+The label parameter of a reddcoin: URI which provides the spender with the receiver's name (unauthenticated).
+
+## Leaf certificate {#leaf-certificate}
+
+The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of reddoshis.
+
+## Merge {#merge}
+
+Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many reddoshis you control.
+
+## Merge avoidance {#merge-avoidance}
+
+A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+
+## Message {#message}
+
+A parameter of reddcoin: URIs which allows the receiver to optionally specify a message to the spender.
+
+## Micropayment channel {#micropayment-channel}
+
+term-micropayment-channel (contracts-guide) ([original target](https://reddcoin.com/en/contracts-guide#term-micropayment-channel))
+
+## OP CHECKMULTISIG {#op-checkmultisig}
+
+Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
+
+## Output index {#output-index}
+
+The sequentially-numbered index of outputs in a single transaction starting from 0.
+
+## PKI {#pki}
+
+Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+
+## Point function {#point-function}
+
+The ECDSA function used to create a public key from a private key.
+
+## PP amount {#pp-amount}
+
+Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of reddoshis they want paid to a particular pubkey script.
+
+## PP expires {#pp-expires}
+
+The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
+
+## PP memo {#pp-memo}
+
+The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
+
+## PP merchant data {#pp-merchant-data}
+
+The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
+
+## PP pki data {#pp-pki-data}
+
+The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
+
+## PP pki type {#pp-pki-type}
+
+The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
+
+## PP script {#pp-script}
+
+The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
+
+## Previous block header hash {#previous-block-header-hash}
+
+A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
+
+## R parameter {#r-parameter}
+
+The payment request parameter in a reddcoin: URI.
+
+## Receipt {#receipt}
+
+A cryptographically-verifiable receipt created using parts of a payment request and a confirmed transaction.
+
+## Root certificate {#root-certificate}
+
+A certificate belonging to a certificate authority (CA).
+
+## SSL signature {#ssl-signature}
+
+Signatures created and recognized by major SSL implementations such as OpenSSL.
+
+## Stanndard block relay {#stanndard-block-relay}
+
+The regular block relay method: announcing a block with an inv message and waiting for a response.
+
+## Transaction version number {#transaction-version-number}
+
+A version number prefixed to transactions to allow upgrading.
+
+## Unique Address {#unique-address}
+
+Address which are only used once to protect privacy and increase security.
+
+## Unsolicited block push {#unsolicited-block-push}
+
+When a miner sends a block message without sending an inv message first.
+
+## URI qr code {#uri-qr-code}
+
+A QR code containing a reddcoin: URI.
+
+## V2 block {#v2-block}
+
+The current version of Reddcoin blocks.
+
+## x509certificates {#x509certificates}
 
 term-x509certificates (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-x509certificates))
-[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.
-[term-msg_cmpct_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkusedtorequestacompactblock.
-[term-msg_filtered_witness_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkthatisreservedforfutureuseandunused.
-[term-msg_tx]: TheTXIDdatatypeidentifierofaninventoryontheP2Pnetwork.
-[term-msg_witness_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2PnetworkusedtorequestablockwithwitnessserializationforSegWit.
-[term-msg_witness_tx]: AnalternativeofthetransactiondatatypeidentifierofaninventoryontheP2PnetworkusedtorequestatransactionwithwitnessserializationforSegWit.
-[term-op-checksig]: Opcodewhichreturnstrueifasignaturesignsthecorrectpartsofatransactionandmatchesaprovidedpublickey.
-[term-op-dup]: Operationwhichduplicatestheentrybelowitonthestack.
-[term-op-equal]: Operationwhichreturnstrueifthetwoentriesbelowitonthestackareequivalent.
-[term-op-equalverify]: Operationwhichterminatesthescriptinfailureunlessthetwoentriesbelowitonthestackareequivalent.
-[term-op-hash160]: OperationwhichconvertstheentrybelowitonthestackintoaRIPEMD(SHA256())hashedversionofitself.
-[term-op-return]: Operationwhichterminatesthescriptinfailure.
-[term-op-verify]: Operationwhichterminatesthescriptiftheentrybelowitonthestackisnon-true(zero).
-[term-paymentdetails]: ThePaymentDetailsofthepaymentprotocolwhichallowsthereceivertospecifythepaymentdetailstothespender.
-[term-paymentrequest]: ThePaymentRequestofthepaymentprotocolwhichcontainsandallowssigningofthePaymentDetails.
+:::
 
+## [term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork. {#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork}
+
+
+
+## [term-msg_cmpct_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkusedtorequestacompactblock. {#term-msg-cmpct-block-analternativetotheblockheaderhashdatatypeidentifierofaninventoryonthep2pnetworkusedtorequestacompactblock}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-msg_filtered_witness_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkthatisreservedforfutureuseandunused. {#term-msg-filtered-witness-block-analternativetotheblockheaderhashdatatypeidentifierofaninventoryonthep2pnetworkthatisreservedforfutureuseandunused}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-msg_tx]: TheTXIDdatatypeidentifierofaninventoryontheP2Pnetwork. {#term-msg-tx-thetxiddatatypeidentifierofaninventoryonthep2pnetwork}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-msg_witness_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2PnetworkusedtorequestablockwithwitnessserializationforSegWit. {#term-msg-witness-block-analternativetotheblockheaderhashdatatypeidentifierofaninventoryonthep2pnetworkusedtorequestablockwithwitnessserializationforsegwit}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-msg_witness_tx]: AnalternativeofthetransactiondatatypeidentifierofaninventoryontheP2PnetworkusedtorequestatransactionwithwitnessserializationforSegWit. {#term-msg-witness-tx-analternativeofthetransactiondatatypeidentifierofaninventoryonthep2pnetworkusedtorequestatransactionwithwitnessserializationforsegwit}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-checksig]: Opcodewhichreturnstrueifasignaturesignsthecorrectpartsofatransactionandmatchesaprovidedpublickey. {#term-op-checksig-opcodewhichreturnstrueifasignaturesignsthecorrectpartsofatransactionandmatchesaprovidedpublickey}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-dup]: Operationwhichduplicatestheentrybelowitonthestack. {#term-op-dup-operationwhichduplicatestheentrybelowitonthestack}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-equal]: Operationwhichreturnstrueifthetwoentriesbelowitonthestackareequivalent. {#term-op-equal-operationwhichreturnstrueifthetwoentriesbelowitonthestackareequivalent}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-equalverify]: Operationwhichterminatesthescriptinfailureunlessthetwoentriesbelowitonthestackareequivalent. {#term-op-equalverify-operationwhichterminatesthescriptinfailureunlessthetwoentriesbelowitonthestackareequivalent}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-hash160]: OperationwhichconvertstheentrybelowitonthestackintoaRIPEMD(SHA256())hashedversionofitself. {#term-op-hash160-operationwhichconvertstheentrybelowitonthestackintoaripemd-sha256-hashedversionofitself}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-return]: Operationwhichterminatesthescriptinfailure. {#term-op-return-operationwhichterminatesthescriptinfailure}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-op-verify]: Operationwhichterminatesthescriptiftheentrybelowitonthestackisnon-true(zero). {#term-op-verify-operationwhichterminatesthescriptiftheentrybelowitonthestackisnon-true-zero}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-paymentdetails]: ThePaymentDetailsofthepaymentprotocolwhichallowsthereceivertospecifythepaymentdetailstothespender. {#term-paymentdetails-thepaymentdetailsofthepaymentprotocolwhichallowsthereceivertospecifythepaymentdetailstothespender}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
+
+## [term-paymentrequest]: ThePaymentRequestofthepaymentprotocolwhichcontainsandallowssigningofthePaymentDetails. {#term-paymentrequest-thepaymentrequestofthepaymentprotocolwhichcontainsandallowssigningofthepaymentdetails}
+
+See [[term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.](#term-msg-block-theblockheaderhashdatatypeidentifierofaninventoryonthep2pnetwork).
