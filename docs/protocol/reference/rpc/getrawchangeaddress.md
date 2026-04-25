@@ -22,6 +22,6 @@ The address type to use. Options are "legacy", "p2sh-segwit", and "bech32".
 
 ```shell
 reddcoin-cli getrawchangeaddress
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getrawchangeaddress", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getrawchangeaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

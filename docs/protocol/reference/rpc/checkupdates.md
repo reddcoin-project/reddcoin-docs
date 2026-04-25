@@ -22,6 +22,6 @@ Returns details of the latest software update available.
 
 ```shell
 reddcoin-cli checkupdates
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "checkupdates", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "checkupdates", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

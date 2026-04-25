@@ -307,6 +307,18 @@ const passes = [
     sub: '/img/protocol/$1/',
   },
 
+  // 5h. Stray backticks inside single-quoted curl payloads. The
+  //     upstream RST wrapped the JSON in inline code, and rst2myst
+  //     emitted literal backticks at the boundaries:
+  //
+  //         curl … --data-binary '`{"jsonrpc": …}`' …
+  //
+  //     Those backticks would be passed verbatim to the server. Strip
+  //     them. Pattern is narrow enough that legit `'…'` quoted
+  //     content with backticks at both ends is unaffected — match
+  //     requires no quotes or backticks inside.
+  {name: 'strip-quoted-payload-backticks', re: /'`([^'`]+)`'/g, sub: "'$1'"},
+
   // 6. <https://…> autolinks → [URL](URL). MDX reads `<` as the start
   //    of a JSX tag and chokes on the `://` slashes.
   {name: 'autolink-url', re: /<((?:https?|ftp|mailto):[^>\s]+)>/g, sub: '[$1]($1)'},

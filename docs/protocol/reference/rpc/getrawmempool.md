@@ -82,6 +82,6 @@ If verbose=false, returns a json object with transaction list and mempool sequen
 
 ```shell
 reddcoin-cli getrawmempool true
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getrawmempool", "params": [true]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getrawmempool", "params": [true]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

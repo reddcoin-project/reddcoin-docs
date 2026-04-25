@@ -91,6 +91,6 @@ reddcoin-cli listunspent 6 9999999 '[]' true '{ "minimumAmount": 0.005 }'
 ```
 
 ```
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

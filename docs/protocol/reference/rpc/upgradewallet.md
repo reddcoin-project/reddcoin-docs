@@ -28,6 +28,6 @@ The version number to upgrade to. Default is the latest wallet version.
 
 ```shell
 reddcoin-cli upgradewallet 169900
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "upgradewallet", "params": [169900]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "upgradewallet", "params": [169900]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

@@ -34,6 +34,6 @@ If provided, return information about this specific node, otherwise all nodes ar
 
 ```shell
 reddcoin-cli getaddednodeinfo "192.168.0.201"
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getaddednodeinfo", "params": ["192.168.0.201"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getaddednodeinfo", "params": ["192.168.0.201"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

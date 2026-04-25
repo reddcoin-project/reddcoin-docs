@@ -37,10 +37,10 @@ Return only addresses of the specified network. Can be one of: ipv4, ipv6, onion
 reddcoin-cli getnodeaddresses 8
 reddcoin-cli getnodeaddresses 4 "i2p"
 reddcoin-cli -named getnodeaddresses network=onion count=12
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getnodeaddresses", "params": [8]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnodeaddresses", "params": [8]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 
 ```
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getnodeaddresses", "params": [4, "i2p"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnodeaddresses", "params": [4, "i2p"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

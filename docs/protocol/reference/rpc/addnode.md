@@ -33,6 +33,6 @@ null    (json null)
 
 ```shell
 reddcoin-cli addnode "192.168.0.6:45444" "onetry"
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "addnode", "params": ["192.168.0.6:45444", "onetry"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "addnode", "params": ["192.168.0.6:45444", "onetry"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

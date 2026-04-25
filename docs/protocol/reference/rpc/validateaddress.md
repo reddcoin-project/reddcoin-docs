@@ -29,6 +29,6 @@ The reddcoin address to validate
 
 ```shell
 reddcoin-cli validateaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl"
-curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "validateaddress", "params": ["bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "validateaddress", "params": ["bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 
