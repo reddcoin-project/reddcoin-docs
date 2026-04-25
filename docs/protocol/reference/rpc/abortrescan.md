@@ -25,16 +25,12 @@ Note: Use "getwalletinfo" to query the scanning progress.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Import a private key:
 
-```
+```shell
 reddcoin-cli importprivkey "mykey"
-```
-
 Abort the running wallet rescan:
+```
 
 ```
 reddcoin-cli abortrescan

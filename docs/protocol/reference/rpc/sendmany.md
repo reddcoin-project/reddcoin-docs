@@ -111,16 +111,12 @@ Specify a fee rate in reddoshi/vB.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Send two amounts to two different addresses::
 
-```
+```shell
 reddcoin-cli sendmany "" "{\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\":0.01,\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\":0.02}"
-```
-
 Send two amounts to two different addresses setting the confirmation and comment::
+```
 
 ```
 reddcoin-cli sendmany "" "{\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\":0.01,\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\":0.02}" 6 "testing"

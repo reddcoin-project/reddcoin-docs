@@ -45,16 +45,12 @@ Reject transactions whose fee rate is higher than the specified value, expressed
 
 ## Examples
 
-```{highlight} shell
-```
-
 Create a transaction:
 
-```
+```shell
 reddcoin-cli createrawtransaction "[{\"txid\" : \"mytxid\",\"vout\":0}]" "{\"myaddress\":0.01}"
-```
-
 Sign the transaction, and get back the hex:
+```
 
 ```
 reddcoin-cli signrawtransactionwithwallet "myhex"

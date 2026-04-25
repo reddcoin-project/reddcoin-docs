@@ -27,14 +27,8 @@ in past transactions
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli listaddressgroupings
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listaddressgroupings", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "listaddressgroupings", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

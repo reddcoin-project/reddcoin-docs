@@ -47,10 +47,6 @@ A base64 string of a PSBT
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli analyzepsbt "psbt"
 ```
-

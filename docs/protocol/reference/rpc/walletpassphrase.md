@@ -39,16 +39,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Unlock the wallet for 60 seconds:
 
-```
+```shell
 reddcoin-cli walletpassphrase "my pass phrase" 60
-```
-
 Unlock the wallet for 99999999 seconds for staking:
+```
 
 ```
 reddcoin-cli walletpassphrase "my pass phrase" 99999999 true

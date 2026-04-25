@@ -23,16 +23,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Dump the wallet:
 
-```
+```shell
 reddcoin-cli dumpwallet "test"
-```
-
 Import the wallet:
+```
 
 ```
 reddcoin-cli importwallet "test"

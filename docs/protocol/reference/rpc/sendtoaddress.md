@@ -101,16 +101,12 @@ The fee estimate mode, must be one of (case insensitive):
 
 ## Examples
 
-```{highlight} shell
-```
-
 Send 0.1 RDD:
 
-```
+```shell
 reddcoin-cli sendtoaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 0.1
-```
-
 Send 0.1 RDD with a confirmation target of 6 blocks in economical fee estimate mode using positional arguments:
+```
 
 ```
 reddcoin-cli sendtoaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 0.1 "donation" "sean's outpost" false true 6 economical

@@ -55,14 +55,8 @@ Data to be imported
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli importdescriptors '[{ "desc": "<my descriptor>", "timestamp":1455191478, "internal": true }, { "desc": "<my desccriptor 2>", "label": "example 2", "timestamp": 1455191480 }]'
-```
-
-```
 reddcoin-cli importdescriptors '[{ "desc": "<my descriptor>", "timestamp":1455191478, "active": true, "range": [0,100], "label": "<my bech32 wallet>" }]'
 ```
 

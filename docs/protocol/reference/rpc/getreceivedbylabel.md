@@ -35,16 +35,12 @@ Only include transactions confirmed at least this many times.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Amount received by the default label with at least 1 confirmation:
 
-```
+```shell
 reddcoin-cli getreceivedbylabel ""
-```
-
 Amount received at the tabby label including unconfirmed amounts with zero confirmations:
+```
 
 ```
 reddcoin-cli getreceivedbylabel "tabby" 0

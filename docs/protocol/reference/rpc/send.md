@@ -112,16 +112,12 @@ Specify a fee rate in reddoshi/vB.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Send 0.1 RDD with a confirmation target of 6 blocks in economical fee estimate mode:
 
-```
+```shell
 reddcoin-cli send '{"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl": 0.1}' 6 economical
-```
-
 Send 0.2 RDD with a fee rate of 1.1 reddoshi/vB using positional arguments:
+```
 
 ```
 reddcoin-cli send '{"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl": 0.2}' null "unset" 1.1

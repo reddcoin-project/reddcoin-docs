@@ -29,14 +29,8 @@ The block height to prune up to. May be set to a discrete height, or to a UNIX e
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli pruneblockchain 1000
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "pruneblockchain", "params": [1000]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "pruneblockchain", "params": [1000]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

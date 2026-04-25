@@ -51,16 +51,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Import an address with rescan:
 
-```
+```shell
 reddcoin-cli importaddress "myaddress"
-```
-
 Import using a label without rescan:
+```
 
 ```
 reddcoin-cli importaddress "myaddress" "testing" false

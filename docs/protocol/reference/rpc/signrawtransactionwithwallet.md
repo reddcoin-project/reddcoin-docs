@@ -73,14 +73,8 @@ The signature hash type. Must be one of
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli signrawtransactionwithwallet "myhex"
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

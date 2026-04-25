@@ -21,14 +21,10 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli removeprunedfunds "a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"
-```
-
 As a JSON-RPC call:
+```
 
 ```
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "removeprunedfunds", "params": ["a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/

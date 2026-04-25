@@ -55,16 +55,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Get unspent transactions:
 
-```
+```shell
 reddcoin-cli listunspent
-```
-
 View the details:
+```
 
 ```
 reddcoin-cli gettxout "txid" 1

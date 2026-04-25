@@ -53,10 +53,6 @@ Include BIP 32 derivation paths for public keys if we know them
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli walletprocesspsbt "psbt"
 ```
-

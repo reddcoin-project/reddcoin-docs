@@ -79,22 +79,10 @@ Whether to include a `decoded` field containing the decoded transaction (equival
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli gettransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
-```
-
-```
 reddcoin-cli gettransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d" true
-```
-
-```
 reddcoin-cli gettransaction "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d" false true
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

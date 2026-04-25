@@ -58,38 +58,14 @@ Use coinstatsindex, if available.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli gettxoutsetinfo
-```
-
-```
 reddcoin-cli gettxoutsetinfo "none"
-```
-
-```
 reddcoin-cli gettxoutsetinfo "none" 1000
-```
-
-```
 reddcoin-cli gettxoutsetinfo "none" '"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"'
-```
-
-```
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": ["none"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
-```
-
-```
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": ["none"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": ["none", 1000]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": ["none", "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "gettxoutsetinfo", "params": ["none", "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

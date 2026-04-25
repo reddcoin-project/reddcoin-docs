@@ -32,14 +32,8 @@ the last block height that should be scanned. If none is provided it will rescan
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli rescanblockchain 100000 120000
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "rescanblockchain", "params": [100000, 120000]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "rescanblockchain", "params": [100000, 120000]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

@@ -2,12 +2,9 @@
 
 ## Creating A Bloom Filter
 
-In this section, we’ll use variable names that correspond to the field names in the [“filterload” message documentation](../reference/p2p_networking.html#filterload). Each code block precedes the paragraph describing it.
+In this section, we’ll use variable names that correspond to the field names in the [“filterload” message documentation](../reference/p2p_networking#filterload). Each code block precedes the paragraph describing it.
 
-```{highlight} python
-```
-
-```
+```python
 #!/usr/bin/env python
 
 BYTES_MAX = 36000
@@ -15,23 +12,15 @@ FUNCS_MAX = 50
 
 nFlags = 0
 ```
-
 We start by setting some maximum values defined in [BIP37](https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki): the maximum number of bytes allowed in a filter and the maximum number of hash functions used to hash each piece of data. We also set nFlags to zero, indicating we don’t want the remote node to update the filter for us. (We won’t use nFlags again in the sample program, but real programs will need to use it.)
 
-```{highlight} python
-```
-
-```
+```python
 n = 1
 p = 0.0001
 ```
-
 We define the number (n) of elements we plan to insert into the filter and the false positive rate (p) we want to help protect our privacy. For this example, we will set *n* to one element and *p* to a rate of 1-in-10,000 to produce a small and precise filter for illustration purposes. In actual use, your filters will probably be much larger.
 
-```{highlight} python
-```
-
-```
+```python
 from math import log
 nFilterBytes = int(min((-1 / log(2)**2 * n * log(p)) / 8, BYTES_MAX))
 nHashFuncs = int(min(nFilterBytes * 8 / n * log(2), FUNCS_MAX))
@@ -39,22 +28,14 @@ nHashFuncs = int(min(nFilterBytes * 8 / n * log(2), FUNCS_MAX))
 from bitarray import bitarray  # from pypi.python.org/pypi/bitarray
 vData = nFilterBytes * 8 * bitarray('0', endian="little")
 ```
-
 Using the formula described in [BIP37](https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki), we calculate the ideal size of the filter (in bytes) and the ideal number of hash functions to use. Both are truncated down to the nearest whole number and both are also constrained to the maximum values we defined earlier. The results of this particular fixed computation are 2 filter bytes and 11 hash functions. We then use *nFilterBytes* to create a little-endian bit array of the appropriate size.
 
-```{highlight} python
-```
-
-```
+```python
 nTweak = 0
-```
-
 We also should choose a value for *nTweak*. In this case, we’ll simply use zero.
-
-```{highlight} python
 ```
 
-```
+```python
 import pyhash  # from https://github.com/flier/pyfasthash
 murmur3 = pyhash.murmur3_32()
 
@@ -62,24 +43,16 @@ def bloom_hash(nHashNum, data):
     seed = (nHashNum * 0xfba4c795 + nTweak) & 0xffffffff
     return( murmur3(data, seed=seed) % (nFilterBytes * 8) )
 ```
-
 We setup our hash function template using the formula and 0xfba4c795 constant set in [BIP37](https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki). Note that we limit the size of the seed to four bytes and that we’re returning the result of the hash modulo the size of the filter in bits.
 
-```{highlight} python
-```
-
-```
+```python
 data_to_hash = "019f5b01d4195ecbc9398fbf3c3b1fa9" \
                + "bb3183301d7a1fb3bd174fcfa40a2b65"
 data_to_hash = data_to_hash.decode("hex")
 ```
-
 For the data to add to the filter, we’re adding a TXID. Note that the TXID is in internal byte order.
 
-```{highlight} python
-```
-
-```
+```python
 print "                             Filter (As Bits)"
 print "nHashNum   nIndex   Filter   0123456789abcdef"
 print "~~~~~~~~   ~~~~~~   ~~~~~~   ~~~~~~~~~~~~~~~~"
@@ -100,11 +73,7 @@ for nHashNum in range(nHashFuncs):
 print
 print "Bloom filter:", vData.tobytes().encode("hex")
 ```
-
 Now we use the hash function template to run a slightly different hash function for *nHashFuncs* times. The result of each function being run on the transaction is used as an index number: the bit at that index is set to 1. We can see this in the printed debugging output:
-
-```{highlight} text
-```
 
 ```
                              Filter (As Bits)
@@ -131,10 +100,7 @@ We only added one element to the filter above, but we could repeat the process w
 
 Note: for a more optimized Python implementation with fewer external dependencies, see [python-bitcoinlib’s](https://github.com/petertodd/python-bitcoinlib) bloom filter module which is based directly on Reddcoin Core’s C++ implementation.
 
-Using the [“filterload” message](../reference/p2p_networking.html#filterload) format, the complete filter created above would be the binary form of the annotated hexdump shown below:
-
-```{highlight} text
-```
+Using the [“filterload” message](../reference/p2p_networking#filterload) format, the complete filter created above would be the binary form of the annotated hexdump shown below:
 
 ```
 02 ......... Filter bytes: 2
@@ -148,23 +114,16 @@ b50f ....... Filter: 1010 1101 1111 0000
 
 Using a bloom filter to find matching data is nearly identical to constructing a bloom filter—except that at each step we check to see if the calculated index bit is set in the existing filter.
 
-```{highlight} python
-```
-
-```
+```python
 vData = bitarray(endian='little')
 vData.frombytes("b50f".decode("hex"))
 nHashFuncs = 11
 nTweak = 0
 nFlags = 0
 ```
-
 Using the bloom filter created above, we import its various parameters. Note, as indicated in the section above, we won’t actually use *nFlags* to update the filter.
 
-```{highlight} python
-```
-
-```
+```python
 def contains(nHashFuncs, data_to_hash):
     for nHashNum in range(nHashFuncs):
         ## bloom_hash as defined in previous section
@@ -177,35 +136,23 @@ def contains(nHashFuncs, data_to_hash):
             )
             return False
 ```
-
 We define a function to check an element against the provided filter. When checking whether the filter might contain an element, we test to see whether a particular bit in the filter is already set to 1 (if it isn’t, the match fails).
 
-```{highlight} python
-```
-
-```
+```python
 ## Test 1: Same TXID as previously added to filter
 data_to_hash = "019f5b01d4195ecbc9398fbf3c3b1fa9" \
                + "bb3183301d7a1fb3bd174fcfa40a2b65"
 data_to_hash = data_to_hash.decode("hex")
 contains(nHashFuncs, data_to_hash)
 ```
-
 Testing the filter against the data element we previously added, we get no output (indicating a possible match). Recall that bloom filters have a zero false negative rate—so they should always match the inserted elements.
 
-```{highlight} python
-```
-
-```
+```python
 ## Test 2: Arbitrary string
 data_to_hash = "1/10,000 chance this ASCII string will match"
 contains(nHashFuncs, data_to_hash)
 ```
-
 Testing the filter against an arbitrary element, we get the failure output below. Note: we created the filter with a 1-in-10,000 false positive rate (which was rounded up somewhat when we truncated), so it was possible this arbitrary string would’ve matched the filter anyway. It is not possible to set a bloom filter to a false positive rate of zero, so your program will always have to deal with false positives. The output below shows us that one of the hash functions returned an index number of 0x06, but that bit wasn’t set in the filter, causing the match failure:
-
-```{highlight} text
-```
 
 ```
 MATCH FAILURE: Index 0x6 not set in 1010110111110000
@@ -213,12 +160,9 @@ MATCH FAILURE: Index 0x6 not set in 1010110111110000
 
 ## Retrieving A MerkleBlock
 
-For the [“merkleblock” message](../reference/p2p_networking.html#merkleblock) documentation on the reference page, an actual merkle block was retrieved from the [network](../devguide/p2p_network.html) and manually processed. This section walks through each step of the process, demonstrating basic [network](../devguide/p2p_network.html) communication and merkle block processing.
+For the [“merkleblock” message](../reference/p2p_networking#merkleblock) documentation on the reference page, an actual merkle block was retrieved from the [network](../devguide/p2p_network) and manually processed. This section walks through each step of the process, demonstrating basic [network](../devguide/p2p_network) communication and merkle block processing.
 
-```{highlight} python
-```
-
-```
+```python
 #!/usr/bin/env python
 
 from time import sleep
@@ -248,13 +192,9 @@ def send(msg,payload):
     )
     sys.stdout.flush()
 ```
+To connect to the P2P [network](../devguide/p2p_network), the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
 
-To connect to the P2P [network](../devguide/p2p_network.html), the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
-
-```{highlight} python
-```
-
-```
+```python
 ## Create a version message
 send("version",
       "71110100" # ........................ Protocol Version: 70001
@@ -272,23 +212,15 @@ send("version",
     + "00" # .............................. Relay transactions: false
 )
 ```
+Peers on the [network](../devguide/p2p_network) will not accept any requests until you send them a [“version” message](../reference/p2p_networking#version). The receiving node will reply with their [“version” message](../reference/p2p_networking#version) and a [“verack” message](../reference/p2p_networking#verack).
 
-Peers on the [network](../devguide/p2p_network.html) will not accept any requests until you send them a [“version” message](../reference/p2p_networking.html#version). The receiving node will reply with their [“version” message](../reference/p2p_networking.html#version) and a [“verack” message](../reference/p2p_networking.html#verack).
-
-```{highlight} python
-```
-
-```
+```python
 sleep(1)
 send("verack", "")
 ```
+We’re not going to validate their [“version” message](../reference/p2p_networking#version) with this simple script, but we will sleep a short bit and send back our own [“verack” message](../reference/p2p_networking#verack) as if we had accepted their [“version” message](../reference/p2p_networking#version).
 
-We’re not going to validate their [“version” message](../reference/p2p_networking.html#version) with this simple script, but we will sleep a short bit and send back our own [“verack” message](../reference/p2p_networking.html#verack) as if we had accepted their [“version” message](../reference/p2p_networking.html#version).
-
-```{highlight} python
-```
-
-```
+```python
 send("filterload",
       "02"  # ........ Filter bytes: 2
     + "b50f" # ....... Filter: 1010 1101 1111 0000
@@ -297,13 +229,9 @@ send("filterload",
     + "00" # ......... nFlags: BLOOM_UPDATE_NONE
 )
 ```
+We set a bloom filter with the [“filterload” message](../reference/p2p_networking#filterload). This filter is described in the two preceeding sections.
 
-We set a bloom filter with the [“filterload” message](../reference/p2p_networking.html#filterload). This filter is described in the two preceeding sections.
-
-```{highlight} python
-```
-
-```
+```python
 send("getdata",
       "01" # ................................. Number of inventories: 1
     + "03000000" # ........................... Inventory type: filtered block
@@ -311,27 +239,19 @@ send("getdata",
     + "ad7331c6e8f9eef231b7000000000000" # ... Block header hash
 )
 ```
-
 We request a merkle block for transactions matching our filter, completing our script.
 
-To run the script, we simply pipe it to the Unix `` `netcat `` command \<<https://en.wikipedia.org/wiki/Netcat>>\`\_\_ or one of its many clones, one of which is available for practically any platform. For example, with the original netcat and using hexdump (`hd`) to display the output:
+To run the script, we simply pipe it to the Unix `` `netcat `` command \<[https://en.wikipedia.org/wiki/Netcat](https://en.wikipedia.org/wiki/Netcat)>\`\_\_ or one of its many clones, one of which is available for practically any platform. For example, with the original netcat and using hexdump (`hd`) to display the output:
 
-```{highlight} bash
-```
-
-```
+```bash
 ## Connect to the Reddcoin Core peer running on localhost
 python get-merkle.py | nc localhost 45444 | hd
 ```
-
 Part of the response is shown in the section below.
 
 ## Parsing A MerkleBlock
 
-In the section above, we retrieved a merkle block from the [network](../devguide/p2p_network.html); now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the `` `merkleblock `` message section \<../reference/p2p_networking.html#merkleblock>\`\_\_.
-
-```{highlight} text
-```
+In the section above, we retrieved a merkle block from the [network](../devguide/p2p_network); now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the `` `merkleblock `` message section \<../reference/p2p_networking.html#merkleblock>\`\_\_.
 
 ```
 7f16c5962e8bd963659c793ce370d95f
@@ -353,87 +273,57 @@ bb3183301d7a1fb3bd174fcfa40a2b65 ... Hash #2
 1d ................................. Flags: 1 0 1 1 1 0 0 0
 ```
 
-We parse the above [“merkleblock” message](../reference/p2p_networking.html#merkleblock) using the following instructions. Each illustration is described in the paragraph below it.
+We parse the above [“merkleblock” message](../reference/p2p_networking#merkleblock) using the following instructions. Each illustration is described in the paragraph below it.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-001.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-001.svg)
 
 Parsing A MerkleBlock
-:::
-
 We start by building the structure of a merkle tree based on the number of transactions in the block.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-002.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-002.svg)
 
 Parsing A MerkleBlock
-:::
-
 The first flag is a 1 and the merkle root is (as always) a non-TXID node, so we will need to compute the hash later based on this node’s children. Accordingly, we descend into the merkle root’s left child and look at the next flag for instructions.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-003.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-003.svg)
 
 Parsing A MerkleBlock
-:::
+The next flag in the example is a 0 and this is also a non-TXID node, so we apply the first hash from the [“merkleblock” message](../reference/p2p_networking#merkleblock) to this node. We also don’t process any child nodes—according to the peer which created the [“merkleblock” message](../reference/p2p_networking#merkleblock), none of those nodes will lead to TXIDs of transactions that match our filter, so we don’t need them. We go back up to the merkle root and then descend into its right child and look at the next (third) flag for instructions.
 
-The next flag in the example is a 0 and this is also a non-TXID node, so we apply the first hash from the [“merkleblock” message](../reference/p2p_networking.html#merkleblock) to this node. We also don’t process any child nodes—according to the peer which created the [“merkleblock” message](../reference/p2p_networking.html#merkleblock), none of those nodes will lead to TXIDs of transactions that match our filter, so we don’t need them. We go back up to the merkle root and then descend into its right child and look at the next (third) flag for instructions.
-
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-004.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-004.svg)
 
 Parsing A MerkleBlock
-:::
-
 The third flag in the example is another 1 on another non-TXID node, so we descend into its left child.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-005.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-005.svg)
 
 Parsing A MerkleBlock
-:::
-
 The fourth flag is also a 1 on another non-TXID node, so we descend again—we will always continue descending until we reach a TXID node or a non-TXID node with a 0 flag (or we finish filling out the tree).
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-006.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-006.svg)
 
 Parsing A MerkleBlock
-:::
-
 Finally, on the fifth flag in the example (a 1), we reach a TXID node. The 1 flag indicates this TXID’s transaction matches our filter and that we should take the next (second) hash and use it as this node’s TXID.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-007.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-007.svg)
 
 Parsing A MerkleBlock
-:::
-
 The sixth flag also applies to a TXID, but it’s a 0 flag, so this TXID’s transaction doesn’t match our filter; still, we take the next (third) hash and use it as this node’s TXID.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-008.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-008.svg)
 
 Parsing A MerkleBlock
-:::
-
 We now have enough information to compute the hash for the fourth node we encountered—it’s the hash of the concatenated hashes of the two TXIDs we filled out.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-009.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-009.svg)
 
 Parsing A MerkleBlock
-:::
-
 Moving to the right child of the third node we encountered, we fill it out using the seventh flag and final hash—and discover there are no more child nodes to process.
 
-:::{figure} /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-011.svg
-:alt: Parsing A MerkleBlock
+![Parsing A MerkleBlock](/img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-011.svg)
 
 Parsing A MerkleBlock
-:::
-
 We hash as appropriate to fill out the tree. Note that the eighth flag is not used—this is acceptable as it was required to pad out a flag byte.
 
-The final steps would be to ensure the computed merkle root is identical to the merkle root in the header and check the other steps of the parsing checklist in the [“merkleblock” message](../reference/p2p_networking.html#merkleblock) section.
+The final steps would be to ensure the computed merkle root is identical to the merkle root in the header and check the other steps of the parsing checklist in the [“merkleblock” message](../reference/p2p_networking#merkleblock) section.
 

@@ -37,16 +37,12 @@ How many iterations to try.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Generate 11 blocks to myaddress:
 
-```
+```shell
 reddcoin-cli generatetoaddress 11 "myaddress"
-```
-
 If you are using the Reddcoin Core wallet, you can get a new address to send the newly generated reddcoin to with::
+```
 
 ```
 reddcoin-cli getnewaddress

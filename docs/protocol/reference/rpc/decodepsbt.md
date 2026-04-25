@@ -108,10 +108,6 @@ The PSBT base64 string
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli decodepsbt "psbt"
 ```
-

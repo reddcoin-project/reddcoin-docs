@@ -40,16 +40,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Dump a private key:
 
-```
+```shell
 reddcoin-cli dumpprivkey "myaddress"
-```
-
 Import the private key with rescan:
+```
 
 ```
 reddcoin-cli importprivkey "mykey"

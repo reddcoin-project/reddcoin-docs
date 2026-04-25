@@ -81,16 +81,12 @@ Include transactions to watch-only addresses (see 'importaddress')
 
 ## Examples
 
-```{highlight} shell
-```
-
 List the most recent 10 transactions in the systems:
 
-```
+```shell
 reddcoin-cli listtransactions
-```
-
 List transactions 100 to 120:
+```
 
 ```
 reddcoin-cli listtransactions "*" 20 100

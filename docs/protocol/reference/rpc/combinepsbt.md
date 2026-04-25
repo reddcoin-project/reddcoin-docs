@@ -38,10 +38,6 @@ The base64 strings of partially signed transactions
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli combinepsbt '["mybase64_1", "mybase64_2", "mybase64_3"]'
 ```
-

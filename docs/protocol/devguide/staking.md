@@ -83,7 +83,7 @@ Reddcoin uses the **Kimoto Gravity Well (KGW)** algorithm for difficulty adjustm
 2. Compares the actual time between blocks against the 60-second target.
 3. Uses an "event horizon" mechanism to prevent extreme difficulty swings.
 
-This allows the network to respond rapidly to changes in active staking power while maintaining stability. See {doc}`kimoto_gravity_well` for a full walkthrough of the algorithm.
+This allows the network to respond rapidly to changes in active staking power while maintaining stability. See [kimoto_gravity_well](kimoto_gravity_well) for a full walkthrough of the algorithm.
 
 ## Security Considerations
 

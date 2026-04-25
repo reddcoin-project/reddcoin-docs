@@ -109,12 +109,8 @@ Include BIP 32 derivation paths for public keys if we know them
 
 ## Examples
 
-```{highlight} shell
-```
-
 Create a transaction with no inputs:
 
-```
+```shell
 reddcoin-cli walletcreatefundedpsbt "[{\"txid\":\"myid\",\"vout\":0}]" "[{\"data\":\"00010203\"}]"
 ```
-

@@ -50,10 +50,6 @@ The fee estimate mode.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli estimatesmartfee 6
 ```
-

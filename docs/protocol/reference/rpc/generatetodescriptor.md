@@ -36,12 +36,8 @@ How many iterations to try.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Generate 11 blocks to mydesc:
 
-```
+```shell
 reddcoin-cli generatetodescriptor 11 "mydesc"
 ```
-

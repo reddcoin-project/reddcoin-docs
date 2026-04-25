@@ -36,16 +36,12 @@ The pass phrase to encrypt the wallet with. It must be at least 1 character, but
 
 ## Examples
 
-```{highlight} shell
-```
-
 Encrypt your wallet:
 
-```
+```shell
 reddcoin-cli encryptwallet "my pass phrase"
-```
-
 Now set the passphrase to use the wallet, such as for signing or sending reddcoin:
+```
 
 ```
 reddcoin-cli walletpassphrase "my pass phrase"

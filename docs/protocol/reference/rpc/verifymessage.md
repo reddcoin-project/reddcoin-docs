@@ -41,16 +41,12 @@ The message that was signed.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Unlock the wallet for 30 seconds:
 
-```
+```shell
 reddcoin-cli walletpassphrase "mypassphrase" 30
-```
-
 Create the signature:
+```
 
 ```
 reddcoin-cli signmessage "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" "my message"

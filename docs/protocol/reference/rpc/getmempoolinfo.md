@@ -25,14 +25,8 @@ Returns details on the active state of the TX memory pool.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli getmempoolinfo
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmempoolinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getmempoolinfo", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

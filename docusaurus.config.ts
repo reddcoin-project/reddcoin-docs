@@ -1,4 +1,6 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
@@ -17,13 +19,27 @@ const config: Config = {
   organizationName: 'reddcoin-project',
   projectName: 'reddcoin-docs',
 
-  onBrokenLinks: 'throw',
+  // Phase 1 conversion leaves a long tail of broken cross-references
+  // until the autocrossref / :ref: rewrite step lands. Warn during the
+  // cleanup pass; restore to 'throw' before Phase 1 closes.
+  onBrokenLinks: 'warn',
 
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
   },
+
+  // Math support — Phase 1 protocol docs use $…$ and $$…$$ blocks
+  // (e.g. the Kimoto Gravity Well derivation). Without these plugins
+  // MDX tries to parse `\frac{a}{b}` as a JSX expression and crashes.
+  // KaTeX CSS is added via headTags below so equations render
+  // correctly on the client.
+
+  // Apply math plugins to every plugin-content-docs instance.
+  // (Docusaurus's `markdown.{remark,rehype}Plugins` only feeds the
+  // preset's docs/blog; standalone plugin instances need their own
+  // remark/rehype lists, which we do per-plugin below.)
 
   i18n: {
     defaultLocale: 'en',
@@ -36,6 +52,9 @@ const config: Config = {
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/apple-touch-icon.png'}},
     {tagName: 'link', attributes: {rel: 'manifest', href: '/site.webmanifest'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#E30613'}},
+    // KaTeX CSS for client-side math rendering (Phase 1 protocol docs
+    // contain MathJax/KaTeX-style equations).
+    {tagName: 'link', attributes: {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css', integrity: 'sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV', crossorigin: 'anonymous'}},
     // Google Fonts — Roboto (body), Rubik (UI labels), Roboto Mono
     // (code). Goldplay (display) is self-hosted from /fonts/ via
     // @font-face in custom.css.
@@ -72,6 +91,8 @@ const config: Config = {
         routeBasePath: 'protocol',
         sidebarPath: './sidebars/protocol.ts',
         editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
     [
@@ -82,6 +103,8 @@ const config: Config = {
         routeBasePath: 'guides',
         sidebarPath: './sidebars/guides.ts',
         editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
     [
@@ -92,6 +115,8 @@ const config: Config = {
         routeBasePath: 'contribute',
         sidebarPath: './sidebars/contribute.ts',
         editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
     [
@@ -102,6 +127,8 @@ const config: Config = {
         routeBasePath: 'glossary',
         sidebarPath: './sidebars/glossary.ts',
         editUrl: 'https://github.com/reddcoin-project/reddcoin-docs/tree/master/',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
   ],

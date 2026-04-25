@@ -20,14 +20,8 @@ For full information on the wallet, use "getwalletinfo"
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli listwallets
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listwallets", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "listwallets", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

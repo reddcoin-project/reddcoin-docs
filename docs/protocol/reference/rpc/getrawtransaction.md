@@ -107,22 +107,10 @@ The block in which to look for the transaction
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli getrawtransaction "mytxid"
-```
-
-```
 reddcoin-cli getrawtransaction "mytxid" true
-```
-
-```
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getrawtransaction", "params": ["mytxid", true]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
-```
-
-```
 reddcoin-cli getrawtransaction "mytxid" false "myblockhash"
 ```
 

@@ -46,10 +46,6 @@ An array of either strings or objects
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli utxoupdatepsbt "psbt"
 ```
-

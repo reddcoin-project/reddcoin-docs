@@ -79,10 +79,6 @@ Marks this transaction as BIP125 replaceable.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli createpsbt "[{\"txid\":\"myid\",\"vout\":0}]" "[{\"data\":\"00010203\"}]"
 ```
-

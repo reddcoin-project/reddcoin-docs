@@ -33,14 +33,8 @@ To enable or disable staking.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli staking "[\"all\"]" "[\"http\"]"
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "staking", "params": [["all"], ["libevent"]]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "staking", "params": [["all"], ["libevent"]]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

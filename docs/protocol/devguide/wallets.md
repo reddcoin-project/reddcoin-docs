@@ -19,7 +19,7 @@ Wallet programs and wallet files are addressed below in separate subsections, an
 
 Permitting receiving and spending of reddoshis is the only essential feature of wallet software—but a particular wallet program doesn’t need to do both things. Two wallet programs can work together, one program distributing public keys in order to receive reddoshis and another program signing transactions spending those reddoshis.
 
-Wallet programs also need to interact with the [peer-to-peer network](../devguide/p2p_network.html) to get information from the block chain and to broadcast new transactions. However, the programs which distribute public keys or sign transactions don’t need to interact with the [peer-to-peer network](../devguide/p2p_network.html) themselves.
+Wallet programs also need to interact with the [peer-to-peer network](../devguide/p2p_network) to get information from the block chain and to broadcast new transactions. However, the programs which distribute public keys or sign transactions don’t need to interact with the [peer-to-peer network](../devguide/p2p_network) themselves.
 
 This leaves us with three necessary, but separable, parts of a wallet system: a public key distribution program, a signing program, and a networked program. In the subsections below, we will describe common combinations of these parts.
 
@@ -29,12 +29,9 @@ Note: we speak about distributing public keys generically. In many cases, P2PKH 
 
 The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.
 
-:::{figure} /img/dev/en-wallets-full-service.svg
-:alt: Full-Service Wallets
+![Full-Service Wallets](/img/dev/en-wallets-full-service.svg)
 
 Full-Service Wallets
-:::
-
 As of this writing, almost all popular wallets can be used as full-service wallets.
 
 The main advantage of full-service wallets is that they are easy to use. A single program does everything the user needs to receive and spend reddoshis.
@@ -45,16 +42,13 @@ To help protect against theft, many wallet programs offer users the option of en
 
 ### Signing-Only Wallets
 
-To increase security, private keys can be generated and stored by a separate wallet program operating in a more secure environment. These signing-only wallets work in conjunction with a networked wallet which interacts with the [peer-to-peer network](../devguide/p2p_network.html).
+To increase security, private keys can be generated and stored by a separate wallet program operating in a more secure environment. These signing-only wallets work in conjunction with a networked wallet which interacts with the [peer-to-peer network](../devguide/p2p_network).
 
 Signing-only wallets programs typically use deterministic key creation (described in a later subsection) to create parent private and public keys which can create child private and public keys.
 
-:::{figure} /img/dev/en-wallets-signing-only.svg
-:alt: Signing-Only Wallets
+![Signing-Only Wallets](/img/dev/en-wallets-signing-only.svg)
 
 Signing-Only Wallets
-:::
-
 When first run, the signing-only wallet creates a parent private key and transfers the corresponding parent public key to the networked wallet.
 
 The networked wallet uses the parent public key to derive child public keys, optionally helps distribute them, monitors for outputs spent to those public keys, creates unsigned transactions spending those outputs, and transfers the unsigned transactions to the signing-only wallet.
@@ -63,7 +57,7 @@ Often, users are given a chance to review the unsigned transactions’ details (
 
 After the optional review step, the signing-only wallet uses the parent private key to derive the appropriate child private keys and signs the transactions, giving the signed transactions back to the networked wallet.
 
-The networked wallet then broadcasts the signed transactions to the [peer-to-peer network](../devguide/p2p_network.html).
+The networked wallet then broadcasts the signed transactions to the [peer-to-peer network](../devguide/p2p_network).
 
 The following subsections describe the two most common variants of signing-only wallets: offline wallets and hardware wallets.
 
@@ -71,12 +65,12 @@ The following subsections describe the two most common variants of signing-only 
 
 Several full-service wallets programs will also operate as two separate wallets: one program instance acting as a signing-only wallet (often called an “offline wallet”) and the other program instance acting as the networked wallet (often called an “online wallet” or “watching-only wallet”).
 
-The offline wallet is so named because it is intended to be run on a device which does not connect to any [network](../devguide/p2p_network.html), greatly reducing the number of attack vectors. If this is the case, it is usually up to the user to handle all data transfer using removable media such as USB drives. The user’s workflow is something like:
+The offline wallet is so named because it is intended to be run on a device which does not connect to any [network](../devguide/p2p_network), greatly reducing the number of attack vectors. If this is the case, it is usually up to the user to handle all data transfer using removable media such as USB drives. The user’s workflow is something like:
 
-1. (Offline) Disable all [network](../devguide/p2p_network.html) connections on a device and install the wallet software. Start the wallet software in offline mode to create the parent private and public keys. Copy the parent public key to removable media.
+1. (Offline) Disable all [network](../devguide/p2p_network) connections on a device and install the wallet software. Start the wallet software in offline mode to create the parent private and public keys. Copy the parent public key to removable media.
 2. (Online) Install the wallet software on another device, this one connected to the Internet, and import the parent public key from the removable media. As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend reddoshis, fill in the output details and save the unsigned transaction generated by the wallet to removable media.
 3. (Offline) Open the unsigned transaction in the offline instance, review the output details to make sure they spend the correct amount to the correct address. This prevents malware on the online wallet from tricking the user into signing a transaction which pays an attacker. After review, sign the transaction and save it to removable media.
-4. (Online) Open the signed transaction in the online instance so it can broadcast it to the [peer-to-peer network](../devguide/p2p_network.html).
+4. (Online) Open the signed transaction in the online instance so it can broadcast it to the [peer-to-peer network](../devguide/p2p_network).
 
 The primary advantage of offline wallets is their possibility for greatly improved security over full-service wallets. As long as the offline wallet is not compromised (or flawed) and the user reviews all outgoing transactions before signing, the user’s reddoshis are safe even if the online wallet is compromised.
 
@@ -89,7 +83,7 @@ Hardware wallets are devices dedicated to running a signing-only wallet. Their d
 1. (Hardware) Create parent private and public keys. Connect hardware wallet to a networked device so it can get the parent public key.
 2. (Networked) As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend reddoshis, fill in the transaction details, connect the hardware wallet, and click Spend. The networked wallet will automatically send the transaction details to the hardware wallet.
 3. (Hardware) Review the transaction details on the hardware wallet’s screen. Some hardware wallets may prompt for a passphrase or PIN number. The hardware wallet signs the transaction and uploads it to the networked wallet.
-4. (Networked) The networked wallet receives the signed transaction from the hardware wallet and broadcasts it to the [network](../devguide/p2p_network.html).
+4. (Networked) The networked wallet receives the signed transaction from the hardware wallet and broadcasts it to the [network](../devguide/p2p_network).
 
 The primary advantage of hardware wallets is their possibility for greatly improved security over full-service wallets with much less hassle than offline wallets.
 
@@ -101,16 +95,13 @@ An additional (hopefully temporary) disadvantage is that, as of this writing, ve
 
 Wallet programs which run in difficult-to-secure environments, such as webservers, can be designed to distribute public keys (including P2PKH or P2SH addresses) and nothing more. There are two common ways to design these minimalist wallets:
 
-:::{figure} /img/dev/en-wallets-distributing-only.svg
-:alt: Distributing-Only Wallets
+![Distributing-Only Wallets](/img/dev/en-wallets-distributing-only.svg)
 
 Distributing-Only Wallets
-:::
+- Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To [avoid key reuse](../devguide/transactions#avoiding-key-reuse), webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
+- Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the key index number.
 
-- Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To [avoid key reuse](../devguide/transactions.html#avoiding-key-reuse), webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
-- Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the {ref}`key index <term-key-index>` number.
-
-Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the [Payment Processing](../devguide/payment_processing.html) section for details.
+Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the [Payment Processing](../devguide/payment_processing) section for details.
 
 ## Wallet Files
 
@@ -124,7 +115,7 @@ Private keys are what are used to unlock reddoshis from a particular address. In
 
 #### Wallet Import Format (WIF)
 
-In order to make copying of private keys less prone to error, {term}`Wallet Import Format <Wallet Import Format>` may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Reddcoin addresses.
+In order to make copying of private keys less prone to error, Wallet Import Format may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Reddcoin addresses.
 
 1. Take a private key.
 2. Add a 0xbd byte in front of it for mainnet addresses or 0xef for testnet addresses.
@@ -154,12 +145,9 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 
 Reddcoin [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public keys represent a point on a particular Elliptic Curve (EC) defined in [secp256k1](http://www.secg.org/sec2-v2.pdf). In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Reddcoin, y2 = x3 + 7, over a field of contiguous numbers.
 
-:::{figure} /img/dev/en-ecdsa-compressed-public-key.svg
-:alt: Point On ECDSA Curve
+![Point On ECDSA Curve](/img/dev/en-ecdsa-compressed-public-key.svg)
 
 Point On ECDSA Curve
-:::
-
 ([Secp256k1](http://www.secg.org/sec2-v2.pdf) actually modulos coordinates by a large prime, which produces a field of non-contiguous integers and a significantly less clear plot, although the principles are the same.)
 
 An almost 50% reduction in public key size can be realized without changing any fundamentals by dropping the Y coordinate. This is possible because only two points along the curve share any particular X coordinate, so the 32-byte Y coordinate can be replaced with a single bit indicating whether the point is on what appears in the illustration as the “top” side or the “bottom” side.
@@ -184,21 +172,21 @@ For consistent word ordering:
 -->
 ```
 
-The hierarchical deterministic key creation and transfer protocol ({term}`HD protocol <HD protocol>`) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
+The hierarchical deterministic key creation and transfer protocol (HD protocol) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
-The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key creation function, {ref}`“point()” <term-point-function>`, which takes a large integer (the private key) and turns it into a graph point (the public key):
+The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key creation function, “point()”, which takes a large integer (the private key) and turns it into a graph point (the public key):
 
 ```
 point(private_key) == public_key
 ```
 
-Because of the way {ref}`“point()” <Term-point-function>` works, it’s possible to create a {term}`child public key <Child key>` by combining an existing {term}`(parent) public key <Parent key>` with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the {ref}`“point()” <Term-point-function>` function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Reddcoin software (*p*):
+Because of the way “point()” works, it’s possible to create a child public key by combining an existing (parent) public key with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the “point()” function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Reddcoin software (*p*):
 
 ```
 point( (parent_private_key + i) % p ) == parent_public_key + point(i)
 ```
 
-This means that two or more independent programs which agree on a sequence of integers can create a series of unique {term}`child key <Child key>` pairs from a single {term}`parent key <Parent key>` pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
+This means that two or more independent programs which agree on a sequence of integers can create a series of unique child key pairs from a single parent key pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
 
 Child public keys can also create their own child public keys (grandchild public keys) by repeating the child key derivation operations:
 
@@ -208,19 +196,16 @@ point( (child_private_key + i) % p ) == child_public_key + point(i)
 
 Whether creating child public keys or further-descended public keys, a predictable sequence of integer values would be no better than using a single public key for all transactions, as anyone who knew one child public key could find all of the other child public keys created from the same parent public key. Instead, a random seed can be used to deterministically generate the sequence of integer values so that the relationship between the child public keys is invisible to anyone without that seed.
 
-The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a {term}`chain code <Chain code>`, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the {term}`master chain code <Master chain code>` to continue being useful even if, for example, a web-based public key distribution program gets hacked.
+The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a chain code, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the master chain code to continue being useful even if, for example, a web-based public key distribution program gets hacked.
 
-:::{figure} /img/dev/en-hd-overview.svg
-:alt: Overview Of Hierarchical Deterministic Key Derivation
+![Overview Of Hierarchical Deterministic Key Derivation](/img/dev/en-hd-overview.svg)
 
 Overview Of Hierarchical Deterministic Key Derivation
-:::
-
 As illustrated above, HD key derivation takes four inputs:
 
-- The {term}`parent private key <Parent key>` and *parent public key* are regular uncompressed 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) keys.
-- The {term}`parent chain code <Chain code>` is 256 bits of seemingly-random data.
-- The {ref}`index <term-key-index>` number is a 32-bit integer specified by the program.
+- The parent private key and *parent public key* are regular uncompressed 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) keys.
+- The parent chain code is 256 bits of seemingly-random data.
+- The index number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash ([HMAC-SHA512](https://en.wikipedia.org/wiki/HMAC)) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
@@ -232,30 +217,24 @@ child_public_key == point(child_private_key) == parent_public_key + point(leftha
 
 Specifying different index numbers will create different unlinkable child keys from the same parent keys. Repeating the procedure for the child keys using the child chain code will create unlinkable grandchild keys.
 
-Because creating child keys requires both a key and a chain code, the key and chain code together are called the {term}`extended key <Extended key>`. An {term}`extended private key <Extended key>` and its corresponding {term}`extended public key <Extended key>` have the same chain code. The (top-level parent) {term}`master private key <Master chain code>` and master chain code are derived from random data, as illustrated below.
+Because creating child keys requires both a key and a chain code, the key and chain code together are called the extended key. An extended private key and its corresponding extended public key have the same chain code. The (top-level parent) master private key and master chain code are derived from random data, as illustrated below.
 
-:::{figure} /img/dev/en-hd-root-keys.svg
-:alt: Creating A Root Extended Key Pair
+![Creating A Root Extended Key Pair](/img/dev/en-hd-root-keys.svg)
 
 Creating A Root Extended Key Pair
-:::
+A root seed is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
 
-A {term}`root seed <HD wallet seed>` is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
+**Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
-{{ Warning icon }} **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
-
-The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using {ref}`“point()” <term-point-function>`, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
+The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using “point()”, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
 #### Hardened Keys
 
 Hardened extended keys fix a potential problem with normal extended keys. If an attacker gets a normal parent chain code and parent public key, he can brute-force all chain codes deriving from it. If the attacker also obtains a child, grandchild, or further-descended private key, he can use the chain code to generate all of the extended private keys descending from that private key, as shown in the grandchild and great-grandchild generations of the illustration below.
 
-:::{figure} /img/dev/en-hd-cross-generational-key-compromise.svg
-:alt: Cross-Generational Key Compromise
+![Cross-Generational Key Compromise](/img/dev/en-hd-cross-generational-key-compromise.svg)
 
 Cross-Generational Key Compromise
-:::
-
 Perhaps worse, the attacker can reverse the normal child private key derivation formula and subtract a parent chain code from a child private key to recover the parent private key, as shown in the child and parent generations of the illustration above. This means an attacker who acquires an extended public key and any private key descended from it can recover that public key’s private key and all keys descended from it.
 
 For this reason, the chain code part of an extended public key should be better secured than standard public keys and users should be advised against exporting even non-extended private keys to possibly-untrustworthy environments.
@@ -264,15 +243,12 @@ This can be fixed, with some tradeoffs, by replacing the normal key derivation f
 
 The normal key derivation formula, described in the section above, combines together the index number, the parent chain code, and the parent public key to create the child chain code and the integer value which is combined with the parent private key to create the child private key.
 
-:::{figure} /img/dev/en-hd-private-parent-to-private-child.svg
-:alt: Creating Child Public Keys From An Extended Private Key
+![Creating Child Public Keys From An Extended Private Key](/img/dev/en-hd-private-parent-to-private-child.svg)
 
 Creating Child Public Keys From An Extended Private Key
-:::
-
 The hardened formula, illustrated above, combines together the index number, the parent chain code, and the parent private key to create the data used to generate the child chain code and child private key. This formula makes it impossible to create child public keys without knowing the parent private key. In other words, parent extended public keys can’t create hardened child public keys.
 
-Because of that, a {term}`hardened extended private key <Hardened extended key>` is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
+Because of that, a hardened extended private key is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
 
 The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 231-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the [prime symbol](https://en.wikipedia.org/wiki/Prime_%28symbol%29) to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
 
@@ -280,15 +256,12 @@ The HD protocol uses different index numbers to indicate whether a normal or har
 
 This compact description is further combined with slashes prefixed by *m* or *M* to indicate hierarchy and key type, with *m* being a private key and *M* being a public key. For example, m/0’/0/122’ refers to the 123rd hardened private child (by index number) of the first normal child (by index) of the first hardened child (by index) of the master private key. The following hierarchy illustrates prime notation and hardened key firewalls.
 
-:::{figure} /img/dev/en-hd-tree.svg
-:alt: Example HD Wallet Tree Using Prime Notation
+![Example HD Wallet Tree Using Prime Notation](/img/dev/en-hd-tree.svg)
 
 Example HD Wallet Tree Using Prime Notation
-:::
-
 Wallets following the [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) HD protocol only create hardened children of the master private key (*m*) to prevent a compromised child key from compromising the master key. As there are no normal children for the master keys, the master public key is not used in HD wallets. All other keys can have normal children, so the corresponding extended public keys may be used instead.
 
-The HD protocol also describes a serialization format for extended public keys and extended private keys. For details, please see the [wallet section in the developer reference](../reference/wallets.html) or [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for the full HD protocol specification.
+The HD protocol also describes a serialization format for extended public keys and extended private keys. For details, please see the [wallet section in the developer reference](../reference/wallets) or [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for the full HD protocol specification.
 
 #### Storing Root Seeds
 
@@ -314,7 +287,7 @@ Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecat
 
 These unused private keys are stored in a virtual “key pool”, with new keys being generated whenever a previously-generated key was used, ensuring the pool maintained 100 unused keys. (If the wallet is encrypted, new keys are only generated while the wallet is unlocked.)
 
-This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new {ref}`key pair <term-key-pair>` set is generated, used, and then lost prior to a backup, the stored reddoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
+This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new key pair set is generated, used, and then lost prior to a backup, the stored reddoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
 
 This wallet type is being actively phased out and discouraged from being used due to the backup hassle.
 

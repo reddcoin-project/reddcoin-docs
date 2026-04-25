@@ -37,10 +37,6 @@ If true and the transaction is complete,
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli finalizepsbt "psbt"
 ```
-

@@ -1,6 +1,6 @@
 # Historical Transaction Format
 
-This document covers transaction formats from earlier eras of the Reddcoin blockchain. For the current PoSV v2 format, see [Transactions](../reference/transactions.html).
+This document covers transaction formats from earlier eras of the Reddcoin blockchain. For the current PoSV v2 format, see [Transactions](../reference/transactions).
 
 ```{contents} Eras
 :depth: 2
@@ -27,9 +27,6 @@ A raw PoW-era transaction has the following format:
 In PoW blocks, the coinbase transaction paid the block reward (including transaction fees) directly to the miner. This is the standard Bitcoin coinbase format.
 
 An itemized PoW coinbase transaction:
-
-```{highlight} text
-```
 
 ```
 01000000 .............................. Version
@@ -72,9 +69,6 @@ The PoSV hard fork at block 260,800 introduced three major changes to the block 
 
 The coinbase in PoSV v1 blocks did not include the BIP34 block height in the coinbase script. The coinbase script typically contained only minimal data.
 
-```{highlight} text
-```
-
 ```
 02000000 .............................. Version
 
@@ -98,9 +92,6 @@ d20fdd53 .............................. nTime: transaction timestamp
 ### PoSV v1 Coinstake
 
 The PoSV v1 coinstake had **3 outputs**: the coinstake marker (zero-value, empty script) followed by two stake split outputs paying the staker's P2PK script. There was no development fund output.
-
-```{highlight} text
-```
 
 ```
 02000000 .............................. Version
@@ -147,7 +138,7 @@ d20fdd53 .............................. nTime: transaction timestamp
 
 ### Transition to PoSV v2
 
-At block 3,382,230, the PoSV v2 hard fork added a fourth output to the coinstake transaction: a development fund contribution paid to a fixed P2PK script. The coinbase format remained unchanged. See the current [Transactions](../reference/transactions.html#coinstake) documentation for the PoSV v2 coinstake format.
+At block 3,382,230, the PoSV v2 hard fork added a fourth output to the coinstake transaction: a development fund contribution paid to a fixed P2PK script. The coinbase format remained unchanged. See the current [Transactions](../reference/transactions#coinstake) documentation for the PoSV v2 coinstake format.
 
 At block 5,558,400, BIP34-style block height encoding was added to the coinbase script.
 

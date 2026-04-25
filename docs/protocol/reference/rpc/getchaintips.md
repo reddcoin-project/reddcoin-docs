@@ -29,14 +29,8 @@ Return information about all known tips in the block tree, including the main ch
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli getchaintips
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getchaintips", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getchaintips", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

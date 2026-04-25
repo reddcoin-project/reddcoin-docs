@@ -22,14 +22,8 @@ Returns information about the active ZeroMQ notifications.
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli getzmqnotifications
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getzmqnotifications", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getzmqnotifications", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

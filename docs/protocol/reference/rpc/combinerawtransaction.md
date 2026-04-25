@@ -39,10 +39,6 @@ The hex strings of partially signed transactions
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli combinerawtransaction '["myhex1", "myhex2", "myhex3"]'
 ```
-

@@ -58,16 +58,12 @@ The address type to use. Options are "legacy", "p2sh-segwit", and "bech32".
 
 ## Examples
 
-```{highlight} shell
-```
-
 Add a multisig address from 2 addresses:
 
-```
+```shell
 reddcoin-cli addmultisigaddress 2 "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"
-```
-
 As a JSON-RPC call:
+```
 
 ```
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "addmultisigaddress", "params": [2, "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/

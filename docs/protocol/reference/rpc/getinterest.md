@@ -38,16 +38,12 @@ End time (unixtime).
 
 ## Examples
 
-```{highlight} shell
-```
-
 The total amount of interest generated for this wallet:
 
-```
+```shell
 reddcoin-cli getinterest
-```
-
 The total amount of interest generated for this wallet from start time:
+```
 
 ```
 reddcoin-cli getinterest 16123456789

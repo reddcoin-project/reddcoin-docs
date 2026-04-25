@@ -50,16 +50,12 @@ Also include balance in watch-only addresses (see 'importaddress')
 
 ## Examples
 
-```{highlight} shell
-```
-
 The total amount in the wallet with 0 or more confirmations:
 
-```
+```shell
 reddcoin-cli getbalance
-```
-
 The total amount in the wallet with at least 6 confirmations:
+```
 
 ```
 reddcoin-cli getbalance "*" 6

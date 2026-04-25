@@ -58,14 +58,8 @@ The categories to remove from debug logging
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli logging "[\"all\"]" "[\"http\"]"
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "logging", "params": [["all"], ["libevent"]]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "logging", "params": [["all"], ["libevent"]]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

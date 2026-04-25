@@ -11,10 +11,10 @@ It returns data needed to construct a block to work on.
 
 For full specification, see BIPs 22, 23, 9, and 145:
 
-> <https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki>
-> <https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki>
-> <https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes>
-> <https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki>
+> [https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki)
+> [https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki)
+> [https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes](https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes)
+> [https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki](https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki)
 
 ## Argument #1 - template_request
 
@@ -113,14 +113,8 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli getblocktemplate '{"rules": ["segwit"]}'
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblocktemplate", "params": [{"rules": ["segwit"]}]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getblocktemplate", "params": [{"rules": ["segwit"]}]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

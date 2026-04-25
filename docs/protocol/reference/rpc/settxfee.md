@@ -31,14 +31,8 @@ The transaction fee rate in RDD/kvB
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli settxfee 0.00001
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "settxfee", "params": [0.00001]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "settxfee", "params": [0.00001]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

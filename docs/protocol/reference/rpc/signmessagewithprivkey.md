@@ -35,16 +35,12 @@ The message to create a signature of.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Create the signature:
 
-```
+```shell
 reddcoin-cli signmessagewithprivkey "privkey" "my message"
-```
-
 Verify the signature:
+```
 
 ```
 reddcoin-cli verifymessage "1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX" "signature" "my message"

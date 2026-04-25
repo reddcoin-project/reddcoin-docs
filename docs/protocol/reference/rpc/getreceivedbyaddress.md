@@ -35,16 +35,12 @@ Only include transactions confirmed at least this many times.
 
 ## Examples
 
-```{highlight} shell
-```
-
 The amount from transactions with at least 1 confirmation:
 
-```
+```shell
 reddcoin-cli getreceivedbyaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl"
-```
-
 The amount including unconfirmed transactions, zero confirmations:
+```
 
 ```
 reddcoin-cli getreceivedbyaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 0

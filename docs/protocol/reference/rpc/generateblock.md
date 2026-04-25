@@ -39,12 +39,8 @@ An array of hex strings which are either txids or raw transactions.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Generate a block to myaddress, with txs rawtx and mempool_txid:
 
-```
+```shell
 reddcoin-cli generateblock "myaddress" '["rawtx", "mempool_txid"]'
 ```
-

@@ -18,16 +18,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Set the passphrase for 2 minutes to perform a transaction:
 
-```
+```shell
 reddcoin-cli walletpassphrase "my pass phrase" 120
-```
-
 Perform a send (requires passphrase set):
+```
 
 ```
 reddcoin-cli sendtoaddress "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl" 1.0

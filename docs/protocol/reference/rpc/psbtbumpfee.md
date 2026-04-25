@@ -80,12 +80,8 @@ The txid to be bumped
 
 ## Examples
 
-```{highlight} shell
-```
-
 Bump the fee, get the new transaction's psbt:
 
-```
+```shell
 reddcoin-cli psbtbumpfee <txid>
 ```
-

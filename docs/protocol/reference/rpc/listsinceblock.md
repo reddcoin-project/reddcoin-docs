@@ -91,18 +91,12 @@ Show transactions that were removed due to a reorg in the "removed" array
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli listsinceblock
-```
-
-```
 reddcoin-cli listsinceblock "000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad" 6
 ```
 
 ```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listsinceblock", "params": ["000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad", 6]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "listsinceblock", "params": ["000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad", 6]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

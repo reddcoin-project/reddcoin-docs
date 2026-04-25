@@ -40,16 +40,12 @@ null    (json null)
 
 ## Examples
 
-```{highlight} shell
-```
-
 Import a public key with rescan:
 
-```
+```shell
 reddcoin-cli importpubkey "mypubkey"
-```
-
 Import using a label without rescan:
+```
 
 ```
 reddcoin-cli importpubkey "mypubkey" "testing" false

@@ -47,14 +47,8 @@ The fee value (in reddoshis) to add (or subtract, if negative).
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli prioritisetransaction "txid" 0.0 10000
-```
-
-```
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

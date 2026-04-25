@@ -50,16 +50,12 @@ Whether the transaction hex is a serialized witness transaction.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Create a transaction:
 
-```
+```shell
 reddcoin-cli createrawtransaction "[{\"txid\":\"myid\",\"vout\":0}]" "[{\"data\":\"00010203\"}]"
-```
-
 Convert the transaction to a PSBT:
+```
 
 ```
 reddcoin-cli converttopsbt "rawtransaction"

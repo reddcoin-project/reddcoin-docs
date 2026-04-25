@@ -20,11 +20,8 @@ Type 1 deterministic wallets are the simpler of the two, which can create a sing
 <!-- no subhead-links here -->
 ```
 
-:::{figure} /img/dev/en-hd-overview.svg
-:alt: Overview Of Hierarchical Deterministic Key Derivation
+![Overview Of Hierarchical Deterministic Key Derivation](/img/dev/en-hd-overview.svg)
 
 Overview Of Hierarchical Deterministic Key Derivation
-:::
-
-For an overview of HD wallets, please see the [developer guide section](../devguide/wallets.html). For details, please see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki).
+For an overview of HD wallets, please see the [developer guide section](../devguide/wallets). For details, please see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki).
 

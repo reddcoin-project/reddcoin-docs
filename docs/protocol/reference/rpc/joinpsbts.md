@@ -37,10 +37,6 @@ The base64 strings of partially signed transactions
 
 ## Examples
 
-```{highlight} shell
-```
-
-```
+```shell
 reddcoin-cli joinpsbts "psbt"
 ```
-

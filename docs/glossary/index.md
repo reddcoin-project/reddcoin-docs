@@ -1,6 +1,5 @@
 # Glossary
 
-:::{glossary}
 51 percent attack
 Majority attack
 
@@ -754,8 +753,6 @@ V2 block
 x509certificates
 
 term-x509certificates (developer-examples) ([original target](https://reddcoin.com/en/developer-examples#term-x509certificates))
-:::
-
 [term-msg_block]: TheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetwork.
 [term-msg_cmpct_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkusedtorequestacompactblock.
 [term-msg_filtered_witness_block]: AnalternativetotheblockheaderhashdatatypeidentifierofaninventoryontheP2Pnetworkthatisreservedforfutureuseandunused.

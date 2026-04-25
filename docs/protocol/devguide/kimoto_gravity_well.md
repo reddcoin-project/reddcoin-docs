@@ -260,6 +260,6 @@ None of these constants are chain-specific; they are identical across every KGW 
 
 - `src/pow.cpp` in Reddcoin Core — authoritative implementation.
 - [How does the Kimoto Gravity Well regulate difficulty?](https://bitcoin.stackexchange.com/questions/21730/how-does-the-kimoto-gravity-well-regulate-difficulty) — walkthrough from the Bitcoin Stack Exchange.
-- {doc}`block_chain` — where KGW fits into Reddcoin's block chain architecture.
-- {doc}`staking` — the PoSV consensus layer that calls into KGW for difficulty.
+- [block_chain](block_chain) — where KGW fits into Reddcoin's block chain architecture.
+- [staking](staking) — the PoSV consensus layer that calls into KGW for difficulty.
 

@@ -24,16 +24,12 @@ Address purpose to list labels for ('send','receive'). An empty string is the sa
 
 ## Examples
 
-```{highlight} shell
-```
-
 List all labels:
 
-```
+```shell
 reddcoin-cli listlabels
-```
-
 List labels that have receiving addresses:
+```
 
 ```
 reddcoin-cli listlabels receive

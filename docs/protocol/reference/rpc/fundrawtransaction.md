@@ -36,7 +36,7 @@ The hex string of the raw transaction
 
 **Type:** json object, optional
 
-for backward compatibility: passing in a true instead of an object will result in {"includeWatching":true}
+for backward compatibility: passing in a true instead of an object will result in `{"includeWatching":true}`
 
 : "replaceable": bool, (boolean, optional, default=wallet default) Marks this transaction as BIP125 replaceable.
   Allows this transaction to be replaced by a transaction with higher fees
@@ -95,16 +95,12 @@ Whether the transaction hex is a serialized witness transaction.
 
 ## Examples
 
-```{highlight} shell
-```
-
 Create a transaction with no inputs:
 
-```
+```shell
 reddcoin-cli createrawtransaction "[]" "{\"myaddress\":0.01}"
-```
-
 Add sufficient unsigned inputs to meet the output value:
+```
 
 ```
 reddcoin-cli fundrawtransaction "rawtransactionhex"

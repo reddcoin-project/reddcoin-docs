@@ -14,9 +14,9 @@ Charlie-the-customer wants to buy a product from Bob-the-businessman, but neithe
 
 A simple contract could say that Charlie will spend reddoshis to an output which can only be spent if Charlie and Bob both sign the input spending it. That means Bob won’t get paid unless Charlie gets his merchandise, but Charlie can’t get the merchandise and keep his payment.
 
-This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an {term}`escrow contract <Escrow contract>`. Charlie spends his reddoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can [refund](../devguide/payment_processing.html#issuing-refunds) Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the reddoshis if there’s a dispute.
+This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an escrow contract. Charlie spends his reddoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can [refund](../devguide/payment_processing#issuing-refunds) Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the reddoshis if there’s a dispute.
 
-To create a multiple-signature ({term}`multisig <Multisig>`) output, they each give the others a public key. Then Bob creates the following {term}`P2SH multisig <P2SH multisig>` redeem script:
+To create a multiple-signature (multisig) output, they each give the others a public key. Then Bob creates the following P2SH multisig redeem script:
 
 ```
 OP_2 [A's pubkey] [B's pubkey] [C's pubkey] OP_3 OP_CHECKMULTISIG
@@ -28,9 +28,9 @@ OP_2 [A's pubkey] [B's pubkey] [C's pubkey] OP_3 OP_CHECKMULTISIG
 
 Bob gives the redeem script to Charlie, who checks to make sure his public key and Alice’s public key are included. Then he hashes the redeem script to create a P2SH redeem script and pays the reddoshis to it. Bob sees the payment get added to the block chain and ships the merchandise.
 
-Unfortunately, the merchandise gets slightly damaged in transit. Charlie wants a full [refund](../devguide/payment_processing.html#issuing-refunds), but Bob thinks a 10% [refund](../devguide/payment_processing.html#issuing-refunds) is sufficient. They turn to Alice to resolve the issue. Alice asks for photo evidence from Charlie along with a copy of the redeem script Bob created and Charlie checked.
+Unfortunately, the merchandise gets slightly damaged in transit. Charlie wants a full [refund](../devguide/payment_processing#issuing-refunds), but Bob thinks a 10% [refund](../devguide/payment_processing#issuing-refunds) is sufficient. They turn to Alice to resolve the issue. Alice asks for photo evidence from Charlie along with a copy of the redeem script Bob created and Charlie checked.
 
-After looking at the evidence, Alice thinks a 40% [refund](../devguide/payment_processing.html#issuing-refunds) is sufficient, so she creates and signs a transaction with two outputs, one that spends 60% of the reddoshis to Bob’s public key and one that spends the remaining 40% to Charlie’s public key.
+After looking at the evidence, Alice thinks a 40% [refund](../devguide/payment_processing#issuing-refunds) is sufficient, so she creates and signs a transaction with two outputs, one that spends 60% of the reddoshis to Bob’s public key and one that spends the remaining 40% to Charlie’s public key.
 
 In the signature script Alice puts her signature and a copy of the unhashed serialized redeem script that Bob created. She gives a copy of the incomplete transaction to both Bob and Charlie. Either one of them can complete it by adding his signature to create the following signature script:
 
@@ -38,9 +38,9 @@ In the signature script Alice puts her signature and a copy of the unhashed seri
 OP_0 [A's signature] [B's or C's signature] [serialized redeem script]
 ```
 
-(Opcodes to push the signatures and redeem script onto the stack are not shown. `OP_0` is a workaround for an off-by-one error in the original implementation which must be preserved for compatibility. Note that the signature script must provide signatures in the same order as the corresponding public keys appear in the redeem script. See the description in {ref}`“OP_CHECKMULTISIG” <term-op-checkmultisig>` for details.)
+(Opcodes to push the signatures and redeem script onto the stack are not shown. `OP_0` is a workaround for an off-by-one error in the original implementation which must be preserved for compatibility. Note that the signature script must provide signatures in the same order as the corresponding public keys appear in the redeem script. See the description in “OP_CHECKMULTISIG” for details.)
 
-When the transaction is broadcast to the [network](../devguide/p2p_network.html), each peer checks the signature script against the P2SH output Charlie previously paid, ensuring that the redeem script matches the redeem script hash previously provided. Then the redeem script is evaluated, with the two signatures being used as input data. Assuming the redeem script validates, the two transaction outputs show up in Bob’s and Charlie’s wallets as spendable balances.
+When the transaction is broadcast to the [network](../devguide/p2p_network), each peer checks the signature script against the P2SH output Charlie previously paid, ensuring that the redeem script matches the redeem script hash previously provided. Then the redeem script is evaluated, with the two signatures being used as input data. Assuming the redeem script validates, the two transaction outputs show up in Bob’s and Charlie’s wallets as spendable balances.
 
 However, if Alice created and signed a transaction neither of them would agree to, such as spending all the reddoshis to herself, Bob and Charlie can find a new arbitrator and sign a transaction spending the reddoshis to another 2-of-3 multisig redeem script hash, this one including a public key from that second arbitrator. This means that Bob and Charlie never need to worry about their arbitrator stealing their money.
 
@@ -48,27 +48,24 @@ However, if Alice created and signed a transaction neither of them would agree t
 
 ## Micropayment Channel
 
-Alice also works part time moderating forum posts for Bob. Every time someone posts to Bob’s busy forum, Alice skims the post to make sure it isn’t offensive or spam. Alas, Bob often forgets to pay her, so Alice demands to be paid immediately after each post she approves or rejects. Bob says he can’t do that because hundreds of small payments will cost him thousands of reddoshis in transaction fees, so Alice suggests they use a {ref}`micropayment channel <term-micropayment-channel>`.
+Alice also works part time moderating forum posts for Bob. Every time someone posts to Bob’s busy forum, Alice skims the post to make sure it isn’t offensive or spam. Alas, Bob often forgets to pay her, so Alice demands to be paid immediately after each post she approves or rejects. Bob says he can’t do that because hundreds of small payments will cost him thousands of reddoshis in transaction fees, so Alice suggests they use a micropayment channel.
 
 Bob asks Alice for her public key and then creates two transactions. The first transaction pays 100 milliredds to a P2SH output whose 2-of-2 multisig redeem script requires signatures from both Alice and Bob. This is the bond transaction. Broadcasting this transaction would let Alice hold the milliredds hostage, so Bob keeps this transaction private for now and creates a second transaction.
 
-The second transaction spends all of the first transaction’s milliredds (minus a transaction fee) back to Bob after a 24 hour delay enforced by locktime. This is the [refund](../devguide/payment_processing.html#issuing-refunds) transaction. Bob can’t sign the [refund](../devguide/payment_processing.html#issuing-refunds) transaction by himself, so he gives it to Alice to sign, as shown in the illustration below.
+The second transaction spends all of the first transaction’s milliredds (minus a transaction fee) back to Bob after a 24 hour delay enforced by locktime. This is the [refund](../devguide/payment_processing#issuing-refunds) transaction. Bob can’t sign the [refund](../devguide/payment_processing#issuing-refunds) transaction by himself, so he gives it to Alice to sign, as shown in the illustration below.
 
-:::{figure} /img/dev/en-micropayment-channel.svg
-:alt: Micropayment Channel Example
+![Micropayment Channel Example](/img/dev/en-micropayment-channel.svg)
 
 Micropayment Channel Example
-:::
+Alice checks that the [refund](../devguide/payment_processing#issuing-refunds) transaction’s locktime is 24 hours in the future, signs it, and gives a copy of it back to Bob. She then asks Bob for the bond transaction and checks that the [refund](../devguide/payment_processing#issuing-refunds) transaction spends the output of the bond transaction. She can now broadcast the bond transaction to the [network](../devguide/p2p_network) to ensure Bob has to wait for the time lock to expire before further spending his milliredds. Bob hasn’t actually spent anything so far, except possibly a small transaction fee, and he’ll be able to broadcast the [refund](../devguide/payment_processing#issuing-refunds) transaction in 24 hours for a full [refund](../devguide/payment_processing#issuing-refunds).
 
-Alice checks that the [refund](../devguide/payment_processing.html#issuing-refunds) transaction’s locktime is 24 hours in the future, signs it, and gives a copy of it back to Bob. She then asks Bob for the bond transaction and checks that the [refund](../devguide/payment_processing.html#issuing-refunds) transaction spends the output of the bond transaction. She can now broadcast the bond transaction to the [network](../devguide/p2p_network.html) to ensure Bob has to wait for the time lock to expire before further spending his milliredds. Bob hasn’t actually spent anything so far, except possibly a small transaction fee, and he’ll be able to broadcast the [refund](../devguide/payment_processing.html#issuing-refunds) transaction in 24 hours for a full [refund](../devguide/payment_processing.html#issuing-refunds).
+Now, when Alice does some work worth 1 milliredd, she asks Bob to create and sign a new version of the [refund](../devguide/payment_processing#issuing-refunds) transaction. Version two of the transaction spends 1 milliredd to Alice and the other 99 back to Bob; it does not have a locktime, so Alice can sign it and spend it whenever she wants. (But she doesn’t do that immediately.)
 
-Now, when Alice does some work worth 1 milliredd, she asks Bob to create and sign a new version of the [refund](../devguide/payment_processing.html#issuing-refunds) transaction. Version two of the transaction spends 1 milliredd to Alice and the other 99 back to Bob; it does not have a locktime, so Alice can sign it and spend it whenever she wants. (But she doesn’t do that immediately.)
+Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the [refund](../devguide/payment_processing#issuing-refunds) transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new micropayment channel.
 
-Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the [refund](../devguide/payment_processing.html#issuing-refunds) transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new {ref}`micropayment channel <term-micropayment-channel>`.
+If Alice fails to broadcast a version of the [refund](../devguide/payment_processing#issuing-refunds) transaction before its time lock expires, Bob can broadcast the first version and receive a full [refund](../devguide/payment_processing#issuing-refunds). This is one reason micropayment channels are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
 
-If Alice fails to broadcast a version of the [refund](../devguide/payment_processing.html#issuing-refunds) transaction before its time lock expires, Bob can broadcast the first version and receive a full [refund](../devguide/payment_processing.html#issuing-refunds). This is one reason {ref}`micropayment channels <term-micropayment-channel>` are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
-
-Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of {ref}`micropayment channels <term-micropayment-channel>`. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 milliredds hostage even if she hadn’t done any work.
+Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of micropayment channels. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 milliredds hostage even if she hadn’t done any work.
 
 For larger payments, Reddcoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
 
@@ -82,15 +79,12 @@ Alice isn’t a criminal, she just wants plausible deniability about where she h
 
 Also in the chatroom are “Nemo” and “Neminem.” They collectively agree to transfer reddoshis between each other so no one besides them can reliably determine who controls which reddoshis. But they’re faced with a dilemma: who transfers their reddoshis to one of the other two pseudonymous persons first? The CoinJoin-style contract, shown in the illustration below, makes this decision easy: they create a single transaction which does all of the spending simultaneously, ensuring none of them can steal the others’ reddoshis.
 
-:::{figure} /img/dev/en-coinjoin.svg
-:alt: Example CoinJoin Transaction
+![Example CoinJoin Transaction](/img/dev/en-coinjoin.svg)
 
 Example CoinJoin Transaction
-:::
-
 Each contributor looks through their collection of Unspent Transaction Outputs (UTXOs) for 100 milliredds they can spend. They then each generate a brand new public key and give UTXO details and pubkey hashes to the facilitator. In this case, the facilitator is AnonGirl; she creates a transaction spending each of the UTXOs to three equally-sized outputs. One output goes to each of the contributors’ pubkey hashes.
 
-AnonGirl then signs her inputs using `SIGHASH_ALL` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the Reddcoin [peer-to-peer network](../devguide/p2p_network.html), mixing all of the milliredds in a single transaction.
+AnonGirl then signs her inputs using `SIGHASH_ALL` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the Reddcoin [peer-to-peer network](../devguide/p2p_network), mixing all of the milliredds in a single transaction.
 
 As you can see in the illustration, there’s no way for anyone besides AnonGirl, Nemo, and Neminem to confidently determine who received which output, so they can each spend their output with plausible deniability.
 
