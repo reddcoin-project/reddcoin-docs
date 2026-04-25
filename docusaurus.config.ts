@@ -55,6 +55,7 @@ const config: Config = {
     {tagName: 'link', attributes: {rel: 'apple-touch-icon', sizes: '180x180', href: '/img/apple-touch-icon.png'}},
     {tagName: 'link', attributes: {rel: 'manifest', href: '/site.webmanifest'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#E30613'}},
+    {tagName: 'meta', attributes: {name: 'google-site-verification', content: '2JDRSLQQTViD-7KdP10DKAQcNdYmG9Qvaw1ydIJLYB4'}},
     // KaTeX CSS for client-side math rendering (Phase 1 protocol docs
     // contain MathJax/KaTeX-style equations).
     {tagName: 'link', attributes: {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css', integrity: 'sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV', crossorigin: 'anonymous'}},
