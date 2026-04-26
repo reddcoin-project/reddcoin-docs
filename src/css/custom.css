@@ -120,6 +120,15 @@
   --radius-full: 9999px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Accent colour used inside undraw_*.svg illustrations that expose
+     a `--primary-svg-color` variable (currently undraw_contribute.svg).
+     Set to ReddCoin Red Light so the figure clothing/UI props pick up
+     the brand red without overpowering the illustration. The legacy
+     undraw_docusaurus_*.svg files use hardcoded Docusaurus-green
+     (#3ecc5f) and are unaffected — those are slated for replacement
+     in a later polish pass. */
+  --primary-svg-color: #f9596a;
 }
 
 [data-theme='dark'] {

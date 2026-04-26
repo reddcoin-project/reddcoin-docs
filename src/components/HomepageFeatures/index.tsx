@@ -47,11 +47,23 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
   },
+  {
+    title: 'Contribute',
+    to: '/contribute',
+    Svg: require('@site/static/img/undraw_contribute.svg').default,
+    description: (
+      <>
+        How to help shape ReddCoin — running staking nodes, working on Core
+        or the libraries, improving these docs, translating, and joining
+        the community.
+      </>
+    ),
+  },
 ];
 
 function Feature({title, to, Svg, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--3')}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>

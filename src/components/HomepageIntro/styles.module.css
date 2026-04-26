@@ -1,0 +1,18 @@
+.intro {
+  padding: 3rem 0 1rem;
+  background: var(--bg-page);
+  border-top: 1px solid var(--border-soft);
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  font-family: var(--font-logo);
+  letter-spacing: -0.02em;
+}
+
+.intro p {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
