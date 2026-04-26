@@ -191,8 +191,11 @@ const config: Config = {
       title: 'Docs',
       logo: {
         alt: 'ReddCoin',
-        src: 'img/logo.svg',
-        srcDark: 'img/logo-dark.svg',
+        // Filenames carry a version suffix so swapping artwork busts
+        // browser/CDN caches in one step (the previous /img/logo.svg
+        // was inheriting a week-long Cache-Control TTL from nginx).
+        src: 'img/logo-v2.svg',
+        srcDark: 'img/logo-v2-dark.svg',
         href: '/',
       },
       items: [
