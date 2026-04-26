@@ -248,9 +248,18 @@ const config: Config = {
           items: [
             {label: 'Protocol', to: '/protocol'},
             {label: 'Guides', to: '/guides'},
-            {label: 'Contribute', to: '/contribute'},
             {label: 'API Reference', to: '/api'},
             {label: 'Glossary', to: '/glossary'},
+          ],
+        },
+        {
+          title: 'Contribute',
+          items: [
+            {label: 'Overview', to: '/contribute'},
+            {label: 'Bug reports', to: '/contribute/issues'},
+            {label: 'Documentation', to: '/contribute/documentation'},
+            {label: 'Translations', to: '/contribute/translations'},
+            {label: 'Support', to: '/contribute/support'},
           ],
         },
         {
@@ -260,6 +269,14 @@ const config: Config = {
             {label: 'Wallet', href: 'https://wallet.reddcoin.com'},
             {label: 'Brand guide', href: 'https://brand.reddcoin.com'},
             {label: 'GitHub', href: 'https://github.com/reddcoin-project'},
+          ],
+        },
+        {
+          title: 'Resources',
+          items: [
+            {label: 'GitHub Discussions', href: 'https://github.com/reddcoin-project/reddcoin/discussions'},
+            {label: '/r/reddCoin', href: 'https://www.reddit.com/r/reddCoin/'},
+            {label: 'License', href: 'https://github.com/reddcoin-project/reddcoin-docs/blob/master/LICENSE'},
           ],
         },
       ],

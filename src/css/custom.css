@@ -271,6 +271,15 @@ h3, h4, h5, h6,
   letter-spacing: -0.01em;
 }
 
+/* Match the spacing between the logo and "Docs" to the gap between
+   the navbar items (Protocol / Guides / Contribute / etc.). The
+   default Docusaurus theme places .navbar__title flush against
+   .navbar__logo. */
+.navbar__title {
+  margin-left: 0.5rem;
+  padding-right: 0.75rem;
+}
+
 .navbar__link {
   font-family: var(--font-ui);
   font-weight: 500;
