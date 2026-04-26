@@ -4,7 +4,7 @@ Staking adds new blocks to the block chain using Proof of Stake Velocity (PoSV),
 
 ## Introduction
 
-Reddcoin uses Proof of Stake Velocity (PoSV) as its consensus mechanism, which replaced Proof of Work mining at block 260,800. Under PoSV, anyone holding Reddcoins can participate in block creation by keeping their wallet open and connected to the network. No specialized hardware is required.
+ReddCoin uses Proof of Stake Velocity (PoSV) as its consensus mechanism, which replaced Proof of Work mining at block 260,800. Under PoSV, anyone holding Reddcoins can participate in block creation by keeping their wallet open and connected to the network. No specialized hardware is required.
 
 PoSV rewards active participation through a non-linear coin age function that provides increasing returns for recently staked coins (up to 7 days) and diminishing returns for older coins (capped at 45 days). This "velocity" incentive encourages regular staking rather than hoarding.
 
@@ -77,7 +77,7 @@ An **inflation adjustment mechanism** dynamically scales rewards to maintain the
 
 ## Difficulty Adjustment
 
-Reddcoin uses the **Kimoto Gravity Well (KGW)** algorithm for difficulty adjustment, which adjusts difficulty every block rather than at fixed intervals. KGW:
+ReddCoin uses the **Kimoto Gravity Well (KGW)** algorithm for difficulty adjustment, which adjusts difficulty every block rather than at fixed intervals. KGW:
 
 1. Computes a running arithmetic mean of past block targets over a sliding window of 360 to 10,080 blocks.
 2. Compares the actual time between blocks against the 60-second target.

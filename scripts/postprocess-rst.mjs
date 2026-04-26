@@ -371,7 +371,41 @@ const passes = [
     re: /^\(([a-z][a-z0-9_-]*)\)=\s*\n\s*\n(#{1,6}\s+[^\n]+?)\s*$/gm,
     sub: '$2 {#$1}',
   },
+
+  // 6. Brand-capitalisation: rewrite `Reddcoin` → `ReddCoin` in
+  //    user-visible prose. The protocol docs were imported from a
+  //    bitcoin.org fork that pre-dated the project's brand rule of
+  //    "ReddCoin" (double-D) for user-visible text. Skip:
+  //      - fenced code blocks (state-machine on ```)
+  //      - text inside single-backtick inline code spans (e.g. the
+  //        Windows path `%APPDATA%\Reddcoin\` is the actual directory
+  //        name on disk and must not be rewritten)
+  //      - URLs / domains (already lowercase: `reddcoin.com`,
+  //        `developer.reddcoin.com`, `reddcoin-cli`, `reddcoind`,
+  //        `reddcoinjs-lib`) — `\bReddcoin\b` only matches the
+  //        capitalised form, so these are safe.
+  {name: 'brand-capitalisation', fn: applyBrandCapitalisation},
 ];
+
+function applyBrandCapitalisation(content) {
+  const lines = content.split('\n');
+  let inFence = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^```/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    // Split on backticks; alternating segments are outside/inside
+    // inline code (segment 0, 2, 4, … are outside; 1, 3, 5, … inside).
+    const parts = lines[i].split('`');
+    for (let k = 0; k < parts.length; k += 2) {
+      parts[k] = parts[k].replace(/\bReddcoin\b/g, 'ReddCoin');
+    }
+    lines[i] = parts.join('`');
+  }
+  return content === lines.join('\n') ? content : lines.join('\n');
+}
 
 // Detect a line that is entirely a single-backtick inline-code span
 // — `cmd [arg1] [arg2]`. Such lines aren't prose; their `{…}` braces

@@ -56,6 +56,39 @@ const config: Config = {
     {tagName: 'link', attributes: {rel: 'manifest', href: '/site.webmanifest'}},
     {tagName: 'meta', attributes: {name: 'theme-color', content: '#E30613'}},
     {tagName: 'meta', attributes: {name: 'google-site-verification', content: '2JDRSLQQTViD-7KdP10DKAQcNdYmG9Qvaw1ydIJLYB4'}},
+    // Open Graph — explicit type/site_name and image dimensions help
+    // LinkedIn/Slack/Facebook scrapers render previews without
+    // re-fetching the asset to measure it.
+    {tagName: 'meta', attributes: {property: 'og:type', content: 'website'}},
+    {tagName: 'meta', attributes: {property: 'og:site_name', content: 'ReddCoin Docs'}},
+    {tagName: 'meta', attributes: {property: 'og:image:width', content: '1200'}},
+    {tagName: 'meta', attributes: {property: 'og:image:height', content: '630'}},
+    {tagName: 'meta', attributes: {property: 'og:image:type', content: 'image/png'}},
+    {tagName: 'meta', attributes: {property: 'og:image:alt', content: 'ReddCoin — The Social Currency'}},
+    // Site-wide JSON-LD on the homepage. Per-doc pages also emit
+    // BreadcrumbList automatically via the content-docs plugin.
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'ReddCoin Docs',
+        url: 'https://docs.reddcoin.com/',
+        description: 'Protocol reference, library APIs, and operator guides for ReddCoin — The Social Currency',
+        inLanguage: 'en',
+        publisher: {
+          '@type': 'Organization',
+          name: 'ReddCoin Project',
+          url: 'https://reddcoin.com/',
+          logo: 'https://docs.reddcoin.com/img/logo.svg',
+          sameAs: [
+            'https://github.com/reddcoin-project',
+            'https://brand.reddcoin.com/',
+          ],
+        },
+      }),
+    },
     // KaTeX CSS for client-side math rendering (Phase 1 protocol docs
     // contain MathJax/KaTeX-style equations).
     {tagName: 'link', attributes: {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css', integrity: 'sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV', crossorigin: 'anonymous'}},

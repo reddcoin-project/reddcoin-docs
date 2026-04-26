@@ -1,6 +1,6 @@
 # Historical Transaction Format
 
-This document covers transaction formats from earlier eras of the Reddcoin blockchain. For the current PoSV v2 format, see [Transactions](../reference/transactions).
+This document covers transaction formats from earlier eras of the ReddCoin blockchain. For the current PoSV v2 format, see [Transactions](../reference/transactions).
 
 ```{contents} Eras
 :depth: 2
@@ -9,7 +9,7 @@ This document covers transaction formats from earlier eras of the Reddcoin block
 
 ## PoW Era (Blocks 0–260,799)
 
-During the Proof of Work era, Reddcoin used a transaction format identical to Bitcoin. Transactions did **not** include the `nTime` field.
+During the Proof of Work era, ReddCoin used a transaction format identical to Bitcoin. Transactions did **not** include the `nTime` field.
 
 A raw PoW-era transaction has the following format:
 

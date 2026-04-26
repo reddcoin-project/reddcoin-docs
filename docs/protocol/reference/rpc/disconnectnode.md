@@ -32,6 +32,6 @@ null    (json null)
 reddcoin-cli disconnectnode "192.168.0.6:45444"
 reddcoin-cli disconnectnode "" 1
 curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "disconnectnode", "params": ["192.168.0.6:45444"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "disconnectnode", "params": ["", 1]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "disconnectnode", "params": ["", 1]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

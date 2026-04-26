@@ -68,6 +68,6 @@ True for a json object, false for array of transaction ids
 
 ```shell
 reddcoin-cli getmempooldescendants "mytxid"
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmempooldescendants", "params": ["mytxid"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getmempooldescendants", "params": ["mytxid"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

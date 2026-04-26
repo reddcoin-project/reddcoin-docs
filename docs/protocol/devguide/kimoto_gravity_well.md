@@ -1,6 +1,6 @@
 # Kimoto Gravity Well
 
-The **Kimoto Gravity Well (KGW)** is the difficulty-adjustment algorithm Reddcoin uses to keep blocks arriving roughly every 60 seconds. Unlike Bitcoin, which retargets once every 2,016 blocks, KGW retargets on **every block** using a sliding window of recent history. This page walks through the algorithm as it is actually implemented in Reddcoin Core (`src/pow.cpp`).
+The **Kimoto Gravity Well (KGW)** is the difficulty-adjustment algorithm ReddCoin uses to keep blocks arriving roughly every 60 seconds. Unlike Bitcoin, which retargets once every 2,016 blocks, KGW retargets on **every block** using a sliding window of recent history. This page walks through the algorithm as it is actually implemented in ReddCoin Core (`src/pow.cpp`).
 
 ## Why Adjust Every Block?
 
@@ -151,7 +151,7 @@ if (!fProofOfStake && bnNew > bnPowLimit) {
 
 ## PoW / PoSV Transition
 
-Reddcoin is unusual in that a single function produces targets for both the historical PoW era (blocks 0–260,799) and the PoSV era (block 260,800 onward). Two transition-specific branches in `KimotoGravityWell` handle the handover:
+ReddCoin is unusual in that a single function produces targets for both the historical PoW era (blocks 0–260,799) and the PoSV era (block 260,800 onward). Two transition-specific branches in `KimotoGravityWell` handle the handover:
 
 ```cpp
 bool fProofOfStake = false;
@@ -195,7 +195,7 @@ where:
 - $M$ is the sample length at which the loop terminated, bounded by `PastBlocksMin` ≤ $M$ ≤ `PastBlocksMax`.
 - $D_{N-k}$ is the target (`nBits` decoded) of the $k$-th most recent block.
 - $T_\text{actual}$ is the wall-clock time between block $N$ and block $N-M$.
-- $T_\text{target}$ is Reddcoin's 60-second target spacing.
+- $T_\text{target}$ is ReddCoin's 60-second target spacing.
 
 The loop terminates early (taking $M < \text{PastBlocksMax}$) whenever $M \ge \text{PastBlocksMin}$ and
 
@@ -228,15 +228,15 @@ The new target is the 360-block mean scaled by 0.556 — difficulty roughly **do
 
 Two numbers in the event-horizon formula deserve a comment:
 
-- **144** — the normalisation block count. In KGW as originally published by its author, Dr. Kimoto Chan, 144 corresponded to roughly one day at a 10-minute target spacing. Reddcoin inherited the constant unchanged; at Reddcoin's 60-second target spacing, 144 blocks is 2.4 hours rather than a day, which is simply a historical artefact of the algorithm's lineage.
+- **144** — the normalisation block count. In KGW as originally published by its author, Dr. Kimoto Chan, 144 corresponded to roughly one day at a 10-minute target spacing. ReddCoin inherited the constant unchanged; at ReddCoin's 60-second target spacing, 144 blocks is 2.4 hours rather than a day, which is simply a historical artefact of the algorithm's lineage.
 - **0.7084 and -1.228** — fitted coefficients that give the event horizon its desired shape. They are not derived from first principles; they are empirical values that produce a pleasant "tight at long windows, loose at short windows" curve.
 
-None of these constants are chain-specific; they are identical across every KGW deployment. The only Reddcoin-specific numbers live in `GetNextWorkRequired`: the target spacing (60 s), the window bounds (6 hours to 7 days), and the boundary height (6,000) below which those bounds are tightened.
+None of these constants are chain-specific; they are identical across every KGW deployment. The only ReddCoin-specific numbers live in `GetNextWorkRequired`: the target spacing (60 s), the window bounds (6 hours to 7 days), and the boundary height (6,000) below which those bounds are tightened.
 
 ## Further Reading
 
-- `src/pow.cpp` in Reddcoin Core — authoritative implementation.
+- `src/pow.cpp` in ReddCoin Core — authoritative implementation.
 - [How does the Kimoto Gravity Well regulate difficulty?](https://bitcoin.stackexchange.com/questions/21730/how-does-the-kimoto-gravity-well-regulate-difficulty) — walkthrough from the Bitcoin Stack Exchange.
-- [block_chain](block_chain) — where KGW fits into Reddcoin's block chain architecture.
+- [block_chain](block_chain) — where KGW fits into ReddCoin's block chain architecture.
 - [staking](staking) — the PoSV consensus layer that calls into KGW for difficulty.
 

@@ -1,6 +1,6 @@
 # Operating Modes
 
-The Reddcoin software has different levels of security and tradeoffs in order to verify the blockchain.
+The ReddCoin software has different levels of security and tradeoffs in order to verify the blockchain.
 
 ## Introduction
 
@@ -8,7 +8,7 @@ Currently there are two primary methods of validating the block chain as a clien
 
 ## Full Node
 
-The first and most secure model is the one followed by Reddcoin Core, also known as a “thick” or “full chain” client. This security model assures the validity of the block chain by downloading and validating blocks from the genesis block all the way to the most recently discovered block. This is known as using the *height* of a particular block to verify the client’s view of the [network](../devguide/p2p_network).
+The first and most secure model is the one followed by ReddCoin Core, also known as a “thick” or “full chain” client. This security model assures the validity of the block chain by downloading and validating blocks from the genesis block all the way to the most recently discovered block. This is known as using the *height* of a particular block to verify the client’s view of the [network](../devguide/p2p_network).
 
 For a client to be fooled, an adversary would need to give a complete alternative block chain history that is of greater difficulty than the current “true” chain, which is computationally expensive (if not impossible) due to the fact that the chain with the most cumulative proof of work is by definition the “true” chain. Due to the computational difficulty required to generate a new block at the tip of the chain, the ability to fool a full node becomes very expensive after 6 confirmations. This form of verification is highly resistent to sybil attacks—only a single honest [network](../devguide/p2p_network) peer is required in order to receive and verify the complete state of the “true” block chain.
 
@@ -53,7 +53,7 @@ An SPV client can not only add transactions as elements to the filter, but also 
 
 If a user is more privacy-conscious, he can set the Bloom filter to include more false positives, at the expense of extra bandwidth used for transaction discovery. If a user is on a tight bandwidth budget, he can set the false-positive rate to low, knowing that this will allow full nodes a clear view of what transactions are associated with his client.
 
-**Resources:** [BitcoinJ](http://bitcoinj.github.io), a Java implementation of Reddcoin that is based on the SPV security model and Bloom filters. Used in most Android wallets.
+**Resources:** [BitcoinJ](http://bitcoinj.github.io), a Java implementation of ReddCoin that is based on the SPV security model and Bloom filters. Used in most Android wallets.
 
 Bloom filters were standardized for use via [BIP37](https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki). Review the BIP for implementation details.
 

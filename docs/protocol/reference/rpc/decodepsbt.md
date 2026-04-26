@@ -2,7 +2,7 @@
 
 `decodepsbt "psbt"`
 
-Return a JSON object representing the serialized, base64-encoded partially signed Reddcoin transaction.
+Return a JSON object representing the serialized, base64-encoded partially signed ReddCoin transaction.
 
 ## Argument #1 - psbt
 

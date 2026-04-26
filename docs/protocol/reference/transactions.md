@@ -31,7 +31,7 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 - [“OP_CHECKMULTISIG”](/glossary/terms#term-op-checkmultisig) consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
 
-  The “one extra value” it consumes is the result of an off-by-one error in the Reddcoin Core implementation. This value is not used, so signature scripts prefix the list of [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures with a single OP_0 (0x00).
+  The “one extra value” it consumes is the result of an off-by-one error in the ReddCoin Core implementation. This value is not used, so signature scripts prefix the list of [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures with a single OP_0 (0x00).
 
   [“OP_CHECKMULTISIG”](/glossary/terms#term-op-checkmultisig) compares the first signature against each public key until it finds an [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) match. Starting with the subsequent public key, it compares the second signature against each remaining public key until it finds an [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) match. The process is repeated until all signatures have been checked or not enough public keys remain to produce a successful result.
 
@@ -39,7 +39,7 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 - [“OP_RETURN”](/glossary/terms#term-op-return) terminates the script in failure when executed.
 
-A complete list of opcodes can be found on the Bitcoin Wiki [Script Page](https://en.bitcoin.it/wiki/Script), with an authoritative list in the `opcodetype` enum of the Reddcoin Core [script header file](https://github.com/reddcoin-project/reddcoin/blob/master/src/script/script.h)
+A complete list of opcodes can be found on the Bitcoin Wiki [Script Page](https://en.bitcoin.it/wiki/Script), with an authoritative list in the `opcodetype` enum of the ReddCoin Core [script header file](https://github.com/reddcoin-project/reddcoin/blob/master/src/script/script.h)
 
 **Signature script modification warning:** Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can't be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
 
@@ -80,14 +80,14 @@ Failure, aborted: two signature matches required but none found so far, and ther
 
 ## Address Conversion
 
-The hashes used in P2PKH and P2SH outputs are commonly encoded as Reddcoin addresses. This is the procedure to encode those hashes and decode the addresses.
+The hashes used in P2PKH and P2SH outputs are commonly encoded as ReddCoin addresses. This is the procedure to encode those hashes and decode the addresses.
 
 First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public key derived from your 256-bit [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a [following sub-section](../reference/transactions#raw-transaction-format)). Taking the resulting hash:
 
-1. Add an address version byte in front of the hash. The version bytes commonly used by Reddcoin are:
+1. Add an address version byte in front of the hash. The version bytes commonly used by ReddCoin are:
 
-   - 0x3d for P2PKH addresses on the main Reddcoin [network](../devguide/p2p_network) (mainnet), producing addresses that start with "R"
-   - 0x6f for P2PKH addresses on the Reddcoin testing [network](../devguide/p2p_network) (testnet), producing addresses that start with "m" or "n"
+   - 0x3d for P2PKH addresses on the main ReddCoin [network](../devguide/p2p_network) (mainnet), producing addresses that start with "R"
+   - 0x6f for P2PKH addresses on the ReddCoin testing [network](../devguide/p2p_network) (testnet), producing addresses that start with "m" or "n"
    - 0x05 for P2SH addresses on mainnet, producing addresses that start with "3"
    - 0xc4 for P2SH addresses on testnet, producing addresses that start with "2"
 
@@ -124,11 +124,11 @@ To convert addresses back into hashes, reverse the base58 encoding, extract the 
 
 ## Raw Transaction Format
 
-Reddcoin transactions are broadcast between peers in a serialized byte format, called [raw format](/glossary/#serialized-transaction). It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction—making the transaction format part of the consensus rules.
+ReddCoin transactions are broadcast between peers in a serialized byte format, called [raw format](/glossary/#serialized-transaction). It is this form of a transaction which is SHA256(SHA256()) hashed to create the TXID and, ultimately, the merkle root of a block containing the transaction—making the transaction format part of the consensus rules.
 
-Reddcoin Core and many other tools print and accept raw transactions encoded as hex.
+ReddCoin Core and many other tools print and accept raw transactions encoded as hex.
 
-Since the PoSV hard fork at block 260,800, Reddcoin transactions include an `nTime` field not present in Bitcoin. The current format described below applies to all transactions on the network. For the historical PoW-era format (blocks 0–260,799), see [Historical Transaction Format](../reference/transactions_historical).
+Since the PoSV hard fork at block 260,800, ReddCoin transactions include an `nTime` field not present in Bitcoin. The current format described below applies to all transactions on the network. For the historical PoW-era format (blocks 0–260,799), see [Historical Transaction Format](../reference/transactions_historical).
 
 A raw transaction has the following top-level format:
 
@@ -140,7 +140,7 @@ A raw transaction has the following top-level format:
 | *Varies* | tx_out count | compactSize uint | Number of outputs in this transaction.                                                                                                                                                                                                                                                                                                |
 | *Varies* | tx_out       | txOut            | Transaction outputs. See description of txOut below.                                                                                                                                                                                                                                                                                  |
 | 4        | lock_time    | uint32_t         | A time ([Unix epoch time](https://en.wikipedia.org/wiki/Unix_time)) or block number. See the [locktime parsing rules](../devguide/transactions#locktime-and-sequence-number).                                                                                                                                                          |
-| 4        | nTime        | uint32_t         | Transaction timestamp. A [Unix epoch time](https://en.wikipedia.org/wiki/Unix_time) recording when the transaction was created. Used by the PoSV consensus mechanism to calculate coin age for staking. This field is unique to Reddcoin and other Peercoin-derived blockchains; it is not present in Bitcoin transactions.           |
+| 4        | nTime        | uint32_t         | Transaction timestamp. A [Unix epoch time](https://en.wikipedia.org/wiki/Unix_time) recording when the transaction was created. Used by the PoSV consensus mechanism to calculate coin age for staking. This field is unique to ReddCoin and other Peercoin-derived blockchains; it is not present in Bitcoin transactions.           |
 
 A transaction may have multiple inputs and outputs, so the txIn and txOut structures may recur within a transaction. CompactSize unsigned integers are a form of variable-length integers; they are described in the [CompactSize section](../reference/transactions#compactsize-unsigned-integers).
 
@@ -152,7 +152,7 @@ Each non-coinbase input spends an outpoint from a previous transaction. (Coinbas
 | 36       | previous_output  | outpoint         | The previous outpoint being spent. See description of outpoint below.                                                                                                                                                          |
 | *Varies* | script bytes     | compactSize uint | The number of bytes in the signature script. Maximum is 10,000 bytes.                                                                                                                                                          |
 | *Varies* | signature script | char[]           | A script-language script which satisfies the conditions placed in the outpoint's pubkey script. Should only contain data pushes; see the signature script modification warning. |
-| 4        | sequence         | uint32_t         | Sequence number. Default for Reddcoin Core and almost all other programs is 0xffffffff.                                                                                                                                        |
+| 4        | sequence         | uint32_t         | Sequence number. Default for ReddCoin Core and almost all other programs is 0xffffffff.                                                                                                                                        |
 
 ### Outpoint: The Specific Part Of A Specific Output {#outpoint}
 Because a single transaction can include multiple outputs, the outpoint structure includes both a TXID and an [output index](/glossary/terms#term-output-index) number to refer to specific output.
@@ -172,7 +172,7 @@ Each output spends a certain number of reddoshis, placing them under control of 
 | *Varies* | pk_script       | char[]           | Defines the conditions which must be satisfied to spend this output.                                                                                                                                                                                              |
 
 ### Coinbase Transaction (PoS Blocks) {#coinbase}
-In Proof of Stake blocks (block 260,800 onward), the coinbase transaction serves as a structural placeholder. Unlike Bitcoin's coinbase which pays the block reward, the Reddcoin PoS coinbase has a single output with zero value and an empty script. The block reward is instead paid through the coinstake transaction.
+In Proof of Stake blocks (block 260,800 onward), the coinbase transaction serves as a structural placeholder. Unlike Bitcoin's coinbase which pays the block reward, the ReddCoin PoS coinbase has a single output with zero value and an empty script. The block reward is instead paid through the coinstake transaction.
 
 The coinbase input has the following format:
 
@@ -279,7 +279,7 @@ An itemized coinstake transaction (block 5,558,400):
 ```
 
 ## Transaction Signing {#tx-signing}
-Reddcoin uses the same [secp256k1](http://www.secg.org/sec2-v2.pdf) ECDSA cryptography and the same SIGHASH types as Bitcoin (`SIGHASH_ALL`, `SIGHASH_NONE`, `SIGHASH_SINGLE`, `SIGHASH_ANYONECANPAY`). Although Reddcoin transactions include an `nTime` field in their wire format, this field is **excluded** from all signature hash (sighash) preimage computations. The signing process is identical to Bitcoin's for each respective script version.
+ReddCoin uses the same [secp256k1](http://www.secg.org/sec2-v2.pdf) ECDSA cryptography and the same SIGHASH types as Bitcoin (`SIGHASH_ALL`, `SIGHASH_NONE`, `SIGHASH_SINGLE`, `SIGHASH_ANYONECANPAY`). Although ReddCoin transactions include an `nTime` field in their wire format, this field is **excluded** from all signature hash (sighash) preimage computations. The signing process is identical to Bitcoin's for each respective script version.
 
 ### Signature Hash Preimage
 
@@ -312,13 +312,13 @@ nHashType .......... uint32_t
 
 **Taproot (BIP341/342) signing** uses `SignatureHashSchnorr` which also excludes `nTime`. The preimage follows the standard BIP341 structure with `nVersion` and `nLockTime` as the only transaction-level scalar fields.
 
-**Implementation note:** The `nTime` field affects the TXID because it is part of the full transaction serialization — the same transaction content with a different timestamp produces a different hash. However, a Bitcoin signing implementation can be used without modification for the sighash computation itself. The only Reddcoin-specific requirement for signing libraries is that the transaction serializer must handle the `nTime` field in the wire format so that TXIDs are computed correctly.
+**Implementation note:** The `nTime` field affects the TXID because it is part of the full transaction serialization — the same transaction content with a different timestamp produces a different hash. However, a Bitcoin signing implementation can be used without modification for the sighash computation itself. The only ReddCoin-specific requirement for signing libraries is that the transaction serializer must handle the `nTime` field in the wire format so that TXIDs are computed correctly.
 
 #### CompactSize Unsigned Integers
 
 The raw transaction format and several [peer-to-peer network](../devguide/p2p_network) messages use a type of variable-length integer to indicate the number of bytes in a following piece of data.
 
-Reddcoin Core code and this document refers to these variable length integers as compactSize. Many other documents refer to them as var_int or varInt, but this risks conflation with other variable-length integer encodings—such as the CVarInt class used in Reddcoin Core for serializing data to disk. Because it's used in the transaction format, the format of compactSize unsigned integers is part of the consensus rules.
+ReddCoin Core code and this document refers to these variable length integers as compactSize. Many other documents refer to them as var_int or varInt, but this risks conflation with other variable-length integer encodings—such as the CVarInt class used in ReddCoin Core for serializing data to disk. Because it's used in the transaction format, the format of compactSize unsigned integers is part of the consensus rules.
 
 For numbers from 0 to 252, compactSize unsigned integers look like regular unsigned integers. For other numbers up to 0xffffffffffffffff, a byte is prefixed to the number to indicate its length—but otherwise the numbers look like regular unsigned integers in little-endian order.
 

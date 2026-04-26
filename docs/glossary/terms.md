@@ -220,7 +220,7 @@ term-uri-qr-code (payment-processing-guide) ([original target](https://reddcoin.
 
 ## `term-v2-block` {#term-v2-block}
 
-term-v2-block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-v2-block)): The current version of Reddcoin blocks.
+term-v2-block (developer-reference) ([original target](https://reddcoin.com/en/developer-reference#term-v2-block)): The current version of ReddCoin blocks.
 
 ## `term-x509certificates` {#term-x509certificates}
 

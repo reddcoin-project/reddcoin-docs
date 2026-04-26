@@ -1,0 +1,49 @@
+# https://docs.reddcoin.com/robots.txt
+#
+# This site's content is open documentation for the ReddCoin project
+# (https://github.com/reddcoin-project). Search engines and AI search
+# crawlers are explicitly welcome — citations and quotations help
+# people find the docs.
+
+User-agent: *
+Allow: /
+
+# AI search & training crawlers — listed explicitly so the stance is
+# recorded, not inferred. Default for documentation: allow.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://docs.reddcoin.com/sitemap.xml

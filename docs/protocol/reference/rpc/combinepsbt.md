@@ -2,7 +2,7 @@
 
 `combinepsbt ["psbt",...]`
 
-Combine multiple partially signed Reddcoin transactions into one transaction.
+Combine multiple partially signed ReddCoin transactions into one transaction.
 
 Implements the Combiner role.
 

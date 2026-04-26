@@ -1,4 +1,4 @@
 # Developer Guides
 
-Find detailed information about the Reddcoin protocol and related specifications.
+Find detailed information about the ReddCoin protocol and related specifications.
 

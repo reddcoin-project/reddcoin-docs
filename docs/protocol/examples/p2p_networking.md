@@ -98,7 +98,7 @@ Notice that in iterations 8 and 9, the filter did not change because the corresp
 
 We only added one element to the filter above, but we could repeat the process with additional elements and continue to add them to the same filter. (To maintain the same false-positive rate, you would need a larger filter size as computed earlier.)
 
-Note: for a more optimized Python implementation with fewer external dependencies, see [python-bitcoinlib’s](https://github.com/petertodd/python-bitcoinlib) bloom filter module which is based directly on Reddcoin Core’s C++ implementation.
+Note: for a more optimized Python implementation with fewer external dependencies, see [python-bitcoinlib’s](https://github.com/petertodd/python-bitcoinlib) bloom filter module which is based directly on ReddCoin Core’s C++ implementation.
 
 Using the [“filterload” message](../reference/p2p_networking#filterload) format, the complete filter created above would be the binary form of the annotated hexdump shown below:
 

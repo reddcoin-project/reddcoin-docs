@@ -1,18 +1,18 @@
 # P2P Network
 
-The Reddcoin network protocol allows full nodes (peers) to collaboratively maintain a peer-to-peer network for block and transaction exchange.
+The ReddCoin network protocol allows full nodes (peers) to collaboratively maintain a peer-to-peer network for block and transaction exchange.
 
 ## Introduction
 
-Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Reddcoin [network](../devguide/p2p_network) protocol to connect to full nodes.
+Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the ReddCoin [network](../devguide/p2p_network) protocol to connect to full nodes.
 
-Consensus rules do not cover networking, so Reddcoin programs may use alternative networks and protocols, such as the [high-speed block relay network](https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189) used by some miners and the [dedicated transaction information servers](https://github.com/spesmilo/electrum-server) used by some wallets that provide SPV-level security.
+Consensus rules do not cover networking, so ReddCoin programs may use alternative networks and protocols, such as the [high-speed block relay network](https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189) used by some miners and the [dedicated transaction information servers](https://github.com/spesmilo/electrum-server) used by some wallets that provide SPV-level security.
 
-To provide practical examples of the Reddcoin [peer-to-peer network](../devguide/p2p_network), this section uses Reddcoin Core as a representative full node and [BitcoinJ](http://bitcoinj.github.io) as a representative SPV client. Both programs are flexible, so only default behavior is described. Also, for privacy, actual IP addresses in the example output below have been replaced with [RFC5737](http://tools.ietf.org/html/rfc5737) reserved IP addresses.
+To provide practical examples of the ReddCoin [peer-to-peer network](../devguide/p2p_network), this section uses ReddCoin Core as a representative full node and [BitcoinJ](http://bitcoinj.github.io) as a representative SPV client. Both programs are flexible, so only default behavior is described. Also, for privacy, actual IP addresses in the example output below have been replaced with [RFC5737](http://tools.ietf.org/html/rfc5737) reserved IP addresses.
 
 ## Peer Discovery
 
-When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called [DNS seeds](/glossary/#dns-seed)) hardcoded into Reddcoin Core and [BitcoinJ](http://bitcoinj.github.io). The response to the lookup should include one or more [DNS A records](http://tools.ietf.org/html/rfc1035#section-3.2.2) with the IP addresses of full nodes that may accept new incoming connections. For example, using the ``` Unix ``dig` ``` command \<[https://en.wikipedia.org/wiki/Dig_%28Unix_command%29](https://en.wikipedia.org/wiki/Dig_%28Unix_command%29)>\`\_\_:
+When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called [DNS seeds](/glossary/#dns-seed)) hardcoded into ReddCoin Core and [BitcoinJ](http://bitcoinj.github.io). The response to the lookup should include one or more [DNS A records](http://tools.ietf.org/html/rfc1035#section-3.2.2) with the IP addresses of full nodes that may accept new incoming connections. For example, using the ``` Unix ``dig` ``` command \<[https://en.wikipedia.org/wiki/Dig_%28Unix_command%29](https://en.wikipedia.org/wiki/Dig_%28Unix_command%29)>\`\_\_:
 
 ```
 ;; QUESTION SECTION:
@@ -25,21 +25,21 @@ seed.reddcoin.net.   60  IN  A  203.0.113.183
 [...]
 ```
 
-The DNS seeds are maintained by Reddcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the [network](../devguide/p2p_network); others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Reddcoin ports of 45444 for mainnet or 55444 for testnet.
+The DNS seeds are maintained by ReddCoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the [network](../devguide/p2p_network); others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default ReddCoin ports of 45444 for mainnet or 55444 for testnet.
 
 DNS seed results are not authenticated and a malicious seed operator or [network](../devguide/p2p_network) [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own [network](../devguide/p2p_network) and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
 
-Once a program has connected to the [network](../devguide/p2p_network), its peers can begin to send it `addr` (address) messages with the IP addresses and port numbers of other peers on the [network](../devguide/p2p_network), providing a fully decentralized method of peer discovery. Reddcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
+Once a program has connected to the [network](../devguide/p2p_network), its peers can begin to send it `addr` (address) messages with the IP addresses and port numbers of other peers on the [network](../devguide/p2p_network), providing a fully decentralized method of peer discovery. ReddCoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
 
 However, peers often leave the [network](../devguide/p2p_network) or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the [network](../devguide/p2p_network), forcing a user to wait before sending a transaction or checking the status of payment.
 
-To avoid this possible delay, [BitcoinJ](http://bitcoinj.github.io) always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. Reddcoin Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if Reddcoin Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
+To avoid this possible delay, [BitcoinJ](http://bitcoinj.github.io) always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. ReddCoin Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if ReddCoin Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
 
-Both Reddcoin Core and [BitcoinJ](http://bitcoinj.github.io) also include a hardcoded list of IP addresses and port numbers to several dozen nodes which were active around the time that particular version of the software was first released. Reddcoin Core will start attempting to connect to these nodes if none of the DNS seed servers have responded to a query within 60 seconds, providing an automatic fallback option.
+Both ReddCoin Core and [BitcoinJ](http://bitcoinj.github.io) also include a hardcoded list of IP addresses and port numbers to several dozen nodes which were active around the time that particular version of the software was first released. ReddCoin Core will start attempting to connect to these nodes if none of the DNS seed servers have responded to a query within 60 seconds, providing an automatic fallback option.
 
-As a manual fallback option, Reddcoin Core also provides several command-line connection options, including the ability to get a list of peers from a specific node by IP address, or to make a persistent connection to a specific node by IP address. See the `-help` text for details. [BitcoinJ](http://bitcoinj.github.io) can be programmed to do the same thing.
+As a manual fallback option, ReddCoin Core also provides several command-line connection options, including the ability to get a list of peers from a specific node by IP address, or to make a persistent connection to a specific node by IP address. See the `-help` text for details. [BitcoinJ](http://bitcoinj.github.io) can be programmed to do the same thing.
 
-**Resources:** [Reddcoin Seeder](https://github.com/sipa/bitcoin-seeder), the program run by several of the seeds used by Reddcoin Core and [BitcoinJ](http://bitcoinj.github.io). The Reddcoin Core [DNS Seed Policy](https://github.com/reddcoin-project/reddcoin/blob/master/doc/dnsseed-policy.md). The hardcoded list of IP addresses used by Reddcoin Core and [BitcoinJ](http://bitcoinj.github.io) is generated using the [makeseeds script](https://github.com/reddcoin-project/reddcoin/tree/master/contrib/seeds).
+**Resources:** [ReddCoin Seeder](https://github.com/sipa/bitcoin-seeder), the program run by several of the seeds used by ReddCoin Core and [BitcoinJ](http://bitcoinj.github.io). The ReddCoin Core [DNS Seed Policy](https://github.com/reddcoin-project/reddcoin/blob/master/doc/dnsseed-policy.md). The hardcoded list of IP addresses used by ReddCoin Core and [BitcoinJ](http://bitcoinj.github.io) is generated using the [makeseeds script](https://github.com/reddcoin-project/reddcoin/tree/master/contrib/seeds).
 
 ## Connecting To Peers
 
@@ -55,11 +55,11 @@ Before a full node can validate unconfirmed transactions and recently-mined bloc
 
 Although the word “initial” implies this method is only used once, it can also be used any time a large number of blocks need to be downloaded, such as when a previously-caught-up node has been offline for a long time. In this case, a node can use the IBD method to download all the blocks which were produced since the last time it was online.
 
-Reddcoin Core uses the IBD method any time the last block on its local best block chain has a block header time more than 24 hours in the past. [Reddcoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) will also perform IBD if its local best block chain is more than 144 blocks lower than its local best header chain (that is, the local block chain is more than about 24 hours in the past).
+ReddCoin Core uses the IBD method any time the last block on its local best block chain has a block header time more than 24 hours in the past. [ReddCoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) will also perform IBD if its local best block chain is more than 144 blocks lower than its local best header chain (that is, the local block chain is more than about 24 hours in the past).
 
 ### Blocks-First
 
-Reddcoin Core (up until version [0.9.3](https://github.com/reddcoin-project/reddcoin/releases)) uses a simple initial block download (IBD) method we’ll call *blocks-first*. The goal is to download the blocks from the best block chain in sequence.
+ReddCoin Core (up until version [0.9.3](https://github.com/reddcoin-project/reddcoin/releases)) uses a simple initial block download (IBD) method we’ll call *blocks-first*. The goal is to download the blocks from the best block chain in sequence.
 
 ![Overview Of Blocks-First Method](/img/protocol/dev/en-blocks-first-flowchart.svg)
 
@@ -107,12 +107,12 @@ When the IBD node receives the second [“inv” message](../reference/p2p_netwo
 
 The primary advantage of blocks-first IBD is its simplicity. The primary disadvantage is that the IBD node relies on a single sync node for all of its downloading. This has several implications:
 
-- **Speed Limits:** All requests are made to the sync node, so if the sync node has limited upload bandwidth, the IBD node will have slow download speeds. Note: if the sync node goes offline, Reddcoin Core will continue downloading from another node—but it will still only download from a single sync node at a time.
-- **Download Restarts:** The sync node can send a non-best (but otherwise valid) block chain to the IBD node. The IBD node won’t be able to identify it as non-best until the initial block download nears completion, forcing the IBD node to restart its block chain download over again from a different node. Reddcoin Core ships with several block chain checkpoints at various block heights selected by developers to help an IBD node detect that it is being fed an alternative block chain history—allowing the IBD node to restart its download earlier in the process.
+- **Speed Limits:** All requests are made to the sync node, so if the sync node has limited upload bandwidth, the IBD node will have slow download speeds. Note: if the sync node goes offline, ReddCoin Core will continue downloading from another node—but it will still only download from a single sync node at a time.
+- **Download Restarts:** The sync node can send a non-best (but otherwise valid) block chain to the IBD node. The IBD node won’t be able to identify it as non-best until the initial block download nears completion, forcing the IBD node to restart its block chain download over again from a different node. ReddCoin Core ships with several block chain checkpoints at various block heights selected by developers to help an IBD node detect that it is being fed an alternative block chain history—allowing the IBD node to restart its download earlier in the process.
 - **Disk Fill Attacks:** Closely related to the download restarts, if the sync node sends a non-best (but otherwise valid) block chain, the chain will be stored on disk, wasting space and possibly filling up the disk drive with useless data.
 - **High Memory Use:** Whether maliciously or by accident, the sync node can send blocks out of order, creating orphan blocks which can’t be validated until their parents have been received and validated. Orphan blocks are stored in memory while they await validation, which may lead to high memory use.
 
-All of these problems are addressed in part or in full by the headers-first IBD method used in [Reddcoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases).
+All of these problems are addressed in part or in full by the headers-first IBD method used in [ReddCoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases).
 
 **Resources:** The table below summarizes the messages mentioned throughout this subsection. The links in the message field will take you to the reference page for that message.
 
@@ -125,7 +125,7 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 
 ### Headers-First
 
-[Reddcoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best [header chain](/glossary/#header-chain), partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
+[ReddCoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best [header chain](/glossary/#header-chain), partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
 ![Overview Of Headers-First Method](/img/protocol/dev/en-headers-first-flowchart.svg)
 
@@ -148,16 +148,16 @@ After the IBD node has partially validated the block headers, it can do two thin
 
 1. **Download More Headers:** the IBD node can send another [“getheaders” message](../reference/p2p_networking#getheaders) to the sync node to request the next 2,000 headers on the best header chain. Those headers can be immediately validated and another batch requested repeatedly until a [“headers” message](../reference/p2p_networking#headers) is received from the sync node with fewer than 2,000 headers, indicating that it has no more headers to offer. As of this writing, headers sync can be completed in fewer than 200 round trips, or about 32 MB of downloaded data.
 
-   Once the IBD node receives a [“headers” message](../reference/p2p_networking#headers) with fewer than 2,000 headers from the sync node, it sends a [“getheaders” message](../reference/p2p_networking#getheaders) to each of its outbound peers to get their view of best header chain. By comparing the responses, it can easily determine if the headers it has downloaded belong to the best header chain reported by any of its outbound peers. This means a dishonest sync node will quickly be discovered even if checkpoints aren’t used (as long as the IBD node connects to at least one honest peer; Reddcoin Core will continue to provide checkpoints in case honest peers can’t be found).
+   Once the IBD node receives a [“headers” message](../reference/p2p_networking#headers) with fewer than 2,000 headers from the sync node, it sends a [“getheaders” message](../reference/p2p_networking#getheaders) to each of its outbound peers to get their view of best header chain. By comparing the responses, it can easily determine if the headers it has downloaded belong to the best header chain reported by any of its outbound peers. This means a dishonest sync node will quickly be discovered even if checkpoints aren’t used (as long as the IBD node connects to at least one honest peer; ReddCoin Core will continue to provide checkpoints in case honest peers can’t be found).
 
 2. **Download Blocks:** While the IBD node continues downloading headers, and after the headers finish downloading, the IBD node will request and download each block. The IBD node can use the block header hashes it computed from the header chain to create [“getdata” messages](../reference/p2p_networking#getdata) that request the blocks it needs by their inventory. It doesn’t need to request these from the sync node—it can request them from any of its full node peers. (Although not all full nodes may store all blocks.) This allows it to fetch blocks in parallel and avoid having its download speed constrained to the upload speed of a single sync node.
 
-   To spread the load between multiple peers, Reddcoin Core will only request up to 16 blocks at a time from a single peer. Combined with its maximum of 8 outbound connections, this means headers-first Reddcoin Core will request a maximum of 128 blocks simultaneously during IBD (the same maximum number that blocks-first Reddcoin Core requested from its sync node).
+   To spread the load between multiple peers, ReddCoin Core will only request up to 16 blocks at a time from a single peer. Combined with its maximum of 8 outbound connections, this means headers-first ReddCoin Core will request a maximum of 128 blocks simultaneously during IBD (the same maximum number that blocks-first ReddCoin Core requested from its sync node).
 
 ![Simulated Headers-First Download Window](/img/protocol/dev/en-headers-first-moving-window.svg)
 
 Simulated Headers-First Download Window
-Reddcoin Core’s headers-first mode uses a 1,024-block moving download window to maximize download speed. The lowest-height block in the window is the next block to be validated; if the block hasn’t arrived by the time Reddcoin Core is ready to validate it, Reddcoin Core will wait a minimum of two more seconds for the stalling node to send the block. If the block still hasn’t arrived, Reddcoin Core will disconnect from the stalling node and attempt to connect to another node. For example, in the illustration above, Node A will be disconnected if it doesn’t send block 3 within at least two seconds.
+ReddCoin Core’s headers-first mode uses a 1,024-block moving download window to maximize download speed. The lowest-height block in the window is the next block to be validated; if the block hasn’t arrived by the time ReddCoin Core is ready to validate it, ReddCoin Core will wait a minimum of two more seconds for the stalling node to send the block. If the block still hasn’t arrived, ReddCoin Core will disconnect from the stalling node and attempt to connect to another node. For example, in the illustration above, Node A will be disconnected if it doesn’t send block 3 within at least two seconds.
 
 Once the IBD node is synced to the tip of the block chain, it will accept blocks sent through the regular block broadcasting described in a later subsection.
 
@@ -186,9 +186,9 @@ When a miner discovers a new block, it broadcasts the new block to its peers usi
 
 - [Direct Headers Announcement](/glossary/#block-header)**:** a relay node may skip the round trip overhead of an [“inv” message](../reference/p2p_networking#inv) followed by `getheaders` by instead immediately sending a [“headers” message](../reference/p2p_networking#headers) containing the full header of the new block. A HF peer receiving this message will partially validate the block header as it would during headers-first IBD, then request the full block contents with a [“getdata” message](../reference/p2p_networking#getdata) if the header is valid. The relay node then responds to the `getdata` request with the full or filtered block data in a `block` or [“merkleblock” message](../reference/p2p_networking#merkleblock), respectively. A HF node may signal that it prefers to receive `headers` instead of `inv` announcements by sending a special [“sendheaders” message](../reference/p2p_networking#sendheaders) during the connection handshake.
 
-  This protocol for block broadcasting was proposed in BIP 130 and has been implemented in Reddcoin Core since version 0.12.
+  This protocol for block broadcasting was proposed in BIP 130 and has been implemented in ReddCoin Core since version 0.12.
 
-By default, Reddcoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with [“sendheaders”](../reference/p2p_networking#sendheaders) and uses [standard block relay](/glossary/terms#term-standard-block-relay) for all peers that have not. Reddcoin Core will accept blocks sent using any of the methods described above.
+By default, ReddCoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with [“sendheaders”](../reference/p2p_networking#sendheaders) and uses [standard block relay](/glossary/terms#term-standard-block-relay) for all peers that have not. ReddCoin Core will accept blocks sent using any of the methods described above.
 
 Full nodes validate the received block and then advertise it to their peers using the [standard block relay](/glossary/terms#term-standard-block-relay) method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
 
@@ -223,9 +223,9 @@ In order to send a transaction to a peer, an [“inv” message](../reference/p2
 
 Full peers may keep track of unconfirmed transactions which are eligible to be included in the next block. This is essential for miners who will actually mine some or all of those transactions, but it’s also useful for any peer who wants to keep track of unconfirmed transactions, such as peers serving unconfirmed transaction information to SPV clients.
 
-Because unconfirmed transactions have no permanent status in Reddcoin, Reddcoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the [network](../devguide/p2p_network) as peers restart or as they purge some transactions to make room in memory for others.
+Because unconfirmed transactions have no permanent status in ReddCoin, ReddCoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the [network](../devguide/p2p_network) as peers restart or as they purge some transactions to make room in memory for others.
 
-Transactions which are mined into blocks that later become stale blocks may be added back into the memory pool. These re-added transactions may be re-removed from the pool almost immediately if the replacement blocks include them. This is the case in Reddcoin Core, which removes stale blocks from the chain one by one, starting with the tip (highest block). As each block is removed, its transactions are added back to the memory pool. After all of the stale blocks are removed, the replacement blocks are added to the chain one by one, ending with the new tip. As each block is added, any transactions it confirms are removed from the memory pool.
+Transactions which are mined into blocks that later become stale blocks may be added back into the memory pool. These re-added transactions may be re-removed from the pool almost immediately if the replacement blocks include them. This is the case in ReddCoin Core, which removes stale blocks from the chain one by one, starting with the tip (highest block). As each block is removed, its transactions are added back to the memory pool. After all of the stale blocks are removed, the replacement blocks are added to the chain one by one, ending with the new tip. As each block is added, any transactions it confirms are removed from the memory pool.
 
 SPV clients don’t have a memory pool for the same reason they don’t relay transactions. They can’t independently verify that a transaction hasn’t yet been included in a block and that it only spends UTXOs, so they can’t know which transactions are eligible to be included in the next block.
 
@@ -235,7 +235,7 @@ Take note that for both types of broadcasting, mechanisms are in place to punish
 
 ## Alerts
 
-*Removed in*[Reddcoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases)
+*Removed in*[ReddCoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases)
 
-Earlier versions of Reddcoin Core allowed developers and trusted community members to issue [Reddcoin alerts](https://github.com/reddcoin-project/reddcoin/releases) to notify users of critical [network](../devguide/p2p_network)-wide issues. This messaging system [was retired](https://github.com/reddcoin-project/reddcoin/releases) in Reddcoin Core v0.13.0; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain.
+Earlier versions of ReddCoin Core allowed developers and trusted community members to issue [ReddCoin alerts](https://github.com/reddcoin-project/reddcoin/releases) to notify users of critical [network](../devguide/p2p_network)-wide issues. This messaging system [was retired](https://github.com/reddcoin-project/reddcoin/releases) in ReddCoin Core v0.13.0; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain.
 

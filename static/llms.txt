@@ -1,0 +1,47 @@
+# ReddCoin Docs
+
+> The unified ReddCoin documentation site — protocol reference, library
+> APIs, and operator guides for ReddCoin (The Social Currency).
+> ReddCoin is a Bitcoin-family cryptocurrency that uses Proof-of-Stake
+> Velocity (PoSV) consensus. Source code at
+> https://github.com/reddcoin-project.
+
+## Protocol & Core
+
+- [Protocol overview](https://docs.reddcoin.com/protocol/): Index of the protocol developer documentation.
+- [Block chain](https://docs.reddcoin.com/protocol/devguide/block_chain/): How blocks, transactions, and the chain are organised.
+- [Transactions](https://docs.reddcoin.com/protocol/devguide/transactions/): Transaction structure, scripts, P2PKH, P2SH, multisig.
+- [P2P network](https://docs.reddcoin.com/protocol/devguide/p2p_network/): Peer discovery, message protocol, mempool propagation.
+- [Staking (PoSV)](https://docs.reddcoin.com/protocol/devguide/staking/): ReddCoin's Proof-of-Stake Velocity consensus mechanism.
+- [Mining](https://docs.reddcoin.com/protocol/devguide/mining/): Historical Proof-of-Work era (blocks 0–260,799).
+- [Kimoto Gravity Well](https://docs.reddcoin.com/protocol/devguide/kimoto_gravity_well/): Difficulty retargeting algorithm walkthrough.
+- [Wallets](https://docs.reddcoin.com/protocol/devguide/wallets/): Wallet types, key management, HD wallets.
+- [Payment processing](https://docs.reddcoin.com/protocol/devguide/payment_processing/): URIs, QR codes, payment requests, refunds.
+
+## Reference
+
+- [JSON-RPC reference](https://docs.reddcoin.com/protocol/reference/rpc/): Every reddcoin-cli / RPC call exposed by reddcoind.
+- [Block chain reference](https://docs.reddcoin.com/protocol/reference/block_chain/): On-disk and on-the-wire formats for blocks and headers.
+- [Transactions reference](https://docs.reddcoin.com/protocol/reference/transactions/): Transaction serialization formats, including PoSV coinstake.
+- [P2P networking reference](https://docs.reddcoin.com/protocol/reference/p2p_networking/): Wire protocol, message types, network rules.
+
+## Examples
+
+- [Examples index](https://docs.reddcoin.com/protocol/examples/): End-to-end walkthroughs.
+- [Transaction examples](https://docs.reddcoin.com/protocol/examples/transactions/): Building, signing, broadcasting raw transactions.
+- [Payment processing examples](https://docs.reddcoin.com/protocol/examples/payment_processing/): Implementing the payment protocol.
+- [P2P networking examples](https://docs.reddcoin.com/protocol/examples/p2p_networking/): Connecting to a peer and exchanging messages.
+
+## Glossary
+
+- [Glossary](https://docs.reddcoin.com/glossary/): ReddCoin and Bitcoin-family terminology with cross-references.
+- [Terms](https://docs.reddcoin.com/glossary/terms/): Cross-reference targets used throughout the protocol documentation.
+
+## Libraries
+
+- [reddcoinjs-lib API](https://docs.reddcoin.com/api/reddcoinjs-lib/): TypeScript client library for Node.js and browsers (auto-generated from TSDoc).
+
+## Optional
+
+- [Brand guide](https://brand.reddcoin.com/): Brand assets, colour palette, typography.
+- [GitHub organisation](https://github.com/reddcoin-project): Source code for ReddCoin Core, reddcoinjs-lib, and related projects.

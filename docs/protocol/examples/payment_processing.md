@@ -11,7 +11,7 @@ substitutions:
 
 To request payment using the payment protocol, you use an extended (but backwards-compatible) [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri). For example:
 
-**Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Reddcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Reddcoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
+**Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of ReddCoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in ReddCoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
 
 ```
 reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
@@ -21,7 +21,7 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 &r=https://example.com/pay.php/invoice%3Dda39a3ee
 ```
 
-The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the [“r”](/glossary/terms#term-r-parameter) parameter, which should provide it with a serialized [PaymentRequest](/glossary/terms#term-paymentrequest) served with the [MIME](https://en.wikipedia.org/wiki/Internet_media_type) type `application/reddcoin-paymentrequest`.
+The browser, QR code reader, or other program processing the URI opens the spender’s ReddCoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the [“r”](/glossary/terms#term-r-parameter) parameter, which should provide it with a serialized [PaymentRequest](/glossary/terms#term-paymentrequest) served with the [MIME](https://en.wikipedia.org/wiki/Internet_media_type) type `application/reddcoin-paymentrequest`.
 
 **Resource:** Gavin Andresen’s [Payment Request Generator](https://github.com/gavinandresen/paymentrequest/blob/master/php/demo_website/createpaymentrequest.php) generates custom example URIs and payment requests for use with testnet.
 
@@ -34,7 +34,7 @@ The full sequence of events is illustrated below, starting with the spender clic
 ![BIP70 Payment Protocol](/img/protocol/dev/en-payment-protocol.svg)
 
 BIP70 Payment Protocol
-For the script to use the [protocol buffer](https://developers.google.com/protocol-buffers/), you will need a copy of Google’s [Protocol Buffer](https://developers.google.com/protocol-buffers/) compiler (`protoc`), which is available in most modern Linux package managers and [directly from Google.](https://developers.google.com/protocol-buffers/) Non-Google [protocol buffer](https://developers.google.com/protocol-buffers/) compilers are available for a variety of programming languages. You will also need a copy of the [PaymentRequest](/glossary/terms#term-paymentrequest) [Protocol Buffer description](https://github.com/reddcoin-project/reddcoin/blob/0.19/src/qt/paymentrequest.proto) from the Reddcoin Core source code.
+For the script to use the [protocol buffer](https://developers.google.com/protocol-buffers/), you will need a copy of Google’s [Protocol Buffer](https://developers.google.com/protocol-buffers/) compiler (`protoc`), which is available in most modern Linux package managers and [directly from Google.](https://developers.google.com/protocol-buffers/) Non-Google [protocol buffer](https://developers.google.com/protocol-buffers/) compilers are available for a variety of programming languages. You will also need a copy of the [PaymentRequest](/glossary/terms#term-paymentrequest) [Protocol Buffer description](https://github.com/reddcoin-project/reddcoin/blob/0.19/src/qt/paymentrequest.proto) from the ReddCoin Core source code.
 
 #### Initialization Code
 
@@ -280,8 +280,8 @@ file.write(stdout, request.SerializeToString())
 `request`: (required) now, to finish, we just dump out the serialized [PaymentRequest](/glossary/terms#term-paymentrequest) (which contains the serialized [PaymentDetails](/glossary/terms#term-paymentdetails)). The serialized data is in binary, so we can’t use Python’s print() because it would add an extraneous newline.
 ```
 
-The following screenshot shows how the authenticated [PaymentDetails](/glossary/terms#term-paymentdetails) created by the program above appears in the GUI from Reddcoin Core 0.9.
+The following screenshot shows how the authenticated [PaymentDetails](/glossary/terms#term-paymentdetails) created by the program above appears in the GUI from ReddCoin Core 0.9.
 
-![Reddcoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
+![ReddCoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
 
-Reddcoin Core Showing Validated Payment Request
+ReddCoin Core Showing Validated Payment Request

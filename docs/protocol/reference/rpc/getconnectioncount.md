@@ -14,6 +14,6 @@ Returns the number of connections to other nodes.
 
 ```shell
 reddcoin-cli getconnectioncount
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getconnectioncount", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getconnectioncount", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

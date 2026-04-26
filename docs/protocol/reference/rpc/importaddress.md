@@ -20,7 +20,7 @@ Note: Use "getwalletinfo" to query the scanning progress.
 
 **Type:** string, required
 
-The Reddcoin address (or hex-encoded script)
+The ReddCoin address (or hex-encoded script)
 
 ## Argument #2 - label
 

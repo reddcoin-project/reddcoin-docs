@@ -9,15 +9,15 @@ substitutions:
 
 ## Transaction Tutorial
 
-Creating transactions is something most Reddcoin applications do. This section describes how to use Reddcoin Core’s [RPC](../reference/rpc) interface to create transactions with various attributes.
+Creating transactions is something most ReddCoin applications do. This section describes how to use ReddCoin Core’s [RPC](../reference/rpc) interface to create transactions with various attributes.
 
-Your applications may use something besides Reddcoin Core to create transactions, but in any system, you will need to provide the same kinds of data to create transactions with the same attributes as those described below.
+Your applications may use something besides ReddCoin Core to create transactions, but in any system, you will need to provide the same kinds of data to create transactions with the same attributes as those described below.
 
-In order to use this tutorial, you will need to setup [Reddcoin Core](https://github.com/reddcoin-project/reddcoin/releases) and create a regression test mode environment with 50 RDD in your test wallet.
+In order to use this tutorial, you will need to setup [ReddCoin Core](https://github.com/reddcoin-project/reddcoin/releases) and create a regression test mode environment with 50 RDD in your test wallet.
 
 ### Simple Spending
 
-Reddcoin Core provides several [RPCs](../reference/rpc) which handle all the details of spending, including creating change outputs and paying appropriate fees. Even advanced users should use these [RPCs](../reference/rpc) whenever possible to decrease the chance that reddoshis will be lost by mistake.
+ReddCoin Core provides several [RPCs](../reference/rpc) which handle all the details of spending, including creating change outputs and paying appropriate fees. Even advanced users should use these [RPCs](../reference/rpc) whenever possible to decrease the chance that reddoshis will be lost by mistake.
 
 ```bash
 > reddcoin-cli -regtest getnewaddress
@@ -25,7 +25,7 @@ mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou
 
 > NEW_ADDRESS=mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou
 ```
-Get a new Reddcoin address and save it in the shell variable `$NEW_ADDRESS`.
+Get a new ReddCoin address and save it in the shell variable `$NEW_ADDRESS`.
 
 ```bash
 > reddcoin-cli -regtest sendtoaddress $NEW_ADDRESS 10.00
@@ -85,7 +85,7 @@ Create a new block to confirm the transaction above (takes less than a second) a
 
 ### Simple Raw Transaction
 
-The raw transaction [RPCs](../reference/rpc) allow users to create custom transactions and delay broadcasting those transactions. However, mistakes made in raw transactions may not be detected by Reddcoin Core, and a number of raw transaction users have permanently lost large numbers of reddoshis, so please be careful using raw transactions on mainnet.
+The raw transaction [RPCs](../reference/rpc) allow users to create custom transactions and delay broadcasting those transactions. However, mistakes made in raw transactions may not be detected by ReddCoin Core, and a number of raw transaction users have permanently lost large numbers of reddoshis, so please be careful using raw transactions on mainnet.
 
 This subsection covers one of the simplest possible raw transactions.
 
@@ -236,7 +236,7 @@ Use the [“decoderawtransaction” RPC](../reference/rpc/decoderawtransaction) 
 
 Use the `signrawtransaction` [RPC](../reference/rpc) to sign the transaction created by [“createrawtransaction”](../reference/rpc/createrawtransaction) and save the returned “hex” raw format signed transaction to a shell variable.
 
-Even though the transaction is now complete, the Reddcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the [network](../devguide/p2p_network). We’ve created a spend, but we haven’t actually spent anything because we could simply unset the `$SIGNED_RAW_TX` variable to eliminate the transaction.
+Even though the transaction is now complete, the ReddCoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the [network](../devguide/p2p_network). We’ve created a spend, but we haven’t actually spent anything because we could simply unset the `$SIGNED_RAW_TX` variable to eliminate the transaction.
 
 ```bash
 > reddcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX
@@ -702,7 +702,7 @@ mk2QpYatsKicvFVuTAQLBryyccRXMUaGHP
 > NEW_ADDRESS2=moaCrnRfP5zzyhW8k65f6Rf2z5QpvJzSKe
 > NEW_ADDRESS3=mk2QpYatsKicvFVuTAQLBryyccRXMUaGHP
 ```
-Generate three new P2PKH addresses. P2PKH addresses cannot be used with the multisig redeem script created below. (Hashing each public key is unnecessary anyway—all the public keys are protected by a hash when the redeem script is hashed.) However, Reddcoin Core uses addresses as a way to reference the underlying full (unhashed) public keys it knows about, so we get the three new addresses above in order to use their public keys.
+Generate three new P2PKH addresses. P2PKH addresses cannot be used with the multisig redeem script created below. (Hashing each public key is unnecessary anyway—all the public keys are protected by a hash when the redeem script is hashed.) However, ReddCoin Core uses addresses as a way to reference the underlying full (unhashed) public keys it knows about, so we get the three new addresses above in order to use their public keys.
 
 Recall from the Guide that the hashed public keys used in addresses obfuscate the full public key, so you cannot give an address to another person or device as part of creating a typical multisig output or P2SH multisig redeem script. You must give them a full public key.
 
@@ -766,7 +766,7 @@ Neither the address nor the redeem script are stored in the wallet when you use 
 
 > UTXO_TXID=7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884[...]
 ```
-Paying the P2SH multisig address with Reddcoin Core is as simple as paying a more common P2PKH address. Here we use the same command (but different variable) we used in the Simple Spending subsection. As before, this command automatically selects an UTXO, creates a change output to a new one of our P2PKH addresses if necessary, and pays a transaction fee if necessary.
+Paying the P2SH multisig address with ReddCoin Core is as simple as paying a more common P2PKH address. Here we use the same command (but different variable) we used in the Simple Spending subsection. As before, this command automatically selects an UTXO, creates a change output to a new one of our P2PKH addresses if necessary, and pays a transaction fee if necessary.
 
 We save that txid to a shell variable as the txid of the UTXO we plan to spend next.
 

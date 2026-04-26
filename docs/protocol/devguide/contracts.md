@@ -1,10 +1,10 @@
 # Contracts
 
-Contracts are transactions which use the decentralized Reddcoin system to enforce financial agreements. Reddcoin contracts can often be crafted to minimize dependency on outside agents, such as the court system, which significantly decreases the risk of dealing with unknown entities in financial transactions.
+Contracts are transactions which use the decentralized ReddCoin system to enforce financial agreements. ReddCoin contracts can often be crafted to minimize dependency on outside agents, such as the court system, which significantly decreases the risk of dealing with unknown entities in financial transactions.
 
 ## Introduction
 
-The following subsections will describe a variety of Reddcoin contracts already in use. Because contracts deal with real people, not just transactions, they are framed below in story format.
+The following subsections will describe a variety of ReddCoin contracts already in use. Because contracts deal with real people, not just transactions, they are framed below in story format.
 
 Besides the contract types described below, many other contract types have been proposed. Several of them are collected on the [Contracts page](https://en.bitcoin.it/wiki/Contracts) of the Bitcoin Wiki.
 
@@ -67,13 +67,13 @@ If Alice fails to broadcast a version of the [refund](../devguide/payment_proces
 
 Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of [micropayment channels](/glossary/terms#term-micropayment-channel). If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 milliredds hostage even if she hadn’t done any work.
 
-For larger payments, Reddcoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
+For larger payments, ReddCoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
 
 **Resource:** The [bitcoinj](http://bitcoinj.github.io) Java library provides a complete set of micropayment functions, an example implementation, and [a tutorial](https://bitcoinj.github.io/working-with-micropayments) all under an Apache license.
 
 ## CoinJoin
 
-Alice is concerned about her privacy. She knows every transaction gets added to the public block chain, so when Bob and Charlie pay her, they can each easily track those reddoshis to learn what Reddcoin addresses she pays, how much she pays them, and possibly how many reddoshis she has left.
+Alice is concerned about her privacy. She knows every transaction gets added to the public block chain, so when Bob and Charlie pay her, they can each easily track those reddoshis to learn what ReddCoin addresses she pays, how much she pays them, and possibly how many reddoshis she has left.
 
 Alice isn’t a criminal, she just wants plausible deniability about where she has spent her reddoshis and how many she has left, so she starts up the Tor anonymity service on her computer and logs into an IRC chatroom as “AnonGirl.”
 
@@ -84,7 +84,7 @@ Also in the chatroom are “Nemo” and “Neminem.” They collectively agree t
 Example CoinJoin Transaction
 Each contributor looks through their collection of Unspent Transaction Outputs (UTXOs) for 100 milliredds they can spend. They then each generate a brand new public key and give UTXO details and pubkey hashes to the facilitator. In this case, the facilitator is AnonGirl; she creates a transaction spending each of the UTXOs to three equally-sized outputs. One output goes to each of the contributors’ pubkey hashes.
 
-AnonGirl then signs her inputs using `SIGHASH_ALL` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the Reddcoin [peer-to-peer network](../devguide/p2p_network), mixing all of the milliredds in a single transaction.
+AnonGirl then signs her inputs using `SIGHASH_ALL` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the ReddCoin [peer-to-peer network](../devguide/p2p_network), mixing all of the milliredds in a single transaction.
 
 As you can see in the illustration, there’s no way for anyone besides AnonGirl, Nemo, and Neminem to confidently determine who received which output, so they can each spend their output with plausible deniability.
 
@@ -98,7 +98,7 @@ AnonGirl waits in the IRC chatroom until she wants to make a purchase. She annou
 
 Since they would’ve had to pay a transaction fee to make their purchases anyway, AnonGirl and her co-spenders don’t pay anything extra—but because they reduced overhead by combining multiple transactions, saving bytes, they may be able to pay a smaller aggregate transaction fee, saving each one of them a tiny amount of reddoshis.
 
-**Current Working Implementations:** As of today, in 2018, [JoinMarket](https://github.com/JoinMarket-Org/) and [Wasabi Wallet](http://wasabiwallet.io) are the operational CoinJoin implementations for Reddcoin.
+**Current Working Implementations:** As of today, in 2018, [JoinMarket](https://github.com/JoinMarket-Org/) and [Wasabi Wallet](http://wasabiwallet.io) are the operational CoinJoin implementations for ReddCoin.
 
 JoinMarket style CoinJoins differ from the above described scheme by splitting the participants into two sections: market makers and market takers. Market makers are publishing their CoinJoin intentions to an IRC room and waiting for market takers to take their offers. When a taker comes along, it selects a set of makers and creates a shared transaction with them, while also paying a small fee. Unlike the above described scheme, this happens automatically.
 

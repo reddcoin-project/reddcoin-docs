@@ -11,18 +11,18 @@ Payment processing encompasses the steps spenders and receivers perform to make 
 
 ## Introduction
 
-This section will explain how receivers and spenders can, respectively, request and make payments using Reddcoin—and how they can deal with complications such as [refunds](../devguide/payment_processing#issuing-refunds) and [recurrent rebilling](../devguide/payment_processing#rebilling-recurring-payments).
+This section will explain how receivers and spenders can, respectively, request and make payments using ReddCoin—and how they can deal with complications such as [refunds](../devguide/payment_processing#issuing-refunds) and [recurrent rebilling](../devguide/payment_processing#rebilling-recurring-payments).
 
-![Reddcoin Payment Processing](/img/protocol/dev/en-payment-processing.svg)
+![ReddCoin Payment Processing](/img/protocol/dev/en-payment-processing.svg)
 
-Reddcoin Payment Processing
-The figure above illustrates payment processing using Reddcoin from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
+ReddCoin Payment Processing
+The figure above illustrates payment processing using ReddCoin from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
 
 It is worth mentioning that each of these steps can be outsourced by using third party APIs and services.
 
 ## Pricing Orders
 
-Because of exchange rate variability between reddoshis and national currencies ([fiat](/glossary/terms#term-fiat)), many Reddcoin orders are priced in [fiat](/glossary/terms#term-fiat) but paid in reddoshis, necessitating a price conversion.
+Because of exchange rate variability between reddoshis and national currencies ([fiat](/glossary/terms#term-fiat)), many ReddCoin orders are priced in [fiat](/glossary/terms#term-fiat) but paid in reddoshis, necessitating a price conversion.
 
 Exchange rate data is widely available through HTTP-based APIs provided by currency exchanges. Several organizations also aggregate data from multiple exchanges to create index prices, which are also available using HTTP-based APIs.
 
@@ -30,9 +30,9 @@ Any applications which automatically calculate order totals using exchange rate 
 
 To minimize problems, your applications may want to collect data from at least two separate sources and compare them to see how much they differ. If the difference is substantial, your applications can enter a safe mode until a human is able to evaluate the situation.
 
-You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the Reddcoin market which could make it difficult to spend any reddoshis received today.
+You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the ReddCoin market which could make it difficult to spend any reddoshis received today.
 
-Exchange rates lie outside the control of Reddcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from [fiat](/glossary/terms#term-fiat) into reddoshis.
+Exchange rates lie outside the control of ReddCoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from [fiat](/glossary/terms#term-fiat) into reddoshis.
 
 Because the exchange rate fluctuates over time, order totals pegged to [fiat](/glossary/terms#term-fiat) must expire to prevent spenders from delaying payment in the hope that reddoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
@@ -40,7 +40,7 @@ Shorter expiration periods increase the chance the invoice will expire before pa
 
 ## Requesting Payments
 
-Before requesting payment, your application must create a Reddcoin address, or acquire an address from another program such as Reddcoin Core. Reddcoin addresses are described in detail in the [Transactions](../devguide/transactions) guide. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
+Before requesting payment, your application must create a ReddCoin address, or acquire an address from another program such as ReddCoin Core. ReddCoin addresses are described in detail in the [Transactions](../devguide/transactions) guide. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
 
 Using a separate address for each incoming payment makes it trivial to determine which customers have paid their payment requests. Your applications need only track the association between a particular payment request and the address used in it, and then scan the block chain for transactions matching that address.
 
@@ -51,7 +51,7 @@ The next subsections will describe in detail the following four compatible ways 
 3. Most mobile wallets support scanning [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri) encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
 4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using [X.509](https://en.wikipedia.org/wiki/X.509) certificates, and other important features such as [refunds](../devguide/payment_processing#issuing-refunds).
 
-**Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks from replacing your Reddcoin address with the attacker’s address.
+**Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks from replacing your ReddCoin address with the attacker’s address.
 
 ### Plain Text
 
@@ -65,7 +65,7 @@ Amount: 100 RDD
 You must pay by: 2014-04-01 at 23:00 UTC
 ```
 
-Indicating the denomination is critical. As of this writing, popular Reddcoin wallet software defaults to denominating amounts in reddcoins (RDD). Software may also let users select denomination amounts from milliredds (mRDD) or microredds (uRDD, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some preselected (e.g. Table below) or all [standard 8 decimal places](https://en.bitcoin.it/wiki/Units):
+Indicating the denomination is critical. As of this writing, popular ReddCoin wallet software defaults to denominating amounts in reddcoins (RDD). Software may also let users select denomination amounts from milliredds (mRDD) or microredds (uRDD, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some preselected (e.g. Table below) or all [standard 8 decimal places](https://en.bitcoin.it/wiki/Units):
 
 | Reddcoins  | Unit (Abbreviation)      |
 | ---------- | ------------------------ |
@@ -85,7 +85,7 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN?amount=100
 
 Only the address is required, and if it is the only thing specified, wallets will pre-fill a payment request with it and let the spender enter an amount. The amount specified is always in decimal reddcoins (RDD).
 
-Two other parameters are widely supported. The [“label”](/glossary/terms#term-label) parameter is generally used to provide wallet software with the recipient’s name. The [“message”](/glossary/terms#term-message) parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Reddcoin users cannot see them. Both the label and the message must be [URI encoded](https://tools.ietf.org/html/rfc3986).
+Two other parameters are widely supported. The [“label”](/glossary/terms#term-label) parameter is generally used to provide wallet software with the recipient’s name. The [“message”](/glossary/terms#term-message) parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other ReddCoin users cannot see them. Both the label and the message must be [URI encoded](https://tools.ietf.org/html/rfc3986).
 
 All four parameters used together, with appropriate URI encoding, can be seen in the line-wrapped example below.
 
@@ -102,20 +102,20 @@ Programs accepting URIs in any form must ask the user for permission before payi
 
 ### QR Codes
 
-QR codes are a popular way to exchange [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri) in person, in images, or in videos. Most mobile Reddcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
+QR codes are a popular way to exchange [“reddcoin:” URIs](/glossary/terms#term-reddcoin-uri) in person, in images, or in videos. Most mobile ReddCoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
 
-The figure below shows the same [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) code encoded as four different [Reddcoin QR codes](/glossary/terms#term-uri-qr-code) at four different error correction levels. The QR code can include the [“label”](/glossary/terms#term-label) and [“message”](/glossary/terms#term-message) parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
+The figure below shows the same [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) code encoded as four different [ReddCoin QR codes](/glossary/terms#term-uri-qr-code) at four different error correction levels. The QR code can include the [“label”](/glossary/terms#term-label) and [“message”](/glossary/terms#term-message) parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
 
-![Reddcoin QR Codes](/img/protocol/dev/en-qr-code.svg)
+![ReddCoin QR Codes](/img/protocol/dev/en-qr-code.svg)
 
-Reddcoin QR Codes
-The error correction is combined with a checksum to ensure the [Reddcoin QR code](/glossary/terms#term-uri-qr-code) cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
+ReddCoin QR Codes
+The error correction is combined with a checksum to ensure the [ReddCoin QR code](/glossary/terms#term-uri-qr-code) cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
 
 ### Payment Protocol
 
-**Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Reddcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Reddcoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
+**Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of ReddCoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in ReddCoin Core version 0.18 when using [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) URI’s. Merchants should transition away from [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) to more secure options such as [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki). Merchants should never require [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) payments and should provide [BIP21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) fallbacks.
 
-Reddcoin Core 0.9 supports the new [payment protocol](/glossary/#payment-protocol). The payment protocol adds many important features to payment requests:
+ReddCoin Core 0.9 supports the new [payment protocol](/glossary/#payment-protocol). The payment protocol adds many important features to payment requests:
 
 - Supports [X.509](https://en.wikipedia.org/wiki/X.509) certificates and SSL encryption to verify receivers’ identity and help prevent [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks.
 - Provides more detail about the requested payment to spenders.
@@ -135,14 +135,14 @@ reddcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 
 None of the parameters provided above, except [“r”](/glossary/terms#term-r-parameter), are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
 
-The [“r”](/glossary/terms#term-r-parameter) parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a [PaymentRequest](/glossary/terms#term-paymentrequest) from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Reddcoin wallet program on the URI.
+The [“r”](/glossary/terms#term-r-parameter) parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a [PaymentRequest](/glossary/terms#term-paymentrequest) from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s ReddCoin wallet program on the URI.
 
 ![BIP70 Payment Protocol](/img/protocol/dev/en-payment-protocol.svg)
 
 BIP70 Payment Protocol
 The Payment Protocol is described in depth in [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki), [BIP71](https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki), and [BIP72](https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki). An example CGI program and description of all the parameters which can be used in the Payment Protocol is provided in the Developer Examples [Payment Protocol](../examples/payment_processing#payment-protocol) subsection. In this subsection, we will briefly describe in story format how the Payment Protocol is typically used.
 
-Charlie, the client, is shopping on a website run by Bob, the businessman. Charlie adds a few items to his shopping cart and clicks the “Checkout With Reddcoin” button.
+Charlie, the client, is shopping on a website run by Bob, the businessman. Charlie adds a few items to his shopping cart and clicks the “Checkout With ReddCoin” button.
 
 Bob’s server automatically adds the following information to its invoice database:
 
@@ -166,10 +166,10 @@ After receiving the HTTP GET to the URL above, the [PaymentRequest](/glossary/te
 
 That [PaymentDetails](/glossary/terms#term-paymentdetails) message is put inside a [PaymentRequest](/glossary/terms#term-paymentrequest) message. The payment request lets Bob’s server sign the entire Request with the server’s [X.509](https://en.wikipedia.org/wiki/X.509) SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
 
-![Reddcoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
+![ReddCoin Core Showing Validated Payment Request](/img/protocol/dev/en-btcc-payment-request.png)
 
-Reddcoin Core Showing Validated Payment Request
-Charlie’s wallet receives the [PaymentRequest](/glossary/terms#term-paymentrequest) message, checks its signature, and then displays the details from the [PaymentDetails](/glossary/terms#term-paymentdetails) message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Reddcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the [network](../devguide/p2p_network). Instead, the wallet constructs a Payment message and sends it to the URL provided in the [PaymentDetails](/glossary/terms#term-paymentdetails) message as an HTTP POST. Among other things, the Payment message contains:
+ReddCoin Core Showing Validated Payment Request
+Charlie’s wallet receives the [PaymentRequest](/glossary/terms#term-paymentrequest) message, checks its signature, and then displays the details from the [PaymentDetails](/glossary/terms#term-paymentdetails) message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional ReddCoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the [network](../devguide/p2p_network). Instead, the wallet constructs a Payment message and sends it to the URL provided in the [PaymentDetails](/glossary/terms#term-paymentdetails) message as an HTTP POST. Among other things, the Payment message contains:
 
 - The signed transaction in which Charlie pays Bob.
 - An optional memo Charlie can send to Bob. (There’s no guarantee that Bob will read it.)
@@ -182,7 +182,7 @@ Charlie’s wallet sees the PaymentACK and tells Charlie that the payment has be
 In the case of a dispute, Charlie can generate a cryptographically proven [receipt](/glossary/terms#term-receipt) out of the various signed or otherwise-proven information.
 
 - The [PaymentDetails](/glossary/terms#term-paymentdetails) message signed by Bob’s webserver proves Charlie received an invoice to pay a specified pubkey script for a specified number of reddoshis for goods specified in the memo field.
-- The Reddcoin block chain can prove that the pubkey script specified by Bob was paid the specified number of reddoshis.
+- The ReddCoin block chain can prove that the pubkey script specified by Bob was paid the specified number of reddoshis.
 
 If a [refund](../devguide/payment_processing#issuing-refunds) needs to be issued, Bob’s server can safely pay the [refund](../devguide/payment_processing#issuing-refunds)-to pubkey script provided by Charlie. See the [Refunds](../devguide/payment_processing#issuing-refunds) section below for more details.
 
@@ -192,7 +192,7 @@ As explained in the [Transactions](../devguide/transactions) and [Block Chain](.
 
 Two or more transactions spending the same input are commonly referred to as a [double spend](/glossary/#double-spend).
 
-Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Reddcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one [confirmation](/glossary/#confirmation-score). Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
+Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the ReddCoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one [confirmation](/glossary/#confirmation-score). Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
 **0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the [network](../devguide/p2p_network) into including their version of a transaction.
 
@@ -202,15 +202,15 @@ Once the transaction is included in a block, double spends are impossible withou
 
 **6 confirmations**: The [network](../devguide/p2p_network) has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total [network](../devguide/p2p_network) hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
-Reddcoin Core provides several [RPCs](../reference/rpc) which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the [“listunspent” RPC](../reference/rpc/listunspent) provides an array of every reddoshi you can spend along with its confirmation score.
+ReddCoin Core provides several [RPCs](../reference/rpc) which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the [“listunspent” RPC](../reference/rpc/listunspent) provides an array of every reddoshi you can spend along with its confirmation score.
 
 Although confirmations provide excellent double-spend protection most of the time, there are at least three cases where double-spend risk analysis can be required:
 
 1. In the case when the program or its user cannot wait for a confirmation and wants to accept unconfirmed payments.
 2. In the case when the program or its user is accepting high value transactions and cannot wait for at least six confirmations or more.
-3. In the case of an implementation bug or prolonged attack against Reddcoin which makes the system less reliable than expected.
+3. In the case of an implementation bug or prolonged attack against ReddCoin which makes the system less reliable than expected.
 
-An interesting source of double-spend risk analysis can be acquired by connecting to large numbers of Reddcoin peers to track how transactions and blocks differ from each other. Some third-party APIs can provide you with this type of service.
+An interesting source of double-spend risk analysis can be acquired by connecting to large numbers of ReddCoin peers to track how transactions and blocks differ from each other. Some third-party APIs can provide you with this type of service.
 
 For example, unconfirmed transactions can be compared among all connected peers to see if any UTXO is used in multiple unconfirmed transactions, indicating a double-spend attempt, in which case the payment can be refused until it is confirmed. Transactions can also be ranked by their transaction fee to estimate the amount of time until they’re added to a block.
 
@@ -222,8 +222,8 @@ Another good source of double-spend protection can be human intelligence. For ex
 
 Occasionally receivers using your applications will need to issue [refunds](../devguide/payment_processing#issuing-refunds). The obvious way to do that, which is very unsafe, is simply to return the reddoshis to the pubkey script from which they came. For example:
 
-- Alice wants to buy a widget from Bob, so Bob gives Alice a price and Reddcoin address.
-- Alice opens her wallet program and sends some reddoshis to that address. Her wallet program automatically chooses to spend those reddoshis from one of its unspent outputs, an output corresponding to the Reddcoin address mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
+- Alice wants to buy a widget from Bob, so Bob gives Alice a price and ReddCoin address.
+- Alice opens her wallet program and sends some reddoshis to that address. Her wallet program automatically chooses to spend those reddoshis from one of its unspent outputs, an output corresponding to the ReddCoin address mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 - Bob discovers Alice paid too many reddoshis. Being an honest fellow, Bob [refunds](../devguide/payment_processing#issuing-refunds) the extra reddoshis to the mjSk… address.
 
 This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give [unique addresses](/glossary/terms#term-unique-address) to each user, so it has no way to know that Bob’s [refund](../devguide/payment_processing#issuing-refunds) is meant for Alice. Now the [refund](../devguide/payment_processing#issuing-refunds) is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those reddoshis were meant for her.
@@ -289,15 +289,15 @@ The oldest outputs are the most reliable, as the longer it’s been since they w
 | 45     | 0.00024%                          |
 | 50     | 0.00006%                          |
 
-FIFO does have a small advantage when it comes to transaction fees, as older outputs may be eligible for inclusion in the 50,000 bytes set aside for no-fee-required high-priority transactions by miners running the default Reddcoin Core codebase. However, with transaction fees being so low, this is not a significant advantage.
+FIFO does have a small advantage when it comes to transaction fees, as older outputs may be eligible for inclusion in the 50,000 bytes set aside for no-fee-required high-priority transactions by miners running the default ReddCoin Core codebase. However, with transaction fees being so low, this is not a significant advantage.
 
 The only practical use of FIFO is by receivers who spend all or most of their income within a few blocks, and who want to reduce the chance of their payments becoming accidentally invalid. For example, a receiver who holds each payment for six confirmations, and then spends 100% of [verified payments](../devguide/payment_processing#verifying-payment) to vendors and a savings account on a bi-hourly schedule.
 
 ## Rebilling Recurring Payments
 
-Automated recurring payments are not possible with decentralized Reddcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
+Automated recurring payments are not possible with decentralized ReddCoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 
-This means automated recurring Reddcoin payments can only be made from a centralized server which handles reddoshis on behalf of its spenders. In practice, receivers who want to set prices in [fiat](/glossary/terms#term-fiat) terms must also let the same centralized server choose the appropriate exchange rate.
+This means automated recurring ReddCoin payments can only be made from a centralized server which handles reddoshis on behalf of its spenders. In practice, receivers who want to set prices in [fiat](/glossary/terms#term-fiat) terms must also let the same centralized server choose the appropriate exchange rate.
 
 Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a [PaymentRequest](/glossary/terms#term-paymentrequest) [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri) in an HTML email.
 

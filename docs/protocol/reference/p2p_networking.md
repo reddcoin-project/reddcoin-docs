@@ -7,7 +7,7 @@ substitutions:
 
 # P2P Network
 
-This section describes the Reddcoin P2P [network](../devguide/p2p_network) protocol (but it is [not a specification](../reference/intro#not-a-specification)). It does not describe the discontinued direct [IP-to-IP payment protocol](https://en.bitcoin.it/wiki/IP_Transactions), the [deprecated BIP70 payment protocol](/glossary/#payment-protocol), the [GetBlockTemplate mining protocol](../devguide/mining#getblocktemplate-rpc), or any [network](../devguide/p2p_network) protocol never implemented in an official version of Reddcoin Core.
+This section describes the ReddCoin P2P [network](../devguide/p2p_network) protocol (but it is [not a specification](../reference/intro#not-a-specification)). It does not describe the discontinued direct [IP-to-IP payment protocol](https://en.bitcoin.it/wiki/IP_Transactions), the [deprecated BIP70 payment protocol](/glossary/#payment-protocol), the [GetBlockTemplate mining protocol](../devguide/mining#getblocktemplate-rpc), or any [network](../devguide/p2p_network) protocol never implemented in an official version of ReddCoin Core.
 
 All [peer-to-peer](../devguide/p2p_network) communication occurs entirely over TCP.
 
@@ -15,7 +15,7 @@ All [peer-to-peer](../devguide/p2p_network) communication occurs entirely over T
 
 ## Constants And Defaults
 
-The following constants and defaults are taken from Reddcoin Core’s [chainparams.cpp](https://github.com/reddcoin-project/reddcoin/blob/master/src/chainparams.cpp) source code file.
+The following constants and defaults are taken from ReddCoin Core’s [chainparams.cpp](https://github.com/reddcoin-project/reddcoin/blob/master/src/chainparams.cpp) source code file.
 
 | [Network](../devguide/p2p_network) | Default Port | [Start String](/glossary/#start-string) | Max nBits  |
 | --------------------------------------- | ------------ | ----------------------------------- | ---------- |
@@ -23,15 +23,15 @@ The following constants and defaults are taken from Reddcoin Core’s [chainpara
 | Testnet                                 | 55444        | 0xfec3b9de                          | 0x1e0fffff |
 | Regtest                                 | 56444        | 0xfabfb5da                          | 0x207fffff |
 
-Command line parameters can change what port a node listens on (see `-help`). Start strings are hardcoded constants that appear at the start of all messages sent on the Reddcoin [network](../devguide/p2p_network); they may also appear in data files such as Reddcoin Core’s block database. The nBits displayed above are in big-endian order; they’re sent over the [network](../devguide/p2p_network) in little-endian order.
+Command line parameters can change what port a node listens on (see `-help`). Start strings are hardcoded constants that appear at the start of all messages sent on the ReddCoin [network](../devguide/p2p_network); they may also appear in data files such as ReddCoin Core’s block database. The nBits displayed above are in big-endian order; they’re sent over the [network](../devguide/p2p_network) in little-endian order.
 
-Reddcoin Core’s [chainparams.cpp](https://github.com/reddcoin-project/reddcoin/blob/master/src/chainparams.cpp) also includes other constants useful to programs, such as the hash of the genesis blocks for the different networks.
+ReddCoin Core’s [chainparams.cpp](https://github.com/reddcoin-project/reddcoin/blob/master/src/chainparams.cpp) also includes other constants useful to programs, such as the hash of the genesis blocks for the different networks.
 
 ## Protocol Versions
 
 The table below lists some notable versions of the P2P [network](../devguide/p2p_network) protocol, with the most recent versions listed first. (If you know of a protocol version that implemented a major change but which is not listed here, please [open an issue](https://github.com/reddcoin-project/reddcoin/issues).)
 
-As of Reddcoin Core 0.18.0, the most recent protocol version is 70015.
+As of ReddCoin Core 0.18.0, the most recent protocol version is 70015.
 
 ## Message Headers
 
@@ -74,7 +74,7 @@ The currently-available type identifiers are:
 
 † These are the same as their respective type identifier but with their 30th bit set to indicate witness. For example MSG_WITNESS_TX = 0x01000040.
 
-Type identifier zero and type identifiers greater than seven are reserved for future implementations. Reddcoin Core ignores all inventories with one of these unknown types.
+Type identifier zero and type identifiers greater than seven are reserved for future implementations. ReddCoin Core ignores all inventories with one of these unknown types.
 
 ### Block
 
@@ -190,8 +190,8 @@ Sending the [“mempool” message](../reference/p2p_networking#mempool) is most
 
 The `inv` response to the [“mempool” message](../reference/p2p_networking#mempool) is, at best, one node’s view of the [network](../devguide/p2p_network)—not a complete list of unconfirmed transactions on the [network](../devguide/p2p_network). Here are some additional reasons the list might not be complete:
 
-- Before [Reddcoin Core 0.9.0](https://github.com/reddcoin-project/reddcoin/releases), the response to the [“mempool” message](../reference/p2p_networking#mempool) was only one [“inv” message](../reference/p2p_networking#inv). An [“inv” message](../reference/p2p_networking#inv) is limited to 50,000 inventories, so a node with a memory pool larger than 50,000 entries would not send everything. Later versions of Reddcoin Core send as many [“inv” messages](../reference/p2p_networking#inv) as needed to reference its complete memory pool.
-- The [“mempool” message](../reference/p2p_networking#mempool) is not currently fully compatible with the [“filterload” message’s](../reference/p2p_networking#filterload) `BLOOM_UPDATE_ALL` and `BLOOM_UPDATE_P2PUBKEY_ONLY` flags. Mempool transactions are not sorted like in-block transactions, so a transaction (tx2) spending an output can appear before the transaction (tx1) containing that output, which means the automatic filter update mechanism won’t operate until the second-appearing transaction (tx1) is seen—missing the first-appearing transaction (tx2). It has been proposed in [Reddcoin Core issue #2381](https://github.com/reddcoin-project/reddcoin/issues/2381) that the transactions should be sorted before being processed by the filter.
+- Before [ReddCoin Core 0.9.0](https://github.com/reddcoin-project/reddcoin/releases), the response to the [“mempool” message](../reference/p2p_networking#mempool) was only one [“inv” message](../reference/p2p_networking#inv). An [“inv” message](../reference/p2p_networking#inv) is limited to 50,000 inventories, so a node with a memory pool larger than 50,000 entries would not send everything. Later versions of ReddCoin Core send as many [“inv” messages](../reference/p2p_networking#inv) as needed to reference its complete memory pool.
+- The [“mempool” message](../reference/p2p_networking#mempool) is not currently fully compatible with the [“filterload” message’s](../reference/p2p_networking#filterload) `BLOOM_UPDATE_ALL` and `BLOOM_UPDATE_P2PUBKEY_ONLY` flags. Mempool transactions are not sorted like in-block transactions, so a transaction (tx2) spending an output can appear before the transaction (tx1) containing that output, which means the automatic filter update mechanism won’t operate until the second-appearing transaction (tx1) is seen—missing the first-appearing transaction (tx2). It has been proposed in [ReddCoin Core issue #2381](https://github.com/reddcoin-project/reddcoin/issues/2381) that the transactions should be sorted before being processed by the filter.
 
 There is no payload in a [“mempool” message](../reference/p2p_networking#mempool). See the [message header section](../reference/p2p_networking#message-headers) for an example of a message without a payload.
 
@@ -421,8 +421,8 @@ The format and maximum size limitations of the [“notfound” message](../refer
 
 The [“tx” message](../reference/p2p_networking#tx) transmits a single transaction in the raw transaction format. It can be sent in a variety of situations;
 
-- **Transaction Response:** Reddcoin Core and [BitcoinJ](http://bitcoinj.github.io) will send it in response to a [“getdata” message](../reference/p2p_networking#getdata) that requests the transaction with an inventory type of “MSG_TX”.
-- **MerkleBlock Response:** Reddcoin Core will send it in response to a [“getdata” message](../reference/p2p_networking#getdata) that requests a merkle block with an inventory type of `MSG_MERKLEBLOCK`. (This is in addition to sending a [“merkleblock” message](../reference/p2p_networking#merkleblock).) Each [“tx” message](../reference/p2p_networking#tx) in this case provides a matched transaction from that block.
+- **Transaction Response:** ReddCoin Core and [BitcoinJ](http://bitcoinj.github.io) will send it in response to a [“getdata” message](../reference/p2p_networking#getdata) that requests the transaction with an inventory type of “MSG_TX”.
+- **MerkleBlock Response:** ReddCoin Core will send it in response to a [“getdata” message](../reference/p2p_networking#getdata) that requests a merkle block with an inventory type of `MSG_MERKLEBLOCK`. (This is in addition to sending a [“merkleblock” message](../reference/p2p_networking#merkleblock).) Each [“tx” message](../reference/p2p_networking#tx) in this case provides a matched transaction from that block.
 - **Unsolicited:** [BitcoinJ](http://bitcoinj.github.io) will send a [“tx” message](../reference/p2p_networking#tx) unsolicited for transactions it originates.
 
 For an example hexdump of the raw transaction format, see the [raw transaction section](../reference/transactions#raw-transaction-format).
@@ -489,7 +489,7 @@ b184 ............................... Port: 45444
 
 ### Alert
 
-*Added in*[protocol version 311](../reference/p2p_networking#protocol-versions)*.* *Removed in*[protocol version 70013](../reference/p2p_networking#protocol-versions)*and released in*[Reddcoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases)
+*Added in*[protocol version 311](../reference/p2p_networking#protocol-versions)*.* *Removed in*[protocol version 70013](../reference/p2p_networking#protocol-versions)*and released in*[ReddCoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases)
 
 The legacy p2p [network](../devguide/p2p_network) alert messaging system has been retired; however, internal alerts, partition detection warnings and the `-alertnotify` option features remain. See [Alert System Retirement](https://github.com/reddcoin-project/reddcoin/releases) for details.
 
@@ -499,7 +499,7 @@ The legacy p2p [network](../devguide/p2p_network) alert messaging system has bee
 
 The [“feefilter” message](../reference/p2p_networking#feefilter) is a request to the receiving peer to not relay any transaction inv messages to the sending peer where the fee rate for the transaction is below the fee rate specified in the feefilter message.
 
-`feefilter` was introduced in [Reddcoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases) following the introduction of mempool limiting in [Reddcoin Core 0.12.0](https://github.com/reddcoin-project/reddcoin/releases). Mempool limiting provides protection against attacks and spam transactions that have low fee rates and are unlikely to be included in mined blocks. The [“feefilter” messages](../reference/p2p_networking#feefilter) allows a node to inform its peers that it will not accept transactions below a specified fee rate into its mempool, and therefore that the peers can skip relaying inv messages for transactions below that fee rate to that node.
+`feefilter` was introduced in [ReddCoin Core 0.13.0](https://github.com/reddcoin-project/reddcoin/releases) following the introduction of mempool limiting in [ReddCoin Core 0.12.0](https://github.com/reddcoin-project/reddcoin/releases). Mempool limiting provides protection against attacks and spam transactions that have low fee rates and are unlikely to be included in mined blocks. The [“feefilter” messages](../reference/p2p_networking#feefilter) allows a node to inform its peers that it will not accept transactions below a specified fee rate into its mempool, and therefore that the peers can skip relaying inv messages for transactions below that fee rate to that node.
 
 The receiving peer may choose to ignore the message and not filter transaction inv messages.
 
@@ -544,7 +544,7 @@ fdacf9b3eb077412e7a968d2e4f11b9a
 
 The [“filterclear” message](../reference/p2p_networking#filterclear) tells the receiving peer to remove a previously-set bloom filter. This also undoes the effect of setting the relay field in the [“version” message](../reference/p2p_networking#version) to 0, allowing unfiltered access to [“inv” messages](../reference/p2p_networking#inv) announcing new transactions.
 
-Reddcoin Core does not require a [“filterclear” message](../reference/p2p_networking#filterclear) before a replacement filter is loaded with `filterload`. It also doesn’t require a [“filterload” message](../reference/p2p_networking#filterload) before a [“filterclear” message](../reference/p2p_networking#filterclear).
+ReddCoin Core does not require a [“filterclear” message](../reference/p2p_networking#filterclear) before a replacement filter is loaded with `filterload`. It also doesn’t require a [“filterload” message](../reference/p2p_networking#filterload) before a [“filterclear” message](../reference/p2p_networking#filterclear).
 
 There is no payload in a [“filterclear” message](../reference/p2p_networking#filterclear). See the [message header section](../reference/p2p_networking#message-headers) for an example of a message without a payload.
 
@@ -599,11 +599,11 @@ If the seed resulting from the formula above is larger than four bytes, it must 
 
 The actual hash function implementation used is the [32-bit Murmur3 hash function](https://en.wikipedia.org/wiki/MurmurHash).
 
-**Warning:** the Murmur3 hash function has separate 32-bit and 64-bit versions that produce different results for the same input. Only the 32-bit Murmur3 version is used with Reddcoin bloom filters.
+**Warning:** the Murmur3 hash function has separate 32-bit and 64-bit versions that produce different results for the same input. Only the 32-bit Murmur3 version is used with ReddCoin bloom filters.
 
 The data to be hashed can be any transaction element which the bloom filter can match. See the next subsection for the list of transaction elements checked against the filter. The largest element which can be matched is a script data push of 520 bytes, so the data should never exceed 520 bytes.
 
-The example below from Reddcoin Core [bloom.cpp](https://github.com/reddcoin-project/reddcoin/blob/cbf28c6619fe348a258dfd7d08bdbd2392d07511/src/bloom.cpp#L46) combines all the steps above to create the hash function template. The seed is the first parameter; the data to be hashed is the second parameter. The result is a uint32_t modulo the size of the bit field in bits.
+The example below from ReddCoin Core [bloom.cpp](https://github.com/reddcoin-project/reddcoin/blob/cbf28c6619fe348a258dfd7d08bdbd2392d07511/src/bloom.cpp#L46) combines all the steps above to create the hash function template. The seed is the first parameter; the data to be hashed is the second parameter. The result is a uint32_t modulo the size of the bit field in bits.
 
 ```c++
 MurmurHash3(nHashNum * 0xFBA4C795 + nTweak, vDataToHash) % (vData.size() * 8)
@@ -709,7 +709,7 @@ The annotated hexdump below shows a [“ping” message](../reference/p2p_networ
 
 *Added in*[protocol version 60001](../reference/p2p_networking#protocol-versions)*as described by*[BIP31](https://github.com/bitcoin/bips/blob/master/bip-0031.mediawiki)*.*
 
-The [“pong” message](../reference/p2p_networking#pong) replies to a [“ping” message](../reference/p2p_networking#ping), proving to the pinging node that the ponging node is still alive. Reddcoin Core will, by default, disconnect from any clients which have not responded to a [“ping” message](../reference/p2p_networking#ping) within 20 minutes.
+The [“pong” message](../reference/p2p_networking#pong) replies to a [“ping” message](../reference/p2p_networking#ping), proving to the pinging node that the ponging node is still alive. ReddCoin Core will, by default, disconnect from any clients which have not responded to a [“ping” message](../reference/p2p_networking#ping) within 20 minutes.
 
 To allow nodes to keep track of latency, the [“pong” message](../reference/p2p_networking#pong) sends back the same nonce received in the [“ping” message](../reference/p2p_networking#ping) it is replying to.
 
@@ -719,7 +719,7 @@ The format of the [“pong” message](../reference/p2p_networking#pong) is iden
 
 *Added in*[protocol version 70002](../reference/p2p_networking#protocol-versions)*as described by*[BIP61](https://github.com/bitcoin/bips/blob/master/bip-0061.mediawiki)*.*
 
-*Deprecated in Reddcoin Core 0.18.0.*
+*Deprecated in ReddCoin Core 0.18.0.*
 
 The [“reject” message](../reference/p2p_networking#reject) informs the receiving node that one of its previous messages has been rejected.
 

@@ -30,6 +30,6 @@ Save wallet name to persistent settings and load on startup. True to add wallet 
 
 ```shell
 reddcoin-cli unloadwallet wallet_name
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "unloadwallet", "params": [wallet_name]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "unloadwallet", "params": [wallet_name]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

@@ -21,13 +21,13 @@ See [51 percent attack](#51-percent-attack).
 
 ## Address {#address}
 
-A 20-byte hash formatted using base58check to produce either a P2PKH or P2SH Reddcoin address. Currently the most common way users exchange payment information.
+A 20-byte hash formatted using base58check to produce either a P2PKH or P2SH ReddCoin address. Currently the most common way users exchange payment information.
 
 **Not to be confused with:** IP address
 
 ## Base58check {#base58check}
 
-The method used in Reddcoin for converting 160-bit hashes into P2PKH and P2SH addresses. Also used in other parts of Reddcoin, such as encoding private keys for backup in WIP format. Not the same as other base58 implementations.
+The method used in ReddCoin for converting 160-bit hashes into P2PKH and P2SH addresses. Also used in other parts of ReddCoin, such as encoding private keys for backup in WIP format. Not the same as other base58 implementations.
 
 **Not to be confused with:** P2PKH address, P2SH address, IP address
 
@@ -83,7 +83,7 @@ Synchronizing the block chain by downloading each block from a peer and then val
 
 A filter used primarily by SPV clients to request only matching transactions and merkle blocks from full nodes.
 
-**Not to be confused with:** Bloom filter (general computer science term, of which Reddcoin's bloom filters are a specific implementation)
+**Not to be confused with:** Bloom filter (general computer science term, of which ReddCoin's bloom filters are a specific implementation)
 
 ## Chain code {#chain-code}
 
@@ -131,9 +131,9 @@ See [Coinbase transaction](#coinbase-transaction).
 
 ## CompactSize {#compactsize}
 
-A type of variable-length integer commonly used in the Reddcoin P2P protocol and Reddcoin serialized data structures.
+A type of variable-length integer commonly used in the ReddCoin P2P protocol and ReddCoin serialized data structures.
 
-**Not to be confused with:** VarInt (a data type Reddcoin Core uses for local data storage), Compact (the data type used for nBits in the block header)
+**Not to be confused with:** VarInt (a data type ReddCoin Core uses for local data storage), Compact (the data type used for nBits in the block header)
 
 ## Compressed public key {#compressed-public-key}
 
@@ -183,7 +183,7 @@ See [Child pays for parent](#child-pays-for-parent).
 
 ## Denomination {#denomination}
 
-Denominations of Reddcoin value, usually measured in fractions of a bitcoin but sometimes measured in multiples of a reddoshi. One bitcoin equals 100,000,000 reddoshis.
+Denominations of ReddCoin value, usually measured in fractions of a bitcoin but sometimes measured in multiples of a reddoshi. One bitcoin equals 100,000,000 reddoshis.
 
 **Not to be confused with:** Binary bits, a unit of data with two possible values
 
@@ -207,7 +207,7 @@ See [Difficulty](#difficulty).
 
 ## DNS seed {#dns-seed}
 
-A DNS server which returns IP addresses of full nodes on the Reddcoin network to assist in peer discovery.
+A DNS server which returns IP addresses of full nodes on the ReddCoin network to assist in peer discovery.
 
 **Not to be confused with:** HD wallet seeds
 
@@ -239,7 +239,7 @@ When two or more blocks have the same block height, forking the block chain. Typ
 
 ## Genesis block {#genesis-block}
 
-The first block in the Reddcoin block chain.
+The first block in the ReddCoin block chain.
 
 **Not to be confused with:** Generation transaction (the first transaction in a block)
 
@@ -325,7 +325,7 @@ The standard order in which hash digests are displayed as strings---the same for
 
 ## Inventory {#inventory}
 
-A data type identifier and a hash; used to identify transactions and blocks available for download through the Reddcoin P2P network.
+A data type identifier and a hash; used to identify transactions and blocks available for download through the ReddCoin P2P network.
 
 **Not to be confused with:** Inv message (one of the P2P messages that transmits inventories)
 
@@ -339,7 +339,7 @@ See [Locktime](#locktime).
 
 ## Mainnet {#mainnet}
 
-The original and main network for Reddcoin transactions, where reddoshis have real economic value.
+The original and main network for ReddCoin transactions, where reddoshis have real economic value.
 
 **Not to be confused with:** Testnet (an open network very similar to mainnet where reddoshis have no value), Regtest (a private testing node similar to testnet)
 
@@ -385,13 +385,13 @@ The root node of a merkle tree, a descendant of all the hashed pairs in the tree
 
 ## Merkle tree {#merkle-tree}
 
-A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root. In Reddcoin, the leaves are almost always transactions from a single block.
+A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root. In ReddCoin, the leaves are almost always transactions from a single block.
 
 **Not to be confused with:** Partial merkle branch (a branch connecting one or more leaves to the root), Merkle block (a partial merkle branch connecting one or more transactions from a single block to the block merkle root)
 
 ## Message header {#message-header}
 
-The four header fields prefixed to all messages on the Reddcoin P2P network.
+The four header fields prefixed to all messages on the ReddCoin P2P network.
 
 ## Minimum relay fee {#minimum-relay-fee}
 
@@ -405,7 +405,7 @@ See [Minimum relay fee](#minimum-relay-fee).
 
 ## Mining {#mining}
 
-Mining was the act of creating valid Reddcoin blocks using proof of work during the PoW era (blocks 0–260,799). Since block 260,800, Reddcoin uses Proof of Stake Velocity (PoSV) and blocks are created by stakers instead of miners. See Staking.
+Mining was the act of creating valid ReddCoin blocks using proof of work during the PoW era (blocks 0–260,799). Since block 260,800, ReddCoin uses Proof of Stake Velocity (PoSV) and blocks are created by stakers instead of miners. See Staking.
 
 ## Miner {#miner}
 
@@ -413,7 +413,7 @@ See [Mining](#mining).
 
 ## Staking {#staking}
 
-Staking is the act of creating valid Reddcoin blocks under Proof of Stake Velocity (PoSV) by proving ownership of coins with sufficient coin age. Stakers keep their wallet open and connected to the network to participate in block creation and earn staking rewards.
+Staking is the act of creating valid ReddCoin blocks under Proof of Stake Velocity (PoSV) by proving ownership of coins with sufficient coin age. Stakers keep their wallet open and connected to the network to participate in block creation and earn staking rewards.
 
 ## Staker {#staker}
 
@@ -421,7 +421,7 @@ See [Staking](#staking).
 
 ## Proof of Stake Velocity {#proof-of-stake-velocity}
 
-Reddcoin's consensus mechanism, active since block 260,800. PoSV uses a non-linear coin age weighting function (cubic for 0–7 days, logarithmic for 7+ days) to incentivize active network participation (velocity) rather than passive coin hoarding. Stakers earn a 5% annual reward on staked coin-days.
+ReddCoin's consensus mechanism, active since block 260,800. PoSV uses a non-linear coin age weighting function (cubic for 0–7 days, logarithmic for 7+ days) to incentivize active network participation (velocity) rather than passive coin hoarding. Stakers earn a 5% annual reward on staked coin-days.
 
 ## PoSV {#posv}
 
@@ -437,7 +437,7 @@ The transaction in a PoS block that proves the staker's coin ownership and distr
 
 ## Kimoto Gravity Well {#kimoto-gravity-well}
 
-Reddcoin's difficulty adjustment algorithm. Unlike Bitcoin's 2,016-block adjustment interval, KGW adjusts difficulty every block by taking the running arithmetic mean of past block targets over a sliding window of 360 to 10,080 blocks and scaling it by the ratio of actual to expected elapsed time, targeting a 60-second block time.
+ReddCoin's difficulty adjustment algorithm. Unlike Bitcoin's 2,016-block adjustment interval, KGW adjusts difficulty every block by taking the running arithmetic mean of past block targets over a sliding window of 360 to 10,080 blocks and scaling it by the ratio of actual to expected elapsed time, targeting a 60-second block time.
 
 ## KGW {#kgw}
 
@@ -465,7 +465,7 @@ See [nBits](#nbits).
 
 ## Node {#node}
 
-A computer that connects to the Reddcoin network.
+A computer that connects to the ReddCoin network.
 
 **Not to be confused with:** Lightweight node, SPV node
 
@@ -487,7 +487,7 @@ See [Node](#node).
 
 ## Null data transaction {#null-data-transaction}
 
-A transaction type relayed and mined by default in Reddcoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don't have to store in their UTXO database.
+A transaction type relayed and mined by default in ReddCoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don't have to store in their UTXO database.
 
 **Not to be confused with:** OP_RETURN (an opcode used in one of the outputs in an OP_RETURN transaction)
 
@@ -501,7 +501,7 @@ See [Null data transaction](#null-data-transaction).
 
 ## Opcode {#opcode}
 
-Operation codes from the Reddcoin Script language which push data or perform functions within a pubkey script or signature script.
+Operation codes from the ReddCoin Script language which push data or perform functions within a pubkey script or signature script.
 
 ## Data-pushing opcode {#data-pushing-opcode}
 
@@ -535,7 +535,7 @@ See [Output](#output).
 
 ## P2PKH address {#p2pkh-address}
 
-A Reddcoin payment address comprising a hashed public key, allowing the spender to create a standard pubkey script that Pays To PubKey Hash (P2PKH).
+A ReddCoin payment address comprising a hashed public key, allowing the spender to create a standard pubkey script that Pays To PubKey Hash (P2PKH).
 
 **Not to be confused with:** P2PK output (an output paying a public key directly), P2SH address, P2SH output (an address comprising a hashed script, and its corresponding output)
 
@@ -545,7 +545,7 @@ See [P2PKH address](#p2pkh-address).
 
 ## P2SH address {#p2sh-address}
 
-A Reddcoin payment address comprising a hashed script, allowing the spender to create a standard pubkey script that Pays To Script Hash (P2SH). The script can be almost any valid pubkey script.
+A ReddCoin payment address comprising a hashed script, allowing the spender to create a standard pubkey script that Pays To Script Hash (P2SH). The script can be almost any valid pubkey script.
 
 **Not to be confused with:** P2PK output (an output paying a public key directly), P2PKH address, P2PKH output (an address comprising a hashed pubkey, and its corresponding output), P2SH multisig (a particular instance of P2SH where the script uses a multisig opcode)
 
@@ -555,9 +555,9 @@ See [P2SH address](#p2sh-address).
 
 ## P2SH multisig {#p2sh-multisig}
 
-A P2SH output where the redeem script uses one of the multisig opcodes. Up until Reddcoin Core 0.10.0, P2SH multisig scripts were standard transactions, but most other P2SH scripts were not.
+A P2SH output where the redeem script uses one of the multisig opcodes. Up until ReddCoin Core 0.10.0, P2SH multisig scripts were standard transactions, but most other P2SH scripts were not.
 
-**Not to be confused with:** Multisig pubkey scripts (also called "bare multisig", these multisig scripts don't use P2SH encapsulation), P2SH (general P2SH, of which P2SH multisig is a specific instance that was special cased up until Reddcoin Core 0.10.0)
+**Not to be confused with:** Multisig pubkey scripts (also called "bare multisig", these multisig scripts don't use P2SH encapsulation), P2SH (general P2SH, of which P2SH multisig is a specific instance that was special cased up until ReddCoin Core 0.10.0)
 
 ## Parent key {#parent-key}
 
@@ -577,7 +577,7 @@ See [Parent key](#parent-key).
 
 The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
 
-**Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Reddcoin)
+**Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of ReddCoin)
 
 ## Payment request {#payment-request}
 
@@ -649,7 +649,7 @@ See [Regtest](#regtest).
 
 ## RPC byte order {#rpc-byte-order}
 
-A hash digest displayed with the byte order reversed; used in Reddcoin Core RPCs, many block explorers, and other software.
+A hash digest displayed with the byte order reversed; used in ReddCoin Core RPCs, many block explorers, and other software.
 
 **Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
 
@@ -665,7 +665,7 @@ A complete block in its binary format---the same format used to calculate total 
 
 ## Serialized transaction {#serialized-transaction}
 
-Complete transactions in their binary format; often represented using hexadecimal. Sometimes called raw format because of the various Reddcoin Core commands with "raw" in their names.
+Complete transactions in their binary format; often represented using hexadecimal. Sometimes called raw format because of the various ReddCoin Core commands with "raw" in their names.
 
 ## Raw transaction {#raw-transaction}
 
@@ -693,11 +693,11 @@ Signature hash type that signs the output corresponding to this input (the one w
 
 ## Signature {#signature}
 
-A value related to a public key which could only have reasonably been created by someone who has the private key that created that public key. Used in Reddcoin to authorize spending reddoshis previously sent to a public key.
+A value related to a public key which could only have reasonably been created by someone who has the private key that created that public key. Used in ReddCoin to authorize spending reddoshis previously sent to a public key.
 
 ## Signature hash {#signature-hash}
 
-A flag to Reddcoin signatures that indicates what parts of the transaction the signature signs. (The default is SIGHASH_ALL.) The unsigned parts of the transaction may be modified.
+A flag to ReddCoin signatures that indicates what parts of the transaction the signature signs. (The default is SIGHASH_ALL.) The unsigned parts of the transaction may be modified.
 
 **Not to be confused with:** Signed hash (a hash of the data to be signed), Transaction malleability / transaction mutability (although non-default sighash flags do allow optional malleability, malleability comprises any way a transaction may be mutated)
 
@@ -717,7 +717,7 @@ See [Signature script](#signature-script).
 
 ## SPV {#spv}
 
-A method for verifying if particular transactions are included in a block without downloading the entire block. The method is used by some lightweight Reddcoin clients.
+A method for verifying if particular transactions are included in a block without downloading the entire block. The method is used by some lightweight ReddCoin clients.
 
 ## Simplified Payment Verification {#simplified-payment-verification}
 
@@ -745,11 +745,11 @@ Blocks which were successfully mined but which aren't included on the current be
 
 ## Standard Transaction {#standard-transaction}
 
-A transaction that passes Reddcoin Core's IsStandard() and IsStandardTx() tests. Only standard transactions are mined or broadcast by peers running the default Reddcoin Core software.
+A transaction that passes ReddCoin Core's IsStandard() and IsStandardTx() tests. Only standard transactions are mined or broadcast by peers running the default ReddCoin Core software.
 
 ## Start string {#start-string}
 
-Four defined bytes which start every message in the Reddcoin P2P protocol to allow seeking to the next message.
+Four defined bytes which start every message in the ReddCoin P2P protocol to allow seeking to the next message.
 
 ## Network magic {#network-magic}
 
@@ -757,7 +757,7 @@ See [Start string](#start-string).
 
 ## Testnet {#testnet}
 
-A global testing environment in which developers can obtain and spend reddoshis that have no real-world value on a network that is very similar to the Reddcoin mainnet.
+A global testing environment in which developers can obtain and spend reddoshis that have no real-world value on a network that is very similar to the ReddCoin mainnet.
 
 **Not to be confused with:** Regtest (a local testing environment where developers can control block generation)
 
@@ -771,7 +771,7 @@ A token is a programmable digital asset with its own codebase that resides on an
 
 The amount remaining when the value of all outputs in a transaction are subtracted from all inputs in a transaction; the fee is paid to the miner who includes that transaction in a block.
 
-**Not to be confused with:** Minimum relay fee (the lowest fee a transaction must pay to be accepted into the memory pool and relayed by Reddcoin Core nodes)
+**Not to be confused with:** Minimum relay fee (the lowest fee a transaction must pay to be accepted into the memory pool and relayed by ReddCoin Core nodes)
 
 ## Miners fee {#miners-fee}
 
@@ -819,7 +819,7 @@ See [WIF](#wif).
 
 An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
 
-## Reddcoin URI {#reddcoin-uri}
+## ReddCoin URI {#reddcoin-uri}
 
 A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
 
@@ -957,7 +957,7 @@ A QR code containing a reddcoin: URI.
 
 ## V2 block {#v2-block}
 
-The current version of Reddcoin blocks.
+The current version of ReddCoin blocks.
 
 ## x509certificates {#x509certificates}
 

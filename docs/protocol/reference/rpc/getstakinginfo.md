@@ -30,6 +30,6 @@ Returns a json object containing staking-related information.
 
 ```shell
 reddcoin-cli getstakinginfo
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getstakinginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getstakinginfo", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

@@ -1,8 +1,8 @@
 # Mining (Historical)
 
 :::note
-Reddcoin used Proof of Work mining for blocks 0 through 260,799.
-Since block 260,800, Reddcoin uses [Proof of Stake Velocity (PoSV)](staking) for block creation.
+ReddCoin used Proof of Work mining for blocks 0 through 260,799.
+Since block 260,800, ReddCoin uses [Proof of Stake Velocity (PoSV)](staking) for block creation.
 This section is preserved as a historical reference for the PoW era.
 :::
 Mining added new blocks to the block chain, making transaction history hard to modify.
@@ -18,9 +18,9 @@ Mining took on two forms:
 
 As illustrated below, solo miners typically use `reddcoind` to get new transactions from the [network](../devguide/p2p_network). Their mining software periodically polls `reddcoind` for new transactions using the [“getblocktemplate” RPC](../reference/rpc/getblocktemplate), which provides the list of new transactions plus the public key to which the coinbase transaction should be sent.
 
-![Solo Reddcoin Mining](/img/protocol/dev/en-solo-mining-overview.svg)
+![Solo ReddCoin Mining](/img/protocol/dev/en-solo-mining-overview.svg)
 
-Solo Reddcoin Mining
+Solo ReddCoin Mining
 The mining software constructs a block using the template (described below) and creates a block header. It then sends the 80-byte block header to its mining hardware (an ASIC) along with a target threshold (difficulty setting). The mining hardware iterates through every possible value for the block header nonce and generates the corresponding hash.
 
 If none of the hashes are below the threshold, the mining hardware gets an updated block header with a new merkle root from the mining software; this new block header is created by adding extra nonce data to the coinbase field of the coinbase transaction.
@@ -31,9 +31,9 @@ On the other hand, if a hash is found below the target threshold, the mining har
 
 Pool miners follow a similar workflow, illustrated below, which allows mining pool operators to pay miners based on their share of the work done. The mining pool gets new transactions from the [network](../devguide/p2p_network) using `reddcoind`. Using one of the methods discussed later, each miner’s mining software connects to the pool and requests the information it needs to construct block headers.
 
-![Pooled Reddcoin Mining](/img/protocol/dev/en-pooled-mining-overview.svg)
+![Pooled ReddCoin Mining](/img/protocol/dev/en-pooled-mining-overview.svg)
 
-Pooled Reddcoin Mining
+Pooled ReddCoin Mining
 In pooled mining, the mining pool sets the target threshold a few orders of magnitude higher (less difficult) than the [network](../devguide/p2p_network) difficulty. This causes the mining hardware to return many block headers which don’t hash to a value eligible for inclusion on the block chain but which do hash below the pool’s target, proving (on average) that the miner checked a percentage of the possible hash values.
 
 The miner then sends to the pool a copy of the information the pool needs to validate that the header will hash below the target and that the block of transactions referred to by the header merkle root field is valid for the pool’s purposes. (This usually means that the coinbase transaction must pay the pool.)
@@ -48,11 +48,11 @@ In both solo and pool mining, the mining software needs to get the information n
 
 ### getwork RPC
 
-The simplest and earliest method was the now-deprecated Reddcoin Core `getwork` [RPC](../reference/rpc), which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `getwork` requests a second. Solo miners may still use `getwork` on v0.9.5 or below, but most pools today discourage or disallow its use.
+The simplest and earliest method was the now-deprecated ReddCoin Core `getwork` [RPC](../reference/rpc), which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `getwork` requests a second. Solo miners may still use `getwork` on v0.9.5 or below, but most pools today discourage or disallow its use.
 
 ### getblocktemplate RPC
 
-An improved method is the Reddcoin Core [“getblocktemplate” RPC](../reference/rpc/getblocktemplate). This provides the mining software with much more information:
+An improved method is the ReddCoin Core [“getblocktemplate” RPC](../reference/rpc/getblocktemplate). This provides the mining software with much more information:
 
 1. The information necessary to construct a coinbase transaction paying the pool or the solo miner’s `reddcoind` wallet.
 2. A complete dump of the transactions `reddcoind` or the mining pool suggests including in the block, allowing the mining software to inspect the transactions, optionally add additional transactions, and optionally remove non-required transactions.

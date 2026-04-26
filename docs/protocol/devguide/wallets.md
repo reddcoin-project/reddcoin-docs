@@ -7,7 +7,7 @@ substitutions:
 
 # Wallets
 
-A Reddcoin wallet can refer to either a wallet program or a wallet file.
+A ReddCoin wallet can refer to either a wallet program or a wallet file.
 
 ## Introductions
 
@@ -105,17 +105,17 @@ Neither method adds a significant amount of overhead, especially if a database i
 
 ## Wallet Files
 
-Reddcoin wallets at their core are a collection of private keys. These collections are stored digitally in a file, or can even be physically stored on pieces of paper.
+ReddCoin wallets at their core are a collection of private keys. These collections are stored digitally in a file, or can even be physically stored on pieces of paper.
 
 ### Private Key Formats
 
-Private keys are what are used to unlock reddoshis from a particular address. In Reddcoin, a private key in standard format is simply a 256-bit number, between the values:
+Private keys are what are used to unlock reddoshis from a particular address. In ReddCoin, a private key in standard format is simply a 256-bit number, between the values:
 
-0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the [secp256k1](http://www.secg.org/sec2-v2.pdf) [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) encryption standard used by Reddcoin.
+0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the [secp256k1](http://www.secg.org/sec2-v2.pdf) [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) encryption standard used by ReddCoin.
 
 #### Wallet Import Format (WIF)
 
-In order to make copying of private keys less prone to error, [Wallet Import Format](/glossary/#wallet-import-format) may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Reddcoin addresses.
+In order to make copying of private keys less prone to error, [Wallet Import Format](/glossary/#wallet-import-format) may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard ReddCoin addresses.
 
 1. Take a private key.
 2. Add a 0xbd byte in front of it for mainnet addresses or 0xef for testnet addresses.
@@ -143,7 +143,7 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 
 ### Public Key Formats
 
-Reddcoin [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public keys represent a point on a particular Elliptic Curve (EC) defined in [secp256k1](http://www.secg.org/sec2-v2.pdf). In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Reddcoin, y2 = x3 + 7, over a field of contiguous numbers.
+ReddCoin [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) public keys represent a point on a particular Elliptic Curve (EC) defined in [secp256k1](http://www.secg.org/sec2-v2.pdf). In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by ReddCoin, y2 = x3 + 7, over a field of contiguous numbers.
 
 ![Point On ECDSA Curve](/img/protocol/dev/en-ecdsa-compressed-public-key.svg)
 
@@ -154,11 +154,11 @@ An almost 50% reduction in public key size can be realized without changing any 
 
 No data is lost by creating these compressed public keys—only a small amount of CPU is necessary to reconstruct the Y coordinate and access the uncompressed public key. Both uncompressed and compressed public keys are described in official [secp256k1](http://www.secg.org/sec2-v2.pdf) documentation and supported by default in the widely-used OpenSSL library.
 
-Because they’re easy to use, and because they reduce almost by half the block chain space used to store public keys for every spent output, compressed public keys are the default in Reddcoin Core and are the recommended default for all Reddcoin software.
+Because they’re easy to use, and because they reduce almost by half the block chain space used to store public keys for every spent output, compressed public keys are the default in ReddCoin Core and are the recommended default for all ReddCoin software.
 
-However, Reddcoin Core prior to 0.6 used uncompressed keys. This creates a few complications, as the hashed form of an uncompressed key is different than the hashed form of a compressed key, so the same key works with two different P2PKH addresses. This also means that the key must be submitted in the correct format in the signature script so it matches the hash in the previous output’s pubkey script.
+However, ReddCoin Core prior to 0.6 used uncompressed keys. This creates a few complications, as the hashed form of an uncompressed key is different than the hashed form of a compressed key, so the same key works with two different P2PKH addresses. This also means that the key must be submitted in the correct format in the signature script so it matches the hash in the previous output’s pubkey script.
 
-For this reason, Reddcoin Core uses several different identifier bytes to help programs identify how keys should be used:
+For this reason, ReddCoin Core uses several different identifier bytes to help programs identify how keys should be used:
 
 - Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)
 - Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official [secp256k1](http://www.secg.org/sec2-v2.pdf) documentation.
@@ -180,7 +180,7 @@ The HD protocol takes advantage of the [ECDSA](https://en.wikipedia.org/wiki/Ell
 point(private_key) == public_key
 ```
 
-Because of the way “point()” works, it’s possible to create a [child public key](/glossary/#child-key) by combining an existing [(parent) public key](/glossary/#parent-key) with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the “point()” function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Reddcoin software (*p*):
+Because of the way “point()” works, it’s possible to create a [child public key](/glossary/#child-key) by combining an existing [(parent) public key](/glossary/#parent-key) with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the “point()” function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all ReddCoin software (*p*):
 
 ```
 point( (parent_private_key + i) % p ) == parent_public_key + point(i)
@@ -252,7 +252,7 @@ Because of that, a [hardened extended private key](/glossary/#hardened-extended-
 
 The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 231-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the [prime symbol](https://en.wikipedia.org/wiki/Prime_%28symbol%29) to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
 
-(Reddcoin developers typically use the ASCII apostrophe rather than the unicode prime symbol, a convention we will henceforth follow.)
+(ReddCoin developers typically use the ASCII apostrophe rather than the unicode prime symbol, a convention we will henceforth follow.)
 
 This compact description is further combined with slashes prefixed by *m* or *M* to indicate hierarchy and key type, with *m* being a private key and *M* being a public key. For example, m/0’/0/122’ refers to the 123rd hardened private child (by index number) of the first normal child (by index) of the first hardened child (by index) of the master private key. The following hierarchy illustrates prime notation and hardened key firewalls.
 
@@ -283,7 +283,7 @@ For implementation details, please see [BIP39](https://github.com/bitcoin/bips/b
 
 ### Loose-Key Wallets
 
-Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecated form of wallet that originated from the Reddcoin Core client wallet. The Reddcoin Core client wallet would create 100 private key/public key pairs automatically via a Pseudo-Random-Number Generator (PRNG) for later use.
+Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecated form of wallet that originated from the ReddCoin Core client wallet. The ReddCoin Core client wallet would create 100 private key/public key pairs automatically via a Pseudo-Random-Number Generator (PRNG) for later use.
 
 These unused private keys are stored in a virtual “key pool”, with new keys being generated whenever a previously-generated key was used, ensuring the pool maintained 100 unused keys. (If the wallet is encrypted, new keys are only generated while the wallet is unlocked.)
 

@@ -4,7 +4,7 @@ The following subsections briefly document core block details.
 
 ## Block Headers
 
-Block headers are serialized in the 80-byte format described below and then hashed as part of Reddcoin’s proof-of-work algorithm, making the serialized header format part of the consensus rules.
+Block headers are serialized in the 80-byte format described below and then hashed as part of ReddCoin’s proof-of-work algorithm, making the serialized header format part of the consensus rules.
 
 | Bytes | Name                                                                | Data Type | Description                                                                                                                                                                                                                                                                                                                            |
 | ----- | ------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,11 +35,11 @@ fe9f0864 ........................... Nonce
 ### Block Versions
 
 - **Version 1** was introduced in the genesis block (January 2009).
-- [Version 2](/glossary/terms#term-v2-block) was introduced in [Reddcoin Core 0.7.0](https://github.com/reddcoin-project/reddcoin/releases) (September 2012) as a soft fork. As described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki), valid [version 2 blocks](/glossary/terms#term-v2-block) require a [block height parameter in the coinbase](/glossary/terms#term-coinbase-block-height). Also described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) are rules for rejecting certain blocks; based on those rules, [Reddcoin Core 0.7.0](https://github.com/reddcoin-project/reddcoin/releases) and later versions began to reject [version 2 blocks](/glossary/terms#term-v2-block) without the block height in coinbase at block height 224,412 (March 2013) and began to reject new version 1 blocks three weeks later at block height 227,930.
-- **Version 3** blocks were introduced in [Reddcoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) (February 2015) as a soft fork. When the fork reached full enforcement (July 2015), it required strict [DER](https://en.wikipedia.org/wiki/X.690#DER_encoding) encoding of all [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) signatures in new blocks as described in [BIP66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki). Transactions that do not use strict [DER](https://en.wikipedia.org/wiki/X.690#DER_encoding) encoding had previously been non-standard since [Reddcoin Core 0.8.0](https://github.com/reddcoin-project/reddcoin/releases) (February 2012).
-- **Version 4** blocks specified in BIP65 and introduced in [Reddcoin Core 0.11.2](https://github.com/reddcoin-project/reddcoin/releases) (November 2015) as a soft fork became active in December 2015. These blocks now support the new `OP_CHECKLOCKTIMEVERIFY` opcode described in that BIP.
+- [Version 2](/glossary/terms#term-v2-block) was introduced in [ReddCoin Core 0.7.0](https://github.com/reddcoin-project/reddcoin/releases) (September 2012) as a soft fork. As described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki), valid [version 2 blocks](/glossary/terms#term-v2-block) require a [block height parameter in the coinbase](/glossary/terms#term-coinbase-block-height). Also described in [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) are rules for rejecting certain blocks; based on those rules, [ReddCoin Core 0.7.0](https://github.com/reddcoin-project/reddcoin/releases) and later versions began to reject [version 2 blocks](/glossary/terms#term-v2-block) without the block height in coinbase at block height 224,412 (March 2013) and began to reject new version 1 blocks three weeks later at block height 227,930.
+- **Version 3** blocks were introduced in [ReddCoin Core 0.10.0](https://github.com/reddcoin-project/reddcoin/releases) (February 2015) as a soft fork. When the fork reached full enforcement (July 2015), it required strict [DER](https://en.wikipedia.org/wiki/X.690#DER_encoding) encoding of all [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA) signatures in new blocks as described in [BIP66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki). Transactions that do not use strict [DER](https://en.wikipedia.org/wiki/X.690#DER_encoding) encoding had previously been non-standard since [ReddCoin Core 0.8.0](https://github.com/reddcoin-project/reddcoin/releases) (February 2012).
+- **Version 4** blocks specified in BIP65 and introduced in [ReddCoin Core 0.11.2](https://github.com/reddcoin-project/reddcoin/releases) (November 2015) as a soft fork became active in December 2015. These blocks now support the new `OP_CHECKLOCKTIMEVERIFY` opcode described in that BIP.
 
-The mechanism used for the version 2, 3, and 4 upgrades is commonly called IsSuperMajority() after the function added to Reddcoin Core to manage those soft forking changes. See [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) for a full description of this method.
+The mechanism used for the version 2, 3, and 4 upgrades is commonly called IsSuperMajority() after the function added to ReddCoin Core to manage those soft forking changes. See [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) for a full description of this method.
 
 As of this writing, a newer method called *version bits* is being designed to manage future soft forking changes, although it’s not known whether version 4 will be the last soft fork to use the IsSuperMajority() function. Draft [BIP9](https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki) describes the version bits design as of this writing, although it is still being actively edited and may substantially change while in the draft state.
 
@@ -73,12 +73,12 @@ As a base-256 number, nBits can be quickly parsed as bytes the same way you migh
 ![Quickly Converting nBits](/img/protocol/dev/en-nbits-quick-parse.svg)
 
 Quickly Converting nBits
-Although the target threshold should be an unsigned integer, the original nBits implementation inherits properties from a signed data class, allowing the target threshold to be negative if the high bit of the significand is set. This is useless—the header hash is treated as an unsigned number, so it can never be equal to or lower than a negative target threshold. Reddcoin Core deals with this in two ways:
+Although the target threshold should be an unsigned integer, the original nBits implementation inherits properties from a signed data class, allowing the target threshold to be negative if the high bit of the significand is set. This is useless—the header hash is treated as an unsigned number, so it can never be equal to or lower than a negative target threshold. ReddCoin Core deals with this in two ways:
 
-- When parsing nBits, Reddcoin Core converts a negative target threshold into a target of zero, which the header hash can equal (in theory, at least).
-- When creating a value for nBits, Reddcoin Core checks to see if it will produce an nBits which will be interpreted as negative; if so, it divides the significand by 256 and increases the exponent by 1 to produce the same number with a different encoding.
+- When parsing nBits, ReddCoin Core converts a negative target threshold into a target of zero, which the header hash can equal (in theory, at least).
+- When creating a value for nBits, ReddCoin Core checks to see if it will produce an nBits which will be interpreted as negative; if so, it divides the significand by 256 and increases the exponent by 1 to produce the same number with a different encoding.
 
-Some examples taken from the Reddcoin Core test cases:
+Some examples taken from the ReddCoin Core test cases:
 
 | nBits      | Target      | Notes                          |
 | ---------- | ----------- | ------------------------------ |
@@ -104,7 +104,7 @@ Under current consensus rules, a block is not valid unless its serialized size i
 
 The first transaction in a block must be a [coinbase transaction](/glossary/#coinbase-transaction) (for PoW blocks) or a [coinstake transaction](/glossary/#coinstake-transaction) (for PoS blocks) which should collect and spend any transaction fees paid by transactions included in this block.
 
-Reddcoin transitioned from Proof of Work to Proof of Stake Velocity (PoSV) at block 260,800. Under PoSV, stakers earn a 5% annual reward (COIN_YEAR_REWARD) based on the coin age of their staked inputs. The coinbase maturity period is 30 blocks, after which staking rewards can be spent.
+ReddCoin transitioned from Proof of Work to Proof of Stake Velocity (PoSV) at block 260,800. Under PoSV, stakers earn a 5% annual reward (COIN_YEAR_REWARD) based on the coin age of their staked inputs. The coinbase maturity period is 30 blocks, after which staking rewards can be spent.
 
 Together, the transaction fees and staking reward are called the [block reward](/glossary/#block-reward). A coinstake transaction is invalid if it tries to spend more value than is available from the block reward.
 

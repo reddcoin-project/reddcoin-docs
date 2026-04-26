@@ -23,6 +23,6 @@ Block height (default=current block tip).
 
 ```shell
 reddcoin-cli getinflation
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinflation", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getinflation", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

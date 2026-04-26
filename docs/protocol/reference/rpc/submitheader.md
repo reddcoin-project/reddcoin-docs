@@ -22,6 +22,6 @@ the hex-encoded block header data
 
 ```shell
 reddcoin-cli submitheader "aabbcc"
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "submitheader", "params": ["aabbcc"]}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "submitheader", "params": ["aabbcc"]}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

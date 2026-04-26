@@ -2,11 +2,11 @@
 
 `stop`
 
-Request a graceful shutdown of Reddcoin Core.
+Request a graceful shutdown of ReddCoin Core.
 
 ## Result
 
 | Name | Type | Description |
 | --- | --- | --- |
-| str | string | A string with the content 'Reddcoin Core stopping' |
+| str | string | A string with the content 'ReddCoin Core stopping' |
 

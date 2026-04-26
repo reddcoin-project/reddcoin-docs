@@ -37,6 +37,6 @@ determines what kind of information is returned.
 
 ```shell
 reddcoin-cli getmemoryinfo
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmemoryinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getmemoryinfo", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

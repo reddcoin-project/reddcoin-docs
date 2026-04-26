@@ -1,10 +1,10 @@
 # Block Chain
 
-The block chain provides Reddcoin's public ledger, an ordered and timestamped record of transactions. This system is used to protect against double spending and modification of previous transaction records.
+The block chain provides ReddCoin's public ledger, an ordered and timestamped record of transactions. This system is used to protect against double spending and modification of previous transaction records.
 
 ## Introduction
 
-Each full node in the Reddcoin [network](../devguide/p2p_network) independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in [consensus](/glossary/#consensus). The validation rules these nodes follow to maintain consensus are called [consensus rules](/glossary/#consensus-rules). This section describes many of the consensus rules used by Reddcoin Core.
+Each full node in the ReddCoin [network](../devguide/p2p_network) independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in [consensus](/glossary/#consensus). The validation rules these nodes follow to maintain consensus are called [consensus rules](/glossary/#consensus-rules). This section describes many of the consensus rules used by ReddCoin Core.
 
 ![Block Chain Overview](/img/protocol/dev/en-blockchain-overview.svg)
 
@@ -13,7 +13,7 @@ The illustration above shows a simplified version of a block chain. A [block](/g
 
 The merkle root is stored in the block header. Each block also stores the hash of the previous block’s header, chaining the blocks together. This ensures a transaction cannot be modified without modifying the block that records it and all following blocks.
 
-Transactions are also chained together. Reddcoin wallet software gives the impression that reddoshis are sent from and to wallets, but bitcoins really move from transaction to transaction. Each transaction spends the reddoshis previously received in one or more earlier transactions, so the input of one transaction is the output of a previous transaction.
+Transactions are also chained together. ReddCoin wallet software gives the impression that reddoshis are sent from and to wallets, but bitcoins really move from transaction to transaction. Each transaction spends the reddoshis previously received in one or more earlier transactions, so the input of one transaction is the output of a previous transaction.
 
 ![Transaction Propagation](/img/protocol/dev/en-transaction-propagation.svg)
 
@@ -24,19 +24,19 @@ Outputs are tied to [transaction identifiers (TXIDs)](/glossary/#txid), which ar
 
 Because each output of a particular transaction can only be spent once, the outputs of all transactions included in the block chain can be categorized as either [Unspent Transaction Outputs (UTXOs)](/glossary/#utxo) or spent transaction outputs. For a payment to be valid, it must only use UTXOs as inputs.
 
-Ignoring coinbase transactions (described later), if the value of a transaction’s outputs exceed its inputs, the transaction will be rejected—but if the inputs exceed the value of the outputs, any difference in value may be claimed as a [transaction fee](/glossary/#transaction-fee) by the Reddcoin [staker](/glossary/#staking) (or historically, [miner](/glossary/#mining)) who creates the block containing that transaction. For example, in the illustration above, each transaction spends 10,000 reddoshis fewer than it receives from its combined inputs, effectively paying a 10,000 reddoshi transaction fee.
+Ignoring coinbase transactions (described later), if the value of a transaction’s outputs exceed its inputs, the transaction will be rejected—but if the inputs exceed the value of the outputs, any difference in value may be claimed as a [transaction fee](/glossary/#transaction-fee) by the ReddCoin [staker](/glossary/#staking) (or historically, [miner](/glossary/#mining)) who creates the block containing that transaction. For example, in the illustration above, each transaction spends 10,000 reddoshis fewer than it receives from its combined inputs, effectively paying a 10,000 reddoshi transaction fee.
 
 ## Consensus Mechanism
 
-The block chain is collaboratively maintained by anonymous peers on the [network](../devguide/p2p_network). Reddcoin has used two consensus mechanisms over its history:
+The block chain is collaboratively maintained by anonymous peers on the [network](../devguide/p2p_network). ReddCoin has used two consensus mechanisms over its history:
 
 ### Proof of Work (Historical)
 
-For blocks 0 through 260,799, Reddcoin used Proof of Work (PoW) with the Scrypt hashing algorithm. Miners competed to find a block header hash below a difficulty target, with the difficulty adjusted using the Kimoto Gravity Well algorithm. See the [mining guide](mining) for details on the historical PoW era.
+For blocks 0 through 260,799, ReddCoin used Proof of Work (PoW) with the Scrypt hashing algorithm. Miners competed to find a block header hash below a difficulty target, with the difficulty adjusted using the Kimoto Gravity Well algorithm. See the [mining guide](mining) for details on the historical PoW era.
 
 ### Proof of Stake Velocity (PoSV)
 
-Since block 260,800, Reddcoin uses Proof of Stake Velocity (PoSV). Under PoSV, the block chain is secured by coin holders who stake their coins rather than by computational power.
+Since block 260,800, ReddCoin uses Proof of Stake Velocity (PoSV). Under PoSV, the block chain is secured by coin holders who stake their coins rather than by computational power.
 
 Chaining blocks together makes it impossible to modify transactions included in any block without modifying all subsequent blocks. As a result, the cost to modify a particular block increases with every new block added to the block chain, magnifying the effect of the proof of stake.
 
@@ -57,7 +57,7 @@ PoS blocks also include a cryptographic block signature using the key that contr
 
 ## Block Height And Forking
 
-Any Reddcoin staker who constructs a valid stake kernel (or historically, any miner who found a valid PoW hash) can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their [block height](/glossary/#block-height)—the number of blocks between them and the first Reddcoin block (block 0, most commonly known as the [genesis block](/glossary/#genesis-block)).
+Any ReddCoin staker who constructs a valid stake kernel (or historically, any miner who found a valid PoW hash) can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their [block height](/glossary/#block-height)—the number of blocks between them and the first ReddCoin block (block 0, most commonly known as the [genesis block](/glossary/#genesis-block)).
 
 ![Common And Uncommon Block Chain Forks](/img/protocol/dev/en-blockchain-fork.svg)
 
@@ -133,9 +133,9 @@ Later soft forks waited for a majority of hash rate (typically 75% or 95%) to si
 
 Non-upgraded nodes may use and distribute incorrect information during both types of forks, creating several situations which could lead to financial loss. In particular, non-upgraded nodes may relay and accept transactions that are considered invalid by upgraded nodes and so will never become part of the universally-recognized best block chain. Non-upgraded nodes may also refuse to relay blocks or transactions which have already been added to the best block chain, or soon will be, and so provide incomplete information.
 
-Reddcoin Core includes code that detects a hard fork by looking at block chain proof of work. If a non-upgraded node receives block chain headers demonstrating at least six blocks more proof of work than the best chain it considers valid, the node reports a warning in the [“getnetworkinfo” RPC](../reference/rpc/getnetworkinfo) results and runs the `-alertnotify` command if set. This warns the operator that the non-upgraded node can’t switch to what is likely the best block chain.
+ReddCoin Core includes code that detects a hard fork by looking at block chain proof of work. If a non-upgraded node receives block chain headers demonstrating at least six blocks more proof of work than the best chain it considers valid, the node reports a warning in the [“getnetworkinfo” RPC](../reference/rpc/getnetworkinfo) results and runs the `-alertnotify` command if set. This warns the operator that the non-upgraded node can’t switch to what is likely the best block chain.
 
-Full nodes can also check block and transaction version numbers. If the block or transaction version numbers seen in several recent blocks are higher than the version numbers the node uses, it can assume it doesn’t use the current consensus rules. Reddcoin Core reports this situation through the [“getnetworkinfo” RPC](../reference/rpc/getnetworkinfo) and `-alertnotify` command if set.
+Full nodes can also check block and transaction version numbers. If the block or transaction version numbers seen in several recent blocks are higher than the version numbers the node uses, it can assume it doesn’t use the current consensus rules. ReddCoin Core reports this situation through the [“getnetworkinfo” RPC](../reference/rpc/getnetworkinfo) and `-alertnotify` command if set.
 
 In either case, block and transaction data should not be relied upon if it comes from a node that apparently isn’t using the current consensus rules.
 

@@ -4,7 +4,7 @@
 
 Add an nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.
 
-Each key is a Reddcoin address or hex-encoded public key.
+Each key is a ReddCoin address or hex-encoded public key.
 
 This functionality is only intended for use with non-watchonly addresses.
 

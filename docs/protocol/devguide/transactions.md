@@ -6,14 +6,14 @@ Transactions let users spend reddoshis. Each transaction is constructed out of s
 
 This section will describe each part and demonstrate how to use them together to build complete transactions.
 
-To keep things simple, this section pretends coinbase transactions do not exist. Coinbase transactions can only be created by Reddcoin miners and they’re an exception to many of the rules listed below. Instead of pointing out the coinbase exception to each rule, we invite you to read about coinbase transactions in the block chain section of this guide.
+To keep things simple, this section pretends coinbase transactions do not exist. Coinbase transactions can only be created by ReddCoin miners and they’re an exception to many of the rules listed below. Instead of pointing out the coinbase exception to each rule, we invite you to read about coinbase transactions in the block chain section of this guide.
 
 ![The Parts Of A Transaction](/img/protocol/dev/en-tx-overview.svg)
 
 The Parts Of A Transaction
-The figure above shows the main parts of a Reddcoin transaction. Each transaction has at least one input and one output. Each [input](/glossary/#input) spends the reddoshis paid to a previous output. Each [output](/glossary/#output) then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Reddcoin wallet tells you that you have a 10,000 reddoshi balance, it really means that you have 10,000 reddoshis waiting in one or more UTXOs.
+The figure above shows the main parts of a ReddCoin transaction. Each transaction has at least one input and one output. Each [input](/glossary/#input) spends the reddoshis paid to a previous output. Each [output](/glossary/#output) then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your ReddCoin wallet tells you that you have a 10,000 reddoshi balance, it really means that you have 10,000 reddoshis waiting in one or more UTXOs.
 
-Each transaction is prefixed by a four-byte [transaction version number](/glossary/terms#term-transaction-version-number) which tells Reddcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
+Each transaction is prefixed by a four-byte [transaction version number](/glossary/terms#term-transaction-version-number) which tells ReddCoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
 ![Spending An Output](/img/protocol/dev/en-tx-overview-spending.svg)
 
@@ -22,16 +22,16 @@ An output has an implied index number based on its location in the transaction�
 
 An input uses a transaction identifier (txid) and an [output index](/glossary/terms#term-output-index) number (often called “vout” for output vector) to identify a particular output to be spent. It also has a signature script which allows it to provide data parameters that satisfy the conditionals in the pubkey script. (The sequence number and locktime are related and will be covered together in a later subsection.)
 
-The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. [P2PKH](/glossary/#p2pkh-address) lets Alice spend reddoshis to a typical Reddcoin address, and then lets Bob further spend those reddoshis using a simple cryptographic [key pair](/glossary/terms#term-key-pair).
+The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. [P2PKH](/glossary/#p2pkh-address) lets Alice spend reddoshis to a typical ReddCoin address, and then lets Bob further spend those reddoshis using a simple cryptographic [key pair](/glossary/terms#term-key-pair).
 
 ![Creating A P2PKH Public Key Hash To Receive Payment](/img/protocol/dev/en-creating-p2pkh-output.svg)
 
 Creating A P2PKH Public Key Hash To Receive Payment
-Bob must first generate a private/public [key pair](/glossary/terms#term-key-pair) before Alice can create the first transaction. Reddcoin uses the Elliptic Curve Digital Signature Algorithm ([ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA)) with the [secp256k1](http://www.secg.org/sec2-v2.pdf) curve; [secp256k1](http://www.secg.org/sec2-v2.pdf) [private keys](/glossary/#private-key) are 256 bits of random data. A copy of that data is deterministically transformed into an [secp256k1](http://www.secg.org/sec2-v2.pdf) [public key](/glossary/#public-key). Because the transformation can be reliably repeated later, the public key does not need to be stored.
+Bob must first generate a private/public [key pair](/glossary/terms#term-key-pair) before Alice can create the first transaction. ReddCoin uses the Elliptic Curve Digital Signature Algorithm ([ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_DSA)) with the [secp256k1](http://www.secg.org/sec2-v2.pdf) curve; [secp256k1](http://www.secg.org/sec2-v2.pdf) [private keys](/glossary/#private-key) are 256 bits of random data. A copy of that data is deterministically transformed into an [secp256k1](http://www.secg.org/sec2-v2.pdf) [public key](/glossary/#public-key). Because the transformation can be reliably repeated later, the public key does not need to be stored.
 
 The public key (pubkey) is then cryptographically hashed. This pubkey hash can also be reliably repeated later, so it also does not need to be stored. The hash shortens and obfuscates the public key, making manual transcription easier and providing security against unanticipated problems which might allow reconstruction of private keys from public key data at some later point.
 
-Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as Reddcoin [addresses](/glossary/#address), which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri).
+Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as ReddCoin [addresses](/glossary/#address), which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a [“reddcoin:” URI](/glossary/terms#term-reddcoin-uri).
 
 Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the [pubkey script](/glossary/#pubkey-script) or scriptPubKey.
 
@@ -56,7 +56,7 @@ Bob’s [secp256k1](http://www.secg.org/sec2-v2.pdf) signature doesn’t just pr
 Some Things Signed When Spending An Output
 As illustrated in the figure above, the data Bob signs includes the txid and [output index](/glossary/terms#term-output-index) of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of reddoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures.
 
-After putting his signature and public key in the signature script, Bob broadcasts the transaction to Reddcoin miners through the [peer-to-peer network](../devguide/p2p_network). Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
+After putting his signature and public key in the signature script, Bob broadcasts the transaction to ReddCoin miners through the [peer-to-peer network](../devguide/p2p_network). Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
 
 ## P2PKH Script Validation
 
@@ -99,7 +99,7 @@ If *false* is not at the top of the stack after the pubkey script has been evalu
 
 ## P2SH Scripts
 
-Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short Reddcoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the now deprecated [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) Payment Protocol discussed later.
+Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short ReddCoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the now deprecated [BIP70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki) Payment Protocol discussed later.
 
 To solve these problems, pay-to-script-hash ([P2SH](/glossary/#p2sh-address)) transactions were created in 2012 to let a spender create a pubkey script containing a hash of a second script, the [redeem script](/glossary/#redeem-script).
 
@@ -113,17 +113,17 @@ When Bob wants to spend the output, he provides his signature along with the ful
 ![Unlocking A P2SH Output For Spending](/img/protocol/dev/en-unlocking-p2sh-output.svg)
 
 Unlocking A P2SH Output For Spending
-The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard Reddcoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.
+The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard ReddCoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.
 
 ## Standard Transactions
 
-After the discovery of several dangerous bugs in early versions of Reddcoin, a test was added which only accepted transactions from the [network](../devguide/p2p_network) if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good [network](../devguide/p2p_network) behavior. This is the `IsStandard()` test, and transactions which pass it are called standard transactions.
+After the discovery of several dangerous bugs in early versions of ReddCoin, a test was added which only accepted transactions from the [network](../devguide/p2p_network) if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good [network](../devguide/p2p_network) behavior. This is the `IsStandard()` test, and transactions which pass it are called standard transactions.
 
-Non-standard transactions—those that fail the test—may be accepted by nodes not using the default Reddcoin Core settings. If they are included in blocks, they will also avoid the IsStandard test and be processed.
+Non-standard transactions—those that fail the test—may be accepted by nodes not using the default ReddCoin Core settings. If they are included in blocks, they will also avoid the IsStandard test and be processed.
 
-Besides making it more difficult for someone to attack Reddcoin for free by broadcasting harmful transactions, the standard transaction test also helps prevent users from creating transactions today that would make adding new transaction features in the future more difficult. For example, as described above, each transaction includes a version number—if users started arbitrarily changing the version number, it would become useless as a tool for introducing backwards-incompatible features.
+Besides making it more difficult for someone to attack ReddCoin for free by broadcasting harmful transactions, the standard transaction test also helps prevent users from creating transactions today that would make adding new transaction features in the future more difficult. For example, as described above, each transaction includes a version number—if users started arbitrarily changing the version number, it would become useless as a tool for introducing backwards-incompatible features.
 
-As of Reddcoin Core 0.9, the standard pubkey script types are:
+As of ReddCoin Core 0.9, the standard pubkey script types are:
 
 - Pay To Public Key Hash (P2PKH)
 - Pay To Script Hash (P2SH)
@@ -133,7 +133,7 @@ As of Reddcoin Core 0.9, the standard pubkey script types are:
 
 ### Pay To Public Key Hash (P2PKH)
 
-P2PKH is the most common form of pubkey script used to send a transaction to one or multiple Reddcoin addresses.
+P2PKH is the most common form of pubkey script used to send a transaction to one or multiple ReddCoin addresses.
 
 ```
 Pubkey script: OP_DUP OP_HASH160 <PubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
@@ -142,7 +142,7 @@ Signature script: <sig> <pubkey>
 
 ### Pay To Script Hash (P2SH)
 
-P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, excluding P2SH itself. As of Reddcoin Core 0.9.2, P2SH transactions can contain any valid redeemScript, making the P2SH standard much more flexible and allowing for experimentation with many novel and complex types of transactions. The most common use of P2SH is the standard multisig pubkey script, with the second most common use being the [Open Assets Protocol](https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki).
+P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, excluding P2SH itself. As of ReddCoin Core 0.9.2, P2SH transactions can contain any valid redeemScript, making the P2SH standard much more flexible and allowing for experimentation with many novel and complex types of transactions. The most common use of P2SH is the standard multisig pubkey script, with the second most common use being the [Open Assets Protocol](https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki).
 
 Another common redeemScript used for P2SH is storing textual data on the blockchain. The first Bitcoin transaction ever made included text, and P2SH is a convenient method of storing text on the blockchain as its possible to store up to 1.5kb of text data. An example of storing text on the blockchain using P2SH can be found in this [repository](https://github.com/petertodd/checklocktimeverify-demos/blob/master/lib/python-bitcoinlib/examples/publish-text.py).
 
@@ -161,7 +161,7 @@ Although P2SH multisig is now generally used for multisig transactions, this bas
 
 In multisig pubkey scripts, called m-of-n, *m* is the *minimum* number of signatures which must match a public key; *n* is the *number* of public keys being provided. Both *m* and *n* should be opcodes `OP_1` through `OP_16`, corresponding to the number desired.
 
-Because of an off-by-one error in the original Reddcoin implementation which must be preserved for compatibility, [“OP_CHECKMULTISIG”](/glossary/terms#term-op-checkmultisig) consumes one more value from the stack than indicated by *m*, so the list of [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures in the signature script must be prefaced with an extra value (`OP_0`) which will be consumed but not used.
+Because of an off-by-one error in the original ReddCoin implementation which must be preserved for compatibility, [“OP_CHECKMULTISIG”](/glossary/terms#term-op-checkmultisig) consumes one more value from the stack than indicated by *m*, so the list of [secp256k1](http://www.secg.org/sec2-v2.pdf) signatures in the signature script must be prefaced with an extra value (`OP_0`) which will be consumed but not used.
 
 The signature script must provide signatures in the same order as the corresponding public keys appear in the pubkey script or redeem script. See the description in [“OP_CHECKMULTISIG”](/glossary/terms#term-op-checkmultisig) for details.
 
@@ -189,39 +189,39 @@ Signature script: <sig>
 
 ### Null Data
 
-[Null data](/glossary/#null-data-transaction) transaction type relayed and mined by default in [Reddcoin Core 0.9.0](https://github.com/reddcoin-project/reddcoin/releases) and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
+[Null data](/glossary/#null-data-transaction) transaction type relayed and mined by default in [ReddCoin Core 0.9.0](https://github.com/reddcoin-project/reddcoin/releases) and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
 
 Consensus rules allow null data outputs up to the maximum allowed pubkey script size of 10,000 bytes provided they follow all other consensus rules, such as not having any data pushes larger than 520 bytes.
 
-Reddcoin Core 0.9.x to 0.10.x will, by default, relay and mine null data transactions with up to 40 bytes in a single data push and only one null data output that pays exactly 0 reddoshis:
+ReddCoin Core 0.9.x to 0.10.x will, by default, relay and mine null data transactions with up to 40 bytes in a single data push and only one null data output that pays exactly 0 reddoshis:
 
 ```
 Pubkey Script: OP_RETURN <0 to 40 bytes of data>
 (Null data scripts cannot be spent, so there's no signature script.)
 ```
 
-Reddcoin Core 0.11.x increases this default to 80 bytes, with the other rules remaining the same.
+ReddCoin Core 0.11.x increases this default to 80 bytes, with the other rules remaining the same.
 
-Reddcoin Core 0.12.0 defaults to relaying and mining null data outputs with up to 83 bytes with any number of data pushes, provided the total byte limit is not exceeded. There must still only be a single null data output and it must still pay exactly 0 reddoshis.
+ReddCoin Core 0.12.0 defaults to relaying and mining null data outputs with up to 83 bytes with any number of data pushes, provided the total byte limit is not exceeded. There must still only be a single null data output and it must still pay exactly 0 reddoshis.
 
-The `-datacarriersize` Reddcoin Core configuration option allows you to set the maximum number of bytes in null data outputs that you will relay or mine.
+The `-datacarriersize` ReddCoin Core configuration option allows you to set the maximum number of bytes in null data outputs that you will relay or mine.
 
 ### Non-Standard Transactions
 
-If you use anything besides a standard pubkey script in an output, peers and miners using the default Reddcoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.
+If you use anything besides a standard pubkey script in an output, peers and miners using the default ReddCoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.
 
-If you create a redeem script, hash it, and use the hash in a P2SH output, the [network](../devguide/p2p_network) sees only the hash, so it will accept the output as valid no matter what the redeem script says. This allows payment to non-standard scripts, and as of Reddcoin Core 0.11, almost all valid redeem scripts can be spent. The exception is scripts that use unassigned [NOP opcodes](https://en.bitcoin.it/wiki/Script#Reserved_words); these opcodes are reserved for future soft forks and can only be relayed or mined by nodes that don’t follow the standard mempool policy.
+If you create a redeem script, hash it, and use the hash in a P2SH output, the [network](../devguide/p2p_network) sees only the hash, so it will accept the output as valid no matter what the redeem script says. This allows payment to non-standard scripts, and as of ReddCoin Core 0.11, almost all valid redeem scripts can be spent. The exception is scripts that use unassigned [NOP opcodes](https://en.bitcoin.it/wiki/Script#Reserved_words); these opcodes are reserved for future soft forks and can only be relayed or mined by nodes that don’t follow the standard mempool policy.
 
 Note: standard transactions are designed to protect and help the [network](../devguide/p2p_network), not prevent you from making mistakes. It’s easy to create standard transactions which make the reddoshis sent to them unspendable.
 
-As of [Reddcoin Core 0.9.3](https://github.com/reddcoin-project/reddcoin/releases), standard transactions must also meet the following conditions:
+As of [ReddCoin Core 0.9.3](https://github.com/reddcoin-project/reddcoin/releases), standard transactions must also meet the following conditions:
 
 - The transaction must be finalized: either its locktime must be in the past (or less than or equal to the current block height), or all of its sequence numbers must be 0xffffffff.
 - The transaction must be smaller than 100,000 bytes. That’s around 200 times larger than a typical single-input, single-output P2PKH transaction.
 - Each of the transaction’s signature scripts must be smaller than 1,650 bytes. That’s large enough to allow 15-of-15 multisig transactions in P2SH using compressed public keys.
 - Bare (non-P2SH) multisig transactions which require more than 3 public keys are currently non-standard.
 - The transaction’s signature script must only push data to the script evaluation stack. It cannot push new opcodes, with the exception of opcodes which solely push data to the stack.
-- The transaction must not include any outputs which receive fewer than 1/3 as many reddoshis as it would take to spend it in a typical input. That’s [currently 546 reddoshis](https://github.com/reddcoin-project/reddcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1) for a P2PKH or P2SH output on a Reddcoin Core node with the default relay fee. Exception: standard null data outputs must receive zero reddoshis.
+- The transaction must not include any outputs which receive fewer than 1/3 as many reddoshis as it would take to spend it in a typical input. That’s [currently 546 reddoshis](https://github.com/reddcoin-project/reddcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1) for a P2PKH or P2SH output on a ReddCoin Core node with the default relay fee. Exception: standard null data outputs must receive zero reddoshis.
 
 ## Signature Hash Types
 
@@ -243,7 +243,7 @@ Because each input is signed, a transaction with multiple inputs can have multip
 
 ## Locktime And Sequence Number
 
-One thing all signature hash types sign is the transaction’s [locktime](/glossary/#locktime). (Called nLockTime in the Reddcoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.
+One thing all signature hash types sign is the transaction’s [locktime](/glossary/#locktime). (Called nLockTime in the ReddCoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.
 
 Locktime allows signers to create time-locked transactions which will only become valid in the future, giving the signers a chance to change their minds.
 
@@ -251,9 +251,9 @@ If any of the signers change their mind, they can create a new non-locktime tran
 
 Care must be taken near the expiry time of a time lock. The [peer-to-peer network](../devguide/p2p_network) allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock officially expires. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.
 
-Previous versions of Reddcoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte [sequence numbers](/glossary/#sequence-number) in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.
+Previous versions of ReddCoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte [sequence numbers](/glossary/#sequence-number) in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.
 
-Even today, setting all sequence numbers to 0xffffffff (the default in Reddcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the [network](../devguide/p2p_network) for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
+Even today, setting all sequence numbers to 0xffffffff (the default in ReddCoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the [network](../devguide/p2p_network) for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
 
 Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 
@@ -262,13 +262,13 @@ Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 
 ## Transaction Fees And Change
 
-Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the Reddcoin miner, as explained in the [block chain section](../devguide/block_chain), and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.
+Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the ReddCoin miner, as explained in the [block chain section](../devguide/block_chain), and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.
 
 There is also a concept of so-called “[high-priority transactions](/glossary/#high-priority-transaction)” which spend reddoshis that have not moved for a long time.
 
-In the past, these “priority” transaction were often exempt from the normal fee requirements. Before Reddcoin Core 0.12, 50 KB of each block would be reserved for these high-priority transactions, however this is now set to 0 KB by default. After the priority area, all transactions are prioritized based on their fee per byte, with higher-paying transactions being added in sequence until all of the available space is filled.
+In the past, these “priority” transaction were often exempt from the normal fee requirements. Before ReddCoin Core 0.12, 50 KB of each block would be reserved for these high-priority transactions, however this is now set to 0 KB by default. After the priority area, all transactions are prioritized based on their fee per byte, with higher-paying transactions being added in sequence until all of the available space is filled.
 
-As of Reddcoin Core 0.9, a [minimum fee](/glossary/#minimum-relay-fee) (currently 1,000 reddoshis) has been required to broadcast a transaction across the [network](../devguide/p2p_network). Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the [verifying payment section](../devguide/payment_processing#verifying-payment) for why this could be important.
+As of ReddCoin Core 0.9, a [minimum fee](/glossary/#minimum-relay-fee) (currently 1,000 reddoshis) has been required to broadcast a transaction across the [network](../devguide/p2p_network). Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the [verifying payment section](../devguide/payment_processing#verifying-payment) for why this could be important.
 
 Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a UTXO can only be spent once, the full value of the included UTXOs must be spent or given to a miner as a transaction fee. Few people will have UTXOs that exactly match the amount they want to pay, so most transactions include a change output.
 
@@ -278,7 +278,7 @@ Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a 
 
 In a transaction, the spender and receiver each reveal to each other all public keys or addresses used in the transaction. This allows either person to use the public block chain to track past and future transactions involving the other person’s same public keys or addresses.
 
-If the same public key is reused often, as happens when people use Reddcoin addresses (hashed public keys) as static payment addresses, other people can easily track the receiving and spending habits of that person, including how many reddoshis they control in known addresses.
+If the same public key is reused often, as happens when people use ReddCoin addresses (hashed public keys) as static payment addresses, other people can easily track the receiving and spending habits of that person, including how many reddoshis they control in known addresses.
 
 It doesn’t have to be that way. If each public key is used exactly twice—once to receive a payment and once to spend that payment—the user can gain a significant amount of financial privacy.
 
@@ -293,15 +293,15 @@ So, for both privacy and security, we encourage you to build your applications t
 
 ## Transaction Malleability
 
-None of Reddcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called [transaction malleability](/glossary/#transaction-malleability). The signature script contains the [secp256k1](http://www.secg.org/sec2-v2.pdf) signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
+None of ReddCoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called [transaction malleability](/glossary/#transaction-malleability). The signature script contains the [secp256k1](http://www.secg.org/sec2-v2.pdf) signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
 
 Although the modifications are non-functional—so they do not change what inputs the transaction uses nor what outputs it pays—they do change the computed hash of the transaction. Since each transaction links to previous transactions using hashes as a transaction identifier (txid), a modified transaction will not have the txid its creator expected.
 
-This isn’t a problem for most Reddcoin transactions which are designed to be added to the block chain immediately. But it does become a problem when the output from a transaction is spent before that transaction is added to the block chain.
+This isn’t a problem for most ReddCoin transactions which are designed to be added to the block chain immediately. But it does become a problem when the output from a transaction is spent before that transaction is added to the block chain.
 
-Reddcoin developers have been working to reduce transaction malleability among standard transaction types, one outcome of those efforts is [BIP 141: Segregated Witness](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki), which is supported by Reddcoin Core and was activated in August 2017. When SegWit is not being used, new transactions should not depend on previous transactions which have not been added to the block chain yet, especially if large amounts of reddoshis are at stake.
+ReddCoin developers have been working to reduce transaction malleability among standard transaction types, one outcome of those efforts is [BIP 141: Segregated Witness](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki), which is supported by ReddCoin Core and was activated in August 2017. When SegWit is not being used, new transactions should not depend on previous transactions which have not been added to the block chain yet, especially if large amounts of reddoshis are at stake.
 
-Transaction malleability also affects payment tracking. Reddcoin Core’s [RPC](../reference/rpc) interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the [network](../devguide/p2p_network).
+Transaction malleability also affects payment tracking. ReddCoin Core’s [RPC](../reference/rpc) interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the [network](../devguide/p2p_network).
 
 Current best practices for transaction tracking dictate that a transaction should be tracked by the transaction outputs (UTXOs) it spends as inputs, as they cannot be changed without invalidating the transaction.
 

@@ -16,6 +16,6 @@ The genesis block has height 0.
 
 ```shell
 reddcoin-cli getblockcount
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockcount", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getblockcount", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 

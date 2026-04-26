@@ -2,7 +2,7 @@
 
 `getnewaddress ( "label" "address_type" )`
 
-Returns a new Reddcoin address for receiving payments.
+Returns a new ReddCoin address for receiving payments.
 
 If 'label' is specified, it is added to the address book
 so payments received with the address will be associated with 'label'.
@@ -29,6 +29,6 @@ The address type to use. Options are "legacy", "p2sh-segwit", and "bech32".
 
 ```shell
 reddcoin-cli getnewaddress
-curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:45443/
+curl --user myusername --data-binary '`{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}`' -H 'content-type: text/plain;' http://127.0.0.1:45443/
 ```
 
