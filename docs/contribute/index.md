@@ -1,45 +1,61 @@
 ---
 id: index
 title: Contribute to ReddCoin
-description: Ways to contribute to the ReddCoin project — development, running nodes, docs, community.
+description: Ways to help — bug reports, code, documentation, translations, and supporting other users.
 slug: /
+sidebar_position: 1
 ---
 
-# Contribute to ReddCoin
+# Contributing to ReddCoin
 
-ReddCoin is an open project. Anyone can help — running a node, writing
-code, improving these docs, translating, testing new releases, or just
-being active in the community.
+Thank you for considering contributing to ReddCoin. There are several
+ways to help, regardless of whether you write code.
 
-This section is a placeholder. It will be expanded with concrete,
-step-by-step guides for each of the contribution paths below.
+If you want to contribute in a way not listed here, the easiest first
+step is to open a discussion on
+[GitHub Discussions](https://github.com/reddcoin-project/reddcoin/discussions)
+or join the community on Discord or Telegram, and describe what you'd
+like to do.
 
-## Planned contents
+## How to help
 
-- **Run a staking node** — the single most useful thing most people can
-  contribute: keep the network decentralised. Cross-references the
-  staking guide under `/guides/`.
-- **Develop ReddCoin Core** — the C++ node/wallet. Build from source,
-  set up a testnet, open a pull request, code-style and review
-  expectations.
-- **Library contributions** — `reddcoinjs-lib`, `bitcore-lib-redd`,
-  `bitcore-p2p-redd`, and the wallet libraries. Where to find them,
-  how they fit together, how to cut a release.
-- **Improve these docs** — how this site is built and how to propose
-  changes. See `CONTRIBUTING.md` in
-  [`reddcoin-project/reddcoin-docs`](https://github.com/reddcoin-project/reddcoin-docs)
-  for the PR workflow.
-- **Translate** — localisation is out of scope for v1 of this site,
-  but Docusaurus has native i18n support and translators are welcome
-  once we turn it on.
-- **Test release candidates** — the team publishes RC builds of Core
-  and the wallet; running them on mainnet/testnet and reporting issues
-  is a high-leverage contribution.
-- **Report bugs and propose features** — where to file issues across
-  the various ReddCoin repos, and what a good report looks like.
-- **Community** — Discord, Telegram, X, and the subreddit. How the
-  project coordinates and where discussion happens.
+- **[Bug reports](issues)** — Report bugs, including security issues, against
+  ReddCoin Core or any of the project's libraries.
 
-Until this section is filled in, the best starting points are the
-[ReddCoin GitHub organisation](https://github.com/reddcoin-project) and
-the guides section of this site.
+- **Code** — Write and review code. Contributions go through GitHub
+  pull requests against
+  [`reddcoin-project/reddcoin`](https://github.com/reddcoin-project/reddcoin)
+  (the Core node + wallet),
+  [`reddcoin-project/reddcoinjs-lib`](https://github.com/reddcoin-project/reddcoinjs-lib)
+  (the JavaScript library), and the related
+  [`bitcore-*-redd`](https://github.com/reddcoin-project) packages.
+  Read each repository's `CONTRIBUTING.md` and existing PR style before
+  opening a PR.
+
+- **[Documentation](documentation)** — Write documentation for users
+  and developers. The site you're reading is open source at
+  [`reddcoin-project/reddcoin-docs`](https://github.com/reddcoin-project/reddcoin-docs);
+  PRs and issue reports against any page are welcome.
+
+- **[Translations](translations)** — Translate the ReddCoin Core user
+  interface into other languages.
+
+- **[Tech support](support)** — Help other ReddCoin users on Discord,
+  Telegram, and Reddit.
+
+## Beyond the docs
+
+A few contributions don't fit neatly into the categories above:
+
+- **Run a staking node.** Keeping the network decentralised is the
+  single most useful contribution most people can make. See the
+  [Operator Guides](/guides) and the
+  [staking page](/protocol/devguide/staking).
+
+- **Test release candidates.** When the team publishes RC builds of
+  Core or wallets, running them on mainnet/testnet and reporting any
+  issues is a high-leverage contribution.
+
+- **Report on community channels.** Constructive participation on
+  Discord, Telegram, X, and the subreddit shapes how the project
+  evolves and helps newcomers find their footing.
