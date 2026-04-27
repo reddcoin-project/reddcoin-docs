@@ -9,9 +9,12 @@
 .cache-loader
 
 # Generated API reference (populated by scripts/sync-*.mjs). README stays.
+# Directories must be re-included at every depth or git won't descend
+# into them — bitcore packages live at api/bitcore/<package>/README.md
+# which is two levels below /api/.
 /api/**
 !/api/
-!/api/*/
+!/api/**/
 !/api/**/README.md
 
 # Local deploy config — contains the Droplet origin IP; not for the repo.

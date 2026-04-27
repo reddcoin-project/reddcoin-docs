@@ -180,6 +180,17 @@ const config: Config = {
         // next sync. Edit the source TSDoc upstream instead.
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'bitcore',
+        path: 'api/bitcore',
+        routeBasePath: 'api/bitcore',
+        sidebarPath: './sidebars/bitcore.ts',
+        // No editUrl — synced from reddcore by scripts/sync-bitcore.mjs.
+        // Fix bitcore docs upstream in the reddcore monorepo.
+      },
+    ],
   ],
 
   themeConfig: {
@@ -226,7 +237,14 @@ const config: Config = {
           position: 'left',
           items: [
             {label: 'reddcoinjs-lib', to: '/api/reddcoinjs-lib/'},
-            {label: 'bitcore (coming soon)', to: '/api'},
+            // Docusaurus navbar dropdowns don't support nested submenus,
+            // so reddcore is rendered as a section heading + indented
+            // children. CSS lives in src/css/custom.css.
+            {type: 'html', value: '<div class="navbar-dropdown__section-label">reddcore</div>'},
+            {label: 'bitcore-lib-redd', to: '/api/bitcore/bitcore-lib-redd/', className: 'navbar-dropdown__section-child'},
+            {label: 'bitcore-p2p-redd', to: '/api/bitcore/bitcore-p2p-redd/', className: 'navbar-dropdown__section-child'},
+            {label: 'bitcore-mnemonic', to: '/api/bitcore/bitcore-mnemonic/', className: 'navbar-dropdown__section-child'},
+            {label: 'bitcore-node', to: '/api/bitcore/bitcore-node/', className: 'navbar-dropdown__section-child'},
           ],
         },
         {

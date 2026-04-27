@@ -359,6 +359,31 @@ h3, h4, h5, h6,
   padding: 0.1em 0.4em;
 }
 
+/* -------- Navbar dropdown: faux-nested section grouping --------
+   Docusaurus dropdowns are flat — no real submenus. We render a
+   small uppercase label (HTML-typed item) followed by indented
+   children to suggest the grouping. Works the same on desktop
+   (dropdown panel) and on mobile (collapsed sidebar list). */
+
+.navbar-dropdown__section-label {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--neutral-500);
+  padding: 0.5rem 1rem 0.25rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--border-soft);
+  pointer-events: none;
+  user-select: none;
+}
+
+.dropdown__menu .navbar-dropdown__section-child,
+.menu .navbar-dropdown__section-child {
+  padding-left: 1.75rem;
+}
+
 /* -------- Footer: always dark, brand-page treatment -------- */
 
 .footer--dark {
